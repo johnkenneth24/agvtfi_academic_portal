@@ -21,8 +21,7 @@
               <span class="app-brand-text demo text-body fw-bolder">{{config('variables.templateName')}}</span>
             </a>
           </div>
-          <!-- /Logo -->
-          <h4 class="mb-2">Welcome to {{config('variables.templateName')}}! 👋</h4>
+          <!-- /Logo --> 
           <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
           <form id="formAuthentication" class="mb-3" action="{{url('/')}}" method="GET">

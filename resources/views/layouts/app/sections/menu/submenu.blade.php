@@ -37,7 +37,7 @@
 
     {{-- submenu --}}
     @if (isset($submenu->submenu))
-    @include('layouts.sections.menu.submenu',['menu' => $submenu->submenu])
+    @include('layouts.app.sections.menu.submenu',['menu' => $submenu->submenu])
     @endif
   </li>
   @endforeach

@@ -17,10 +17,10 @@
   <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
 
   <!-- Include Styles -->
-  @include('layouts/sections/styles')
+  @include('layouts/app/sections/styles')
 
   <!-- Include Scripts for customizer, helper, analytics, config -->
-  @include('layouts/sections/scriptsIncludes')
+  @include('layouts/app/sections/scriptsIncludes')
 </head>
 
 <body>
@@ -28,14 +28,8 @@
   @yield('layoutContent')
   <!--/ Layout Content -->
 
-  {{-- remove while creating package --}}
-  <div class="buy-now">
-    <a href="{{config('variables.productPage')}}" target="_blank" class="btn btn-danger btn-buy-now">Upgrade To Pro</a>
-  </div>
-  {{-- remove while creating package end --}}
-
   <!-- Include Scripts -->
-  @include('layouts/sections/scripts')
+  @include('layouts/app/sections/scripts')
 
 </body>
 

@@ -1,4 +1,4 @@
-@extends('layouts/contentNavbarLayout')
+@extends('layouts/app/contentNavbarLayout')
 
 @section('title', 'Dashboard - Analytics')
 
