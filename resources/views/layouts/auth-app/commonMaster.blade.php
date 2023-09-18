@@ -17,12 +17,21 @@
   <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/backgrounds/bg.png') }}" />
 
   <!-- Include Styles -->
-  @include('layouts/app/sections/styles')
+  @include('layouts/auth-app/sections/styles')
 
   <!-- Include Scripts for customizer, helper, analytics, config -->
-  @include('layouts/app/sections/scriptsIncludes')
+  @include('layouts/auth-app/sections/scriptsIncludes')
 
-  @stack('page-style')
+  <style>
+    .btn-primary{
+      background-color: #006affe1;
+      border: none;
+    }
+
+    .btn-primary:hover{
+      background-color: #006aff ;
+    }
+  </style>
 </head>
 
 <body>
@@ -31,9 +40,7 @@
   <!--/ Layout Content -->
 
   <!-- Include Scripts -->
-  @stack('page-script')
-  @include('layouts/app/sections/scripts')
-
+  @include('layouts/auth-app/sections/scripts')
 
 </body>
 

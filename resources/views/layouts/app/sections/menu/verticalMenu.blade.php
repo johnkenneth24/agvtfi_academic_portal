@@ -1,29 +1,84 @@
-<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+@push('page-style')
+    <style>
+        .bg-menu-theme .menu-inner>.menu-item.active:before {
+            background: #ffff !important;
+        }
 
-  <!-- ! Hide app brand if navbar-full -->
-  <div class="app-brand demo">
-    <a href="{{url('/')}}" class="app-brand-link">
-      <span class="app-brand-logo demo">
-        @include('_partials.macros',["width"=>25,"withbg"=>'#696cff'])
-      </span>
-      <span class="app-brand-text demo menu-text fw-bold ms-2">{{config('variables.templateName')}}</span>
-    </a>
+        .bg-menu-theme .menu-inner>.menu-item.active>.menu-link {
+            background-color: rgb(255 255 255 / 20%) !important;
+        }
+    </style>
+@endpush
 
-    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-autod-block d-xl-none">
-      <i class="bx bx-chevron-left bx-sm align-middle"></i>
-    </a>
-  </div>
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme"
+    style="background-color: #006aff !important      ">
 
-  <div class="menu-inner-shadow"></div>
+    <!-- ! Hide app brand if navbar-full -->
+    <div class="app-brand demo mt-5">
+        <a href="{{ url('/') }}" class="app-brand-link">
+            <span class="app-brand-logo demo">
+                <img src="{{ asset('assets/img/backgrounds/bg.png') }}" height="60" alt="">
+            </span>
+            <span class="text-primary fw-bold"
+                style="margin-left: 8px; font-size: 15px; color: #ffff !important;">AGVTFI <br> Academic Portal </span>
+        </a>
 
-  <ul class="menu-inner py-1">
-    <li class="menu-item {{-- !request()->routeIs('dashboard')?:'active' --}} active">
-      <a href="{{-- route('dashboard') --}}" class="{{-- isset($menu->submenu)?'menu-linkmenu-toggle':'menu-link' --}} menu-link">
-          <i class="menu-icon tf-icons bx bx-heart{{-- $menu->icon --}}"></i>
-          <div>{{-- isset($menu->name)?__($menu->name):'' --}}Dashboard</div>
-      </a>
-  </li>
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-autod-block d-xl-none">
+            <i class="bx bx-chevron-left bx-sm align-middle"></i>
+        </a>
+    </div>
 
-  </ul>
+    <div class="menu-inner-shadow"></div>
+
+    <ul class="menu-inner py-1 mt-5">
+        <li class="menu-item {{ !request()->routeIs('dashboard') ?: 'active' }}">
+            <a href="{{ route('dashboard') }}" class=" menu-link" style="color: #ffff">
+                <i class="menu-icon tf-icons bx bxs-home"></i>
+                <div>Dashboard</div>
+            </a>
+        </li>
+        @role('admin')
+            <li class="menu-item {{ !request()->routeIs('class-section.*') ?: 'active' }}">
+                <a href="{{ route('class-section.index') }}" class=" menu-link" style="color: #ffff">
+                    <i class="menu-icon bx bxs-school"></i>
+                    <div>Class Section</div>
+                </a>
+            </li>
+            <li class="menu-item {{ !request()->routeIs('student.*') ?: 'active' }} ">
+                <a href="{{ route('student.index') }}" class=" menu-link" style="color: #ffff">
+                    <i class="menu-icon tf-icons bx bxs-id-card"></i>
+                    <div>Student</div>
+                </a>
+            </li>
+            <li class="menu-item {{ !request()->routeIs('teacher.*') ?: 'active' }} ">
+                <a href="{{ route('teacher.index') }}" class=" menu-link" style="color: #ffff">
+                    <i class="menu-icon bx bxs-user-badge"></i>
+                    <div>Teacher</div>
+                </a>
+            </li>
+        @endrole
+        @role('teacher')
+            <li class="menu-item {{-- !request()->routeIs('teacher.*')?:'active' --}} ">
+                <a href="{{-- route('teacher.index') --}}" class=" menu-link" style="color: #ffff">
+                    <i class="menu-icon bx bxs-user-badge"></i>
+                    <div>Class Adviser</div>
+                </a>
+            </li>
+            <li class="menu-item {{-- !request()->routeIs('teacher.*')?:'active' --}} ">
+                <a href="{{-- route('teacher.index') --}}" class=" menu-link" style="color: #ffff">
+                    <i class="menu-icon bx bxs-user-badge"></i>
+                    <div>Class Subject</div>
+                </a>
+            </li>
+        @endrole
+        @role('student')
+            <li class="menu-item {{-- !request()->routeIs('teacher.*')?:'active' --}} ">
+                <a href="{{-- route('teacher.index') --}}" class=" menu-link" style="color: #ffff">
+                    <i class="menu-icon bx bxs-user-badge"></i>
+                    <div>Grades</div>
+                </a>
+            </li>
+        @endrole
+    </ul>
 
 </aside>
