@@ -5,7 +5,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\ClassSectionController; 
+use App\Http\Controllers\ClassSectionController;
+use App\Http\Controllers\UserListcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,10 @@ Route::middleware('auth')->group(function() {
 
   Route::controller(ClassSectionController::class)->prefix('class-section')->group(function () {
     Route::get('/index', 'index')->name('class-section.index');
+  });
+
+  Route::controller(UserListcontroller::class)->prefix('user-list')->group(function () {
+    Route::get('/index', 'index')->name('user-list.index');
   });
 
   Route::controller(StudentController::class)->prefix('student')->group(function () {

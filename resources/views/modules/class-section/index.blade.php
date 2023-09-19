@@ -41,7 +41,7 @@
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-              <tr>
+              <tr></tr>
                 <td style="font-size: 0.90rem;">7</td>
                 <td style="font-size: 0.90rem;">A</td>
                 <td style="font-size: 0.90rem;">2023-2024</td>
