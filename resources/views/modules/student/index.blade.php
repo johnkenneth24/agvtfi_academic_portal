@@ -15,6 +15,16 @@
 @endsection
 
 @section('content')
+@if (session('success'))
+<div class="alert alert-info d-flex alert-dismissible" role="alert">
+  <span class="badge badge-center rounded-pill bg-info border-label-info p-3 me-2"><i class='bx bx-user-check'></i></span>
+  <div class="d-flex flex-column ps-1 justify-content-center">
+    <h6 class="alert-heading d-flex align-items-center fw-bold mb-1">{{ session('success') }}</h6>
+  </div>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+  </button>
+</div>
+@endif
 <div class="row">
   <div class="col-xxl-12">
     <div class="card">
@@ -43,18 +53,22 @@
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
+              @forelse ($students as $student)
               <tr>
-                <td style="font-size: 0.90rem;">0001</td>
-                <td style="font-size: 0.90rem;">JUAN DELA CRUZ</td>
+                <td style="font-size: 0.90rem;">{{ $student->school_id }}</td>
+                <td style="font-size: 0.90rem;">{{ $student->full_name }}</td>
                 <td style="font-size: 0.90rem;">7 - A</td>
-                <td style="font-size: 0.90rem;">juandelacruz@agvtfi.com</td>
-                <td style="font-size: 0.90rem;">09478521236</td>
+                <td style="font-size: 0.90rem;">{{ $student->email }}</td>
+                <td style="font-size: 0.90rem;">{{ $student->contact_number }}</td>
                 <td>
                   <a href="" class="btn btn-info btn-sm">View</a>
                   <a href="" class="btn btn-primary btn-sm">Edit</a>
                   <a href="" class="btn btn-danger btn-sm">Delete</a>
                 </td>
               </tr>
+              @empty
+
+              @endforelse
             </tbody>
           </table>
         </div>

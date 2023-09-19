@@ -56,6 +56,24 @@
                     <div>Teacher</div>
                 </a>
             </li>
+            <li class="menu-item {{ !request()->routeIs('user-list.*') ?: 'active' }} ">
+                <a href="{{ route('user-list.index') }}" class=" menu-link" style="color: #ffff">
+                    <i class="menu-icon bx bxs-user-detail"></i>
+                    <div>User List</div>
+                </a>
+            </li>
+            <li class="menu-item {{ !request()->routeIs('announcement.*') ?: 'active' }} ">
+              <a href="{{ route('announcement.index') }}" class=" menu-link" style="color: #ffff">
+                  <i class="menu-icon bx bxs-bell-ring"></i>
+                  <div>Announcement</div>
+              </a>
+            </li>
+            <li class="menu-item {{ !request()->routeIs('enrollment.*') ?: 'active' }} ">
+              <a href="{{ route('enrollment.index') }}" class=" menu-link" style="color: #ffff">
+                  <i class="menu-icon bx bxs-book-open"></i>
+                  <div>Enrollment</div>
+              </a>
+          </li>
         @endrole
         @role('teacher')
             <li class="menu-item {{-- !request()->routeIs('teacher.*')?:'active' --}} ">

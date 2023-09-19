@@ -16,6 +16,8 @@ class User extends Authenticatable
 
     protected $fillable = [
       'school_id',
+      'admission_date',
+      'suffix',
       'firstname',
       'middlename',
       'lastname',
@@ -24,7 +26,7 @@ class User extends Authenticatable
       'contact_number',
       'address',
       'email',
-      'password', 
+      'password',
   ];
 
   protected $hidden = [
@@ -39,8 +41,9 @@ class User extends Authenticatable
 
 
   public function getFullNameAttribute()
-  {
+    {
+      $middleInitial = empty($this->middlename) ? '' : strtoupper(substr($this->middlename, 0, 1));
 
-    return "{$this->lastname} {$this->firstname} {$$this->middlename},";
-  }
+      return "{$this->firstname} {$middleInitial}. {$this->lastname} {$this->suffix}";
+    }
 }

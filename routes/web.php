@@ -7,6 +7,10 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ClassSectionController;
 use App\Http\Controllers\UserListcontroller;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\ClassAdvisoryController;
+use App\Http\Controllers\ClassSubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,17 +42,27 @@ Route::middleware('auth')->group(function() {
     Route::get('/index', 'index')->name('user-list.index');
   });
 
+  Route::controller(AnnouncementController::class)->prefix('announcement')->group(function () {
+    Route::get('/index', 'index')->name('announcement.index');
+  });
+
+  Route::controller(EnrollmentController::class)->prefix('enrollment')->group(function () {
+    Route::get('/index', 'index')->name('enrollment.index');
+  });
+
   Route::controller(StudentController::class)->prefix('student')->group(function () {
     Route::get('/index', 'index')->name('student.index');
     Route::get('/create', 'create')->name('student.create');
-
+    Route::post('/store', 'store')->name('student.store');
   });
 
   Route::controller(TeacherController::class)->prefix('teacher')->group(function () {
     Route::get('/index', 'index')->name('teacher.index');
     Route::get('/create', 'create')->name('teacher.create');
-
+    Route::post('/store', 'store')->name('teacher.store');
   });
+
+
 });
 
 

@@ -59,8 +59,14 @@ $navbarDetached = ($navbarDetached ?? '');
                       </div>
                     </div>
                     <div class="flex-grow-1">
-                      <span class="fw-semibold d-block">John Doe</span>
-                      <small class="text-muted">Admin</small>
+                      <span class="fw-semibold d-block">{{ auth()->user()->full_name }}</span>
+                      <small class="text-muted">@if (auth()->user()->hasRole('student'))
+                        Student
+                      @elseif (auth()->user()->hasRole('teacher'))
+                        Teacher
+                      @else
+                        Admin
+                      @endif</small>
                     </div>
                   </div>
                 </a>
