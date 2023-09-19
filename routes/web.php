@@ -63,6 +63,22 @@ Route::middleware('auth')->group(function() {
   });
 
 
+  Route::controller(ClassAdvisoryController::class)->prefix('class-advisory')->group(function () {
+    Route::get('/index', 'index')->name('classad.index');
+    Route::get('/create', 'create')->name('classad.create');
+
+  });
+
+  Route::controller(ClassSubjectController::class)->prefix('class-sub')->group(function () {
+    Route::get('/index', 'index')->name('classsub.index');
+    Route::get('/create', 'create')->name('classsub.create');
+    Route::get('/view', 'view')->name('classsub.view');
+    Route::get('/set-grade', 'setGrade')->name('classsub.set-grade');
+
+
+  });
+
+
 });
 
 

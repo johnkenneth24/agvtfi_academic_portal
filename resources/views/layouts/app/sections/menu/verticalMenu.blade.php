@@ -76,15 +76,15 @@
           </li>
         @endrole
         @role('teacher')
-            <li class="menu-item {{-- !request()->routeIs('teacher.*')?:'active' --}} ">
-                <a href="{{-- route('teacher.index') --}}" class=" menu-link" style="color: #ffff">
+            <li class="menu-item {{ !request()->routeIs('classad.*')?:'active' }} ">
+                <a href="{{ route('classad.index') }}" class=" menu-link" style="color: #ffff">
                     <i class="menu-icon bx bxs-user-badge"></i>
-                    <div>Class Adviser</div>
+                    <div>Class Advisory</div>
                 </a>
             </li>
-            <li class="menu-item {{-- !request()->routeIs('teacher.*')?:'active' --}} ">
-                <a href="{{-- route('teacher.index') --}}" class=" menu-link" style="color: #ffff">
-                    <i class="menu-icon bx bxs-user-badge"></i>
+            <li class="menu-item {{ !request()->routeIs('classsub.*')?:'active' }} ">
+                <a href="{{ route('classsub.index') }}" class=" menu-link" style="color: #ffff">
+                    <i class="menu-icon bx bxs-book-bookmark"></i>
                     <div>Class Subject</div>
                 </a>
             </li>

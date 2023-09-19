@@ -31,9 +31,9 @@
   <!--/ Layout Content -->
 
   <!-- Include Scripts -->
-  @stack('page-script')
   @include('layouts/app/sections/scripts')
 
+  @stack('page-script')
 
 </body>
 
