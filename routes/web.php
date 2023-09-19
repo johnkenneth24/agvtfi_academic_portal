@@ -11,6 +11,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ClassAdvisoryController;
 use App\Http\Controllers\ClassSubjectController;
+use App\Http\Controllers\GradeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,9 @@ Route::middleware('auth')->group(function() {
     Route::get('/view', 'view')->name('classsub.view');
     Route::get('/set-grade', 'setGrade')->name('classsub.set-grade');
 
+    Route::controller(GradeController::class)->prefix('grade-view')->group(function () {
+      Route::get('/index', 'index')->name('grade.index');
+    });
 
   });
 

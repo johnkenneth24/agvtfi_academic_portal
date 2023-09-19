@@ -15,7 +15,7 @@
 
     <!-- ! Hide app brand if navbar-full -->
     <div class="app-brand demo mt-5">
-        <a href="{{ url('/') }}" class="app-brand-link">
+        <a href="{{ url('/dashboard') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
                 <img src="{{ asset('assets/img/backgrounds/bg.png') }}" height="60" alt="">
             </span>
@@ -90,8 +90,8 @@
             </li>
         @endrole
         @role('student')
-            <li class="menu-item {{-- !request()->routeIs('teacher.*')?:'active' --}} ">
-                <a href="{{-- route('teacher.index') --}}" class=" menu-link" style="color: #ffff">
+            <li class="menu-item {{ !request()->routeIs('grade.*')?:'active' }} ">
+                <a href="{{ route('grade.index') }}" class=" menu-link" style="color: #ffff">
                     <i class="menu-icon bx bxs-user-badge"></i>
                     <div>Grades</div>
                 </a>
