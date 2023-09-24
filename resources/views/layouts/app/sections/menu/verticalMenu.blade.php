@@ -96,6 +96,12 @@
                     <div>Grades</div>
                 </a>
             </li>
+            <li class="menu-item {{ !request()->routeIs('enrollment-stat.*')?:'active' }} ">
+              <a href="{{ route('enrollment-stat.index') }}" class=" menu-link" style="color: #ffff">
+                  <i class="menu-icon bx bxs-user-badge"></i>
+                  <div>Enrollment Status</div>
+              </a>
+          </li>
         @endrole
     </ul>
 

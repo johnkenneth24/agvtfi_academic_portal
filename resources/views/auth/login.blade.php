@@ -5,14 +5,23 @@
 @section('page-style')
 <!-- Page -->
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-auth.css')}}">
+
+<style>
+  .container-xxl{
+    background-image: url("{{ asset('assets/img/login-bg.jpg') }}");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+</style>
 @endsection
 
 @section('content')
-<div class="container-xxl" style="background-color: rgb(0, 179, 255);">
+<div class="container-xxl">
   <div class="authentication-wrapper authentication-basic container-p-y ">
     <div class="col-md-4">
       <!-- Register -->
-      <div class="card" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+      <div class="card" style="box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
         <div class="card-body">
           <!-- Logo -->
           <div class="app-brand justify-content-center">

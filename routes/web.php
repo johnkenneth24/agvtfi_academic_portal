@@ -12,6 +12,7 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ClassAdvisoryController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\EnrollmentStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,16 +40,25 @@ Route::middleware('auth')->group(function() {
     Route::get('/index', 'index')->name('class-section.index');
   });
 
+  Route::controller(EnrollmentStatusController::class)->prefix('enrollment-stat')->group(function () {
+    Route::get('/index', 'index')->name('enrollment-stat.index');
+  });
+
   Route::controller(UserListcontroller::class)->prefix('user-list')->group(function () {
     Route::get('/index', 'index')->name('user-list.index');
   });
 
   Route::controller(AnnouncementController::class)->prefix('announcement')->group(function () {
     Route::get('/index', 'index')->name('announcement.index');
+    Route::get('/create', 'create')->name('announcement.create');
+
   });
 
   Route::controller(EnrollmentController::class)->prefix('enrollment')->group(function () {
     Route::get('/index', 'index')->name('enrollment.index');
+    Route::get('/create', 'create')->name('enrollment.create');
+    Route::get('/view-application-list', 'viewApplicationList')->name('enrollment.view-app-list');
+
   });
 
   Route::controller(StudentController::class)->prefix('student')->group(function () {
@@ -67,6 +77,8 @@ Route::middleware('auth')->group(function() {
   Route::controller(ClassAdvisoryController::class)->prefix('class-advisory')->group(function () {
     Route::get('/index', 'index')->name('classad.index');
     Route::get('/create', 'create')->name('classad.create');
+    Route::post('/store', 'store')->name('classad.store');
+
 
   });
 

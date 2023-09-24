@@ -27,7 +27,19 @@
                     </div>
                     <div class="card-body">
                         <div class="row mt-2">
-                            <div class="col-md-12">
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="" class="form-label">SUBJECT CODE</label>
+                                <input type="text" name="" id="" class="form-control">
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="" class="form-label">SUBJECT NAME</label>
+                                <input type="text" name="" id="" class="form-control">
+                              </div>
+                            </div>
+                            <div class="col-md-12 mt-2">
                                 <div class="form-group">
                                     <label for="" class="form-label">SELECT GRADE LEVEL AND SECTION</label>
                                     <select name="acadyear_from" id="" class="form-control">
