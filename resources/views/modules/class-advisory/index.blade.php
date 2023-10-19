@@ -26,9 +26,77 @@
                         <div class="col-md-7 me-2">
                             <input type="text" class="form-control col-md-" placeholder="Search...">
                         </div>
-                        <div>
-                            <a href="{{ route('classad.create') }}" class="btn btn-info text-nowrap">CREATE CLASS
-                                ADVISORY</a>
+                        <div class="">
+                          <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            CREATE CLASS ADVISORY
+                          </button>
+                          <!-- Modal -->
+                          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">CREATE CLASS ADVISORY</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                                <form action="{{ route('classad.store') }}" method="POST" enctype="multipart/form-data">
+                                  @csrf
+                                <div class="modal-body">
+                                  <div class="row mt-2">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">ACADEMIC YEAR FROM</label>
+                                            <select name="academic_year" id="" class="form-control">
+                                                <option value="">--Please Select--</option>
+                                                @for ($i = now()->year + 1; $i >= 2018; $i--)
+                                                    <option value="{{ $i . '-' . $i + 1 }}">{{ $i }} - {{ $i + 1 }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                            @error('academic_year')
+                                                <div class="invalid-feedback mt-0" style="display: inline-block !important;">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">GRADE LEVEL</label>
+                                            <select name="grade_level" id="" class="form-control">
+                                                <option value="">--Please Select--</option>
+                                                @for ($i = 7; $i <= 12; $i++)
+                                                    <option value=" {{'Grade-' .  $i }}">Grade {{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                            @error('grade_level')
+                                                <div class="invalid-feedback mt-0" style="display: inline-block !important;">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">SECTION</label>
+                                            <input type="text" name="section" id="" class="form-control">
+                                            @error('section')
+                                                <div class="invalid-feedback mt-0" style="display: inline-block !important;">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                                  <button type="submit" class="btn btn-primary">SAVE</button>
+                                </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                     </div>
                 </div>
@@ -55,13 +123,83 @@
                                             {{ $class->classAdvisoryStudent->count() }}</td>
                                         <td class="text-center"style="font-size: 0.90rem;"><span class="badge @if ($class->status == 'Active') bg-label-success @else bg-label-danger @endif  mt-2">{{ $class->status }}</span> </td>
                                         <td class="d-flex justify-content-center">
-                                            <a href="" class="btn btn-info btn-sm ">View</a>
-                                            <a href="" class="btn btn-primary btn-sm me-1 ms-1">Edit</a>
+                                            <a href="{{ route('classad.class-student', $class->id) }}" class="btn btn-warning btn-sm ">Student</a>
+                                            <button type="button" class="btn mx-2 btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $class->id }}">Edit</button>
                                             <a href="" class="btn btn-danger btn-sm">Delete</a>
 
                                         </td>
                                     </tr>
+
+                                    <div class="modal fade" id="exampleModal{{ $class->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">EDIT CLASS {{ $class->academic_year }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                              </button>
+                                          </div>
+                                          <form action="{{ route('classad.update', $class->id) }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                          <div class="modal-body">
+                                            <div class="row mt-2">
+                                              <div class="col-md-12">
+                                                  <div class="form-group">
+                                                      <label class="form-label">ACADEMIC YEAR FROM</label>
+                                                      <select name="academic_year" id="" class="form-control">
+                                                          <option value="">--Please Select--</option>
+                                                          @for ($i = now()->year + 1; $i >= 2018; $i--)
+                                                              <option value="{{ $i . '-' . $i + 1 }}" @selected( $class->academic_year ==  $i . '-' . $i + 1)>{{ $i }} - {{ $i + 1 }}
+                                                              </option>
+                                                          @endfor
+                                                      </select>
+                                                      @error('academic_year')
+                                                          <div class="invalid-feedback mt-0" style="display: inline-block !important;">
+                                                              {{ $message }}
+                                                          </div>
+                                                      @enderror
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <div class="form-group">
+                                                      <label class="form-label">GRADE LEVEL</label>
+                                                      <select name="grade_level" id="" class="form-control">
+                                                          <option value="">--Please Select--</option>
+                                                          @for ($i = 7; $i <= 12; $i++)
+                                                              <option value="{{'Grade-' .  $i }}" @selected( $class->grade_level == 'Grade-'.$i)>Grade {{ $i }}</option>
+                                                          @endfor
+                                                      </select>
+                                                      @error('grade_level')
+                                                          <div class="invalid-feedback mt-0" style="display: inline-block !important;">
+                                                              {{ $message }}
+                                                          </div>
+                                                      @enderror
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12">
+                                                  <div class="form-group">
+                                                      <label class="form-label">SECTION</label>
+                                                      <input type="text" name="section" id="" value="{{ $class->section }}" class="form-control">
+                                                      @error('section')
+                                                          <div class="invalid-feedback mt-0" style="display: inline-block !important;">
+                                                              {{ $message }}
+                                                          </div>
+                                                      @enderror
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
+                                            <button type="submit" class="btn btn-primary">UPDATE</button>
+                                          </div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
                                 @empty
+                                <tr>
+                                  <td colspan="6" class="text-center">No Data to Show!</td>
+                                </tr>
                                 @endforelse
                             </tbody>
                         </table>

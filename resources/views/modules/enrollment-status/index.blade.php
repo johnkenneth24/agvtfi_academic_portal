@@ -35,16 +35,16 @@
             <thead>
               <tr>
                 <th>APPLICATION DATE</th>
-                <th></th>
-                <th>SCHOOL YEAR</th>
+                <th>GRADE LEVEL TO ENROLL</th>
+                <th>STATUS</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
               <tr></tr>
-                <td style="font-size: 0.90rem;">7</td>
-                <td style="font-size: 0.90rem;">A</td>
-                <td style="font-size: 0.90rem;">2023-2024</td>
+                <td style="font-size: 0.90rem;">June 28, 2023</td>
+                <td style="font-size: 0.90rem;">GRADE 8</td>
+                <td class=""style="font-size: 0.90rem;"><span class="badge bg-label-warning mt-2">PENDING</span></td>
                 <td>
                   <a href="" class="btn btn-info btn-sm">View</a>
                 </td>

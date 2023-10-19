@@ -19,13 +19,16 @@ class ClassAdvisoryController extends Controller
     return view('modules.class-advisory.index', compact('classes'));
   }
 
-  public function create()
+  public function classStudent(ClassAdvisory $student)
   {
-    $students =  User::whereHas('roles', function ($query) {
+    $student_name =  User::whereHas('roles', function ($query) {
       $query->where('name', 'student');
     })->get();
 
-    return view('modules.class-advisory.create', compact('students'));
+    $student_list = ClassAdvisoryStudent::where('class_advisory_id', $student->id)
+    ->get();
+
+    return view('modules.class-advisory.student', compact('student', 'student_name', 'student_list'));
   }
 
   public function store(Request $request)
@@ -34,29 +37,66 @@ class ClassAdvisoryController extends Controller
       'academic_year' => ['required'],
       'grade_level' => ['required'],
       'section' => ['required'],
-      'student_id' => ['required', 'array'],
-      'student_id.*' => ['required']
     ]);
 
     ClassAdvisory::where('teacher_id', auth()->user()->id)
         ->where('status', 'Active')
         ->update(['status' => 'Inactive']);
 
-    $class_advisory = ClassAdvisory::create([
+    ClassAdvisory::create([
       'teacher_id' => auth()->user()->id,
       'academic_year'=>$validated['academic_year'],
       'grade_level' => $validated['grade_level'],
       'section' => $validated['section']
     ]);
 
-    foreach($validated['student_id'] as $key => $value)
-    {
-      ClassAdvisoryStudent::create([
-        'class_advisory_id' => $class_advisory->id,
-        'student_id' => $validated['student_id'][$key],
-      ]);
-    }
-
     return redirect()->route('classad.index')->with('success', 'Addded New Class Advisory');
   }
+
+   public function update(Request $request, ClassAdvisory $classAd)
+  {
+    $validated = $request->validate([
+      'academic_year' => ['required'],
+      'grade_level' => ['required'],
+      'section' => ['required'],
+    ]);
+
+    $classAd->update([
+      'teacher_id' => auth()->user()->id,
+      'academic_year'=>$validated['academic_year'],
+      'grade_level' => $validated['grade_level'],
+      'section' => $validated['section']
+    ]);
+
+    return redirect()->route('classad.index')->with('success', 'Updated Class Advisory');
+  }
+
+  public function storeClassStudent(Request $request)
+  {
+      $validated = $request->validate([
+          'class_advisory_id' => ['required'],
+          'student_id' => ['required']
+      ]);
+
+      if ($validated['student_id'] == 'NA') {
+          return redirect()->back()->withErrors('Please Select Student!');
+      }
+
+      $existingStudent = ClassAdvisoryStudent::where('class_advisory_id', $validated['class_advisory_id'])
+          ->where('student_id', $validated['student_id'])
+          ->first();
+
+      if ($existingStudent) {
+          return redirect()->back()->withErrors('Student already exists in the advisory class!');
+      }
+
+      ClassAdvisoryStudent::create([
+          'class_advisory_id' => $validated['class_advisory_id'],
+          'student_id' => $validated['student_id']
+      ]);
+
+      return redirect()->back()->with('success', 'New student added!');
+  }
+
+
 }

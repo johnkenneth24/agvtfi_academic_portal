@@ -76,17 +76,19 @@ Route::middleware('auth')->group(function() {
 
   Route::controller(ClassAdvisoryController::class)->prefix('class-advisory')->group(function () {
     Route::get('/index', 'index')->name('classad.index');
-    Route::get('/create', 'create')->name('classad.create');
+    Route::get('/class-student/{student}', 'classStudent')->name('classad.class-student');
     Route::post('/store', 'store')->name('classad.store');
-
-
+    Route::post('/store-class-student', 'storeClassStudent')->name('classad.store-student');
+    Route::post('/update/{classAd}', 'update')->name('classad.update');
   });
 
   Route::controller(ClassSubjectController::class)->prefix('class-sub')->group(function () {
     Route::get('/index', 'index')->name('classsub.index');
     Route::get('/create', 'create')->name('classsub.create');
     Route::get('/view', 'view')->name('classsub.view');
-    Route::get('/set-grade', 'setGrade')->name('classsub.set-grade');
+    Route::get('/set-grade/{class}', 'setGrade')->name('classsub.set-grade');
+    Route::post('/store', 'store')->name('classsub.store');
+
 
     Route::controller(GradeController::class)->prefix('grade-view')->group(function () {
       Route::get('/index', 'index')->name('grade.index');

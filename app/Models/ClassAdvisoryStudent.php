@@ -21,6 +21,6 @@ class ClassAdvisoryStudent extends Model
 
     public function classStudent()
     {
-      return $this->belongsTo(User::class);
+      return $this->belongsTo(User::class, 'student_id');
     }
 }

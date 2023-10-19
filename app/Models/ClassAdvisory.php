@@ -28,4 +28,9 @@ class ClassAdvisory extends Model
       return $this->hasMany(ClassAdvisoryStudent::class, 'class_advisory_id');
     }
 
+    public function classSubject()
+    {
+      return $this->hasMany(ClassSubject::class, 'year_section_id');
+    }
+
 }
