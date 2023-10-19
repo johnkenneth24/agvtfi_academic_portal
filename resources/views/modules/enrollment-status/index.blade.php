@@ -1,6 +1,6 @@
 @extends('layouts/app/contentNavbarLayout')
 
-@section('title', 'Enrollment')
+@section('title', 'CLASS SECTION LIST')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
@@ -20,15 +20,13 @@
     <div class="card">
       <div class="card-header pb-2 d-flex justify-content-between align-items-center">
         <div class="card-title mb-0">
-          <h5 class="card-title mb-0 text-uppercase">ENROLLMENT</h5>
+          <h5 class="card-title mb-0 text-uppercase">ENROLLMENT STATUS</h5>
         </div>
         <div class="card-tools d-flex justify-content-end">
-          <div class="col-md-8 me-2">
+          <div class="col-md-9 me-2">
             <input type="text" class="form-control col-md-" placeholder="Search...">
           </div>
-          <div>
-            <a href="{{ route('enrollment.create') }}" class="btn btn-info text-nowrap">ADD ENROLLMENT</a>
-          </div>
+          {{-- <a href="" class="btn btn-info">ADD NEW STUDENT</a> --}}
         </div>
       </div>
       <div class="card-body">
@@ -36,23 +34,19 @@
           <table class="table table-hover table-sm">
             <thead>
               <tr>
-                <th>ACADEMIC YEAR</th>
-                <th>START DATE</th>
-                <th>END DATE</th>
+                <th>APPLICATION DATE</th>
+                <th>GRADE LEVEL TO ENROLL</th>
                 <th>STATUS</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
               <tr></tr>
-                <td style="font-size: 0.90rem;">2023-2024</td>
-                <td style="font-size: 0.90rem;">June 24, 2023</td>
-                <td style="font-size: 0.90rem;">August 24, 2023</td>
-                <td class=""style="font-size: 0.90rem;"><span class="badge bg-label-success mt-2">ACTIVE</span></td>
+                <td style="font-size: 0.90rem;">June 28, 2023</td>
+                <td style="font-size: 0.90rem;">GRADE 8</td>
+                <td class=""style="font-size: 0.90rem;"><span class="badge bg-label-warning mt-2">PENDING</span></td>
                 <td>
-                  <a href="{{ route('enrollment.view-app-list') }}" class="btn btn-info btn-sm">APPLICATION LIST</a>
-                  <a href="" class="btn btn-primary btn-sm">EDIT</a>
-                  <a href="" class="btn btn-danger btn-sm">DELETE</a>
+                  <a href="" class="btn btn-info btn-sm">View</a>
                 </td>
               </tr>
             </tbody>

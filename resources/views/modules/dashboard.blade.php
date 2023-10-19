@@ -43,6 +43,7 @@
   </div>
 </div>
 <div class="row">
+  @unlessrole('teacher')
   <div class="col-md-4">
     <div class="card h-100">
       <div class="card-body">
@@ -71,6 +72,7 @@
       </div>
     </div>
   </div>
+  @endunlessrole
   <div class="col-md-8 order-4 order-lg-3 ">
     <div class="card">
       <div class="card-header d-flex align-items-center justify-content-between">

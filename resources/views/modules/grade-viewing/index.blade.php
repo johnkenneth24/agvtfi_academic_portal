@@ -25,6 +25,10 @@
             <label for="">GRADE LEVEL</label>
             <select name="" class="form-control" id="">
               <option value="">GRADE 7</option>
+              <option value="">GRADE 8</option>
+              <option value="">GRADE 9</option>
+              <option value="">GRADE 10</option>
+
             </select>
            </div>
           </div>
@@ -33,6 +37,10 @@
             <label for="">GRADING SEMESTER</label>
              <select name="" class="form-control" id="">
                <option value="">1ST GRADING</option>
+               <option value="">2ND GRADING</option>
+               <option value="">3RD GRADING</option>
+               <option value="">4TH  GRADING</option>
+
              </select>
             </div>
            </div>

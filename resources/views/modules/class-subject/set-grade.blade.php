@@ -29,23 +29,31 @@
                         <div class="row mt-2">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="" class="form-label">GRADE LEVEL AND SECTION</label>
-                                    <input type="text" class="form-control" value="7 - A" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="" class="form-label">ACADEMIC YEAR</label>
-                                    <input type="text" class="form-control" value="2023-2024" readonly>
+                                    <label for="" class="form-label">SUBJECT CLASS</label>
+                                    <input type="text" class="form-control" value="{{ $class->subject_name }}" readonly>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">SUBJECT CLASS</label>
-                                    <input type="text" class="form-control" value="SCIENCE" readonly>
+                                    <input type="text" class="form-control" value="{{ $class->subject_name }}" readonly>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="" class="form-label">GRADE AND SECTION</label>
+                                    <input type="text" class="form-control"
+                                        value="{{ $class->classAdvisory->grade_level }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="" class="form-label">ACADEMIC YEAR</label>
+                                    <input type="text" class="form-control"
+                                        value="{{ $class->classAdvisory->academic_year }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="" class="form-label">STATUS</label>
                                     <input type="text" class="form-control" value="ACTIVE" readonly>
@@ -53,10 +61,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="card-footer justify-content-end d-flex">
-                        <a href="{{ route('student.index') }}" class="btn btn-danger me-2">CANCEL</a>
-                        <button type="submit" class="btn btn-info">SUBMIT</button>
-                    </div> --}}
                 </div>
             </div>
         </div>
@@ -70,44 +74,48 @@
                         </div>
                     </div>
                     <div class="card-body pb-0">
-                        <div class="row mt-2">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="" class="form-label">NAME OF STUDENT</label>
-                                    <input type="text" class="form-control" value="JUAN DELA CRUZ">
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="" class="form-label">FIRST GRADING</label>
-                                    <input type="text" class="form-control" >
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="" class="form-label">SECOND GRADING</label>
-                                    <input type="text" class="form-control" >
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="" class="form-label">THIRD GRADING</label>
-                                    <input type="text" class="form-control" >
-                                </div>
-                            </div>
-                            <div class="col-md-2">
+                      @forelse ($class_students as $student)
+                      <div class="row mt-2">
+                          <div class="col-md-4">
                               <div class="form-group">
-                                  <label for="" class="form-label">FOURTH GRADING</label>
-                                  <input type="text" class="form-control" >
+                                  <label for="" class="form-label">NAME OF STUDENT</label>
+                                  <input type="text" class="form-control" value="{{ $student->classStudent->fullname }}" readonly>
                               </div>
                           </div>
-                        </div>
-                        <hr>
+                          <div class="col-md-2">
+                              <div class="form-group">
+                                  <label for="" class="form-label">FIRST GRADING</label>
+                                  <input type="text" class="form-control">
+                              </div>
+                          </div>
+                          <div class="col-md-2">
+                              <div class="form-group">
+                                  <label for="" class="form-label">SECOND GRADING</label>
+                                  <input type="text" class="form-control">
+                              </div>
+                          </div>
+                          <div class="col-md-2">
+                              <div class="form-group">
+                                  <label for="" class="form-label">THIRD GRADING</label>
+                                  <input type="text" class="form-control">
+                              </div>
+                          </div>
+                          <div class="col-md-2">
+                              <div class="form-group">
+                                  <label for="" class="form-label">FOURTH GRADING</label>
+                                  <input type="text" class="form-control">
+                              </div>
+                          </div>
+                      </div>
+                      <hr>
+                      @empty
+
+                      @endforelse
                     </div>
                     <div class="card-footer justify-content-end d-flex">
-                      <a href="{{ route('classsub.index') }}" class="btn btn-danger me-2">CANCEL</a>
-                      <button type="submit" class="btn btn-info">SUBMIT GRADE</button>
-                  </div>
+                        <a href="{{ route('classsub.index') }}" class="btn btn-danger me-2">CANCEL</a>
+                        <button type="submit" class="btn btn-info">SUBMIT GRADE</button>
+                    </div>
                 </div>
             </div>
 

@@ -44,6 +44,7 @@ class TeacherController extends Controller
       'middlename' => $validated['middlename'],
       'lastname' => $validated['lastname'],
       'suffix' => $validated['suffix'],
+      'age' => $validated['age'],
       'gender' => $validated['gender'],
       'birthdate' => $validated['birthdate'],
       'contact_number' => $validated['contact'],

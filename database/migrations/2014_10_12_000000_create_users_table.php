@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('suffix')->nullable();
             $table->string('gender');
+            $table->integer('age');
             $table->date('birthdate');
             $table->string('contact_number');
             $table->string('address');

@@ -10,4 +10,14 @@ class EnrollmentController extends Controller
     {
       return view('modules.enrollment.index');
     }
+
+    public function create()
+    {
+      return view('modules.enrollment.create');
+    }
+
+    public function viewApplicationList()
+    {
+      return view('modules.enrollment.view-app-list');
+    }
 }

@@ -12,38 +12,49 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+  use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
-    protected $fillable = [
-      'school_id',
-      'admission_date',
-      'suffix',
-      'firstname',
-      'middlename',
-      'lastname',
-      'gender',
-      'birthdate',
-      'contact_number',
-      'address',
-      'email',
-      'password',
+  protected $fillable = [
+    'school_id',
+    'admission_date',
+    'suffix',
+    'firstname',
+    'middlename',
+    'lastname',
+    'gender',
+    'birthdate',
+    'age',
+    'contact_number',
+    'address',
+    'email',
+    'password',
   ];
 
   protected $hidden = [
-      'password',
-      'remember_token',
+    'password',
+    'remember_token',
   ];
 
   protected $casts = [
-      'email_verified_at' => 'datetime',
-      'birthdate' => 'date',
+    'email_verified_at' => 'datetime',
+    'birthdate' => 'date',
   ];
 
+  public function class_adviser()
+  {
+    return $this->hasMany(ClassAdvisory::class, 'teacher_id');
+  }
+
+
+  public function student()
+  {
+    return $this->hasMany(ClassAdvisoryStudent::class, 'student_id');
+  }
 
   public function getFullNameAttribute()
-    {
-      $middleInitial = empty($this->middlename) ? '' : strtoupper(substr($this->middlename, 0, 1));
+  {
+    $middleInitial = empty($this->middlename) ? '' : strtoupper(substr($this->middlename, 0, 1));
 
-      return "{$this->firstname} {$middleInitial}. {$this->lastname} {$this->suffix}";
-    }
+    return "{$this->firstname} {$middleInitial}. {$this->lastname} {$this->suffix}";
+  }
 }

@@ -48,6 +48,7 @@ class StudentController extends Controller
       'lastname' => $validated['lastname'],
       'suffix' => $validated['suffix'],
       'gender' => $validated['gender'],
+      'age' => $validated['age'],
       'birthdate' => $validated['birthdate'],
       'contact_number' => $validated['contact'],
       'email' => $validated['email'],

@@ -12,6 +12,7 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ClassAdvisoryController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\EnrollmentStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,16 +40,25 @@ Route::middleware('auth')->group(function() {
     Route::get('/index', 'index')->name('class-section.index');
   });
 
+  Route::controller(EnrollmentStatusController::class)->prefix('enrollment-stat')->group(function () {
+    Route::get('/index', 'index')->name('enrollment-stat.index');
+  });
+
   Route::controller(UserListcontroller::class)->prefix('user-list')->group(function () {
     Route::get('/index', 'index')->name('user-list.index');
   });
 
   Route::controller(AnnouncementController::class)->prefix('announcement')->group(function () {
     Route::get('/index', 'index')->name('announcement.index');
+    Route::get('/create', 'create')->name('announcement.create');
+
   });
 
   Route::controller(EnrollmentController::class)->prefix('enrollment')->group(function () {
     Route::get('/index', 'index')->name('enrollment.index');
+    Route::get('/create', 'create')->name('enrollment.create');
+    Route::get('/view-application-list', 'viewApplicationList')->name('enrollment.view-app-list');
+
   });
 
   Route::controller(StudentController::class)->prefix('student')->group(function () {
@@ -66,15 +76,19 @@ Route::middleware('auth')->group(function() {
 
   Route::controller(ClassAdvisoryController::class)->prefix('class-advisory')->group(function () {
     Route::get('/index', 'index')->name('classad.index');
-    Route::get('/create', 'create')->name('classad.create');
-
+    Route::get('/class-student/{student}', 'classStudent')->name('classad.class-student');
+    Route::post('/store', 'store')->name('classad.store');
+    Route::post('/store-class-student', 'storeClassStudent')->name('classad.store-student');
+    Route::post('/update/{classAd}', 'update')->name('classad.update');
   });
 
   Route::controller(ClassSubjectController::class)->prefix('class-sub')->group(function () {
     Route::get('/index', 'index')->name('classsub.index');
     Route::get('/create', 'create')->name('classsub.create');
     Route::get('/view', 'view')->name('classsub.view');
-    Route::get('/set-grade', 'setGrade')->name('classsub.set-grade');
+    Route::get('/set-grade/{class}', 'setGrade')->name('classsub.set-grade');
+    Route::post('/store', 'store')->name('classsub.store');
+
 
     Route::controller(GradeController::class)->prefix('grade-view')->group(function () {
       Route::get('/index', 'index')->name('grade.index');
