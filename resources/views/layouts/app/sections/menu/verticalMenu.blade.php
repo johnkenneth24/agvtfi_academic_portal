@@ -11,7 +11,7 @@
 @endpush
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme"
-    style="background-color: #006aff !important      ">
+    style="background-color: #006aff !important">
 
     <!-- ! Hide app brand if navbar-full -->
     <div class="app-brand demo mt-5">

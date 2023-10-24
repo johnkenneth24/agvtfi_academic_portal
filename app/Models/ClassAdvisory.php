@@ -33,4 +33,9 @@ class ClassAdvisory extends Model
       return $this->hasMany(ClassSubject::class, 'year_section_id');
     }
 
+    public function subjectGrade()
+    {
+      return $this->belongsTo(ClassSubGrade::class, 'class_advisory_id');
+    }
+
 }
