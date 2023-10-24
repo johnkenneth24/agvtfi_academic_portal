@@ -1,6 +1,6 @@
 @extends('layouts/app/contentNavbarLayout')
 
-@section('title', 'Dashboard - Analytics')
+@section('title', 'Grades')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
@@ -19,51 +19,98 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-body">
-        <div class="row">
-          <div class="col-md-4">
-           <div class="form-group">
-            <label for="">GRADE LEVEL</label>
-            <select name="" class="form-control" id="">
-              <option value="">GRADE 7</option>
-              <option value="">GRADE 8</option>
-              <option value="">GRADE 9</option>
-              <option value="">GRADE 10</option>
-
-            </select>
-           </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-            <label for="">GRADING SEMESTER</label>
-             <select name="" class="form-control" id="">
-               <option value="">1ST GRADING</option>
-               <option value="">2ND GRADING</option>
-               <option value="">3RD GRADING</option>
-               <option value="">4TH  GRADING</option>
-
-             </select>
-            </div>
-           </div>
-        </div>
+        <form action="{{ route('grade.index') }}" method="get">
+          <div class="row d-flex align-items-center">
+              <div class="col-md-4">
+                <form action="{{ route('grade.index') }}" method="get">
+                  @csrf
+                  <div class="form-group">
+                      <select name="grade_level" class="form-control" >
+                          <option value="" disabled selected>PLEASE SELECT</option>
+                          @foreach ($year_level as $yl)
+                          <option value="{{ $yl->classAdvisory->id }}" @selected($selectedGradeLevel == $yl->classAdvisory->id)>{{ $yl->classAdvisory->grade_level }}</option>
+                          @endforeach
+                      </select>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary">SHOW GRADE</button>
+                  </div>
+                </div>
+              </form>
+              </div>
+      </form>
         <div class="row mt-4">
           <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
+            <table class="table table-sm table-hover table-bordered">
+              <thead class="table-primary">
                 <tr>
                   <th>SUBJECT</th>
                   <th>TEACHER</th>
-                  <th>GRADE</th>
-                  <th>REMARKS</th>
+                  <th>1st GRADING</th>
+                  <th>2nd GRADING</th>
+                  <th>3rd GRADING</th>
+                  <th>4th GRADING</th>
+                  <th>GWA</th>
                 </tr>
               </thead>
               <tbody>
+                @forelse($grades as $grade )
                 <tr>
-                  <td style="font-size: 0.90rem;">SCIENCE</td>
-                  <td style="font-size: 0.90rem;">JUAN SANTOS</td>
-                  <td style="font-size: 0.90rem;">90</td>
-                  <td style="font-size: 0.90rem;"><span class="badge bg-label-success me-1">PASSED</span></td>
+                  <td width="18%" style="font-size: 0.90rem;">{{ $grade->classSubject->subject_name }} | {{ $grade->classSubject->subject_code }}</td>
+                  <td width="17%" style="font-size: 0.90rem;">{{ $grade->classSubject->classTeacher->fullname}}</td>
+                  <td width="12%" style="font-size: 0.90rem;">{{ $grade->first_grading}}
+                    @if ($grade->first_grading >= 75)
+                    <span class="badge bg-label-success">PASSED</span>
+                    @else
+                      <span class="badge bg-label-danger">FAILED</span>
+                    @endif</td>
+                  <td width="12%" style="font-size: 0.90rem;">{{ $grade->second_grading}}
+                    @if ($grade->second_grading >= 75)
+                    <span class="badge bg-label-success">PASSED</span>
+                    @else
+                      <span class="badge bg-label-danger">FAILED</span>
+                    @endif</td>
+                  <td width="12%" style="font-size: 0.90rem;">{{ $grade->third_grading}}
+                    @if ($grade->third_grading >= 75)
+                    <span class="badge bg-label-success">PASSED</span>
+                    @else
+                      <span class="badge bg-label-danger">FAILED</span>
+                    @endif</td>
+                  <td width="12%" style="font-size: 0.90rem;">{{ $grade->fourth_grading}}
+                    @if ($grade->fourth_grading >= 75)
+                    <span class="badge bg-label-success">PASSED</span>
+                    @else
+                      <span class="badge bg-label-danger">FAILED</span>
+                    @endif</td>
+                  <td width="12%" style="font-size: 0.90rem;">{{ $grade->gwa }}
+                    @if ($grade->gwa >= 75)
+                    <span class="badge bg-label-success">PASSED</span>
+                    @else
+                      <span class="badge bg-label-danger">FAILED</span>
+                    @endif
+                  </td>
+                  </tr>
+
+                @empty
+                <tr>
+                  <td colspan="7" class="text-center">SELECT YEAR LEVEL TO VIEW GRADES</td>
                 </tr>
+                @endforelse
               </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="6" class="text-end fw-bold">TOTAL GENERAL WEIGHTED AVERAGE</td>
+                  <td width="12%" style="font-size: 0.90rem;">{{ number_format($overall_gwa, 2) }}
+                    @if (number_format($overall_gwa, 2) >= 75)
+                    <span class="badge bg-label-success">PASSED</span>
+                    @else
+                      <span class="badge bg-label-danger">FAILED</span>
+                    @endif</td>
+                  </td>
+                </tr>
+              </tfoot>
             </table>
           </div>
         </div>

@@ -51,10 +51,16 @@ class User extends Authenticatable
     return $this->hasMany(ClassAdvisoryStudent::class, 'student_id');
   }
 
+  public function subjectStudent()
+  {
+    return $this->belongsTo(ClassSubGrade::class,'student_id');
+  }
+
   public function getFullNameAttribute()
   {
     $middleInitial = empty($this->middlename) ? '' : strtoupper(substr($this->middlename, 0, 1));
 
     return "{$this->firstname} {$middleInitial}. {$this->lastname} {$this->suffix}";
   }
+
 }

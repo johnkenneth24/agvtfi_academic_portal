@@ -20,4 +20,14 @@ class ClassSubject extends Model
     {
       return $this->belongsTo(ClassAdvisory::class, 'year_section_id');
     }
+
+    public function classSubGrade()
+    {
+      return $this->belongsToMany(ClassSubGrade::class, 'class_sub_id');
+    }
+
+    public function classTeacher()
+    {
+      return $this->belongsTo(User::class, 'teacher_id');
+    }
 }

@@ -88,14 +88,14 @@ Route::middleware('auth')->group(function() {
     Route::get('/view', 'view')->name('classsub.view');
     Route::get('/set-grade/{class}', 'setGrade')->name('classsub.set-grade');
     Route::post('/store', 'store')->name('classsub.store');
-
-
-    Route::controller(GradeController::class)->prefix('grade-view')->group(function () {
-      Route::get('/index', 'index')->name('grade.index');
-    });
+    Route::post('/set-grade-store', 'setGradeStore')->name('classsub.set-grade-store');
+    Route::put('/set-grade-update', 'setGradeUpdate')->name('classsub.set-grade-update');
 
   });
 
+  Route::controller(GradeController::class)->prefix('grade-view')->group(function () {
+    Route::get('/index', 'index')->name('grade.index');
+  });
 
 });
 
