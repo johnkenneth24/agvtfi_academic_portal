@@ -38,6 +38,7 @@ class User extends Authenticatable
   protected $casts = [
     'email_verified_at' => 'datetime',
     'birthdate' => 'date',
+    'admission_date' => 'date'
   ];
 
   public function class_adviser()

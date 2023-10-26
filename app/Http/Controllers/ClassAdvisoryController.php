@@ -98,5 +98,17 @@ class ClassAdvisoryController extends Controller
       return redirect()->back()->with('success', 'New student added!');
   }
 
+  public function studentInfo(ClassAdvisoryStudent $student)
+  {
+    return view('modules.class-advisory.studen-info', compact('student'));
+  }
+
+  public function deleteStudent(ClassAdvisoryStudent $student)
+  {
+    $student->delete();
+
+    return redirect()->back()->with('success','Successfully remove to the class!');
+  }
+
 
 }

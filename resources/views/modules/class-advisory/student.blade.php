@@ -118,9 +118,28 @@
                                       <td>{{ $student->classStudent->contact_number }}</td>
                                       <td>{{ $student->classStudent->address }}</td>
                                       <td>
-                                          <a href="" class="btn btn-primary btn-sm">Personal Information</a>
+                                          <a href="{{ route('classad.student-info', $student->id) }}" class="btn btn-primary btn-sm">Personal Information</a>
+                                          <button type="button" class="btn btn-sm btn-danger text-nowrap" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $student->id }}">
+                                            Delete
+                                          </button>
                                       </td>
                                   </tr>
+
+                                  <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal{{ $student->id }}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-body">
+                                            <h5 class="text-center mt-5">Are you sure you want to delete this record?</h5>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                                            <a href="{{ route('classad.student-delete', $student->id) }}" type="submit" class="btn text-white btn-danger">DELETE</a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
                                   @empty
                                   <tr>
                                     <td colspan="5">No Student to Show</td>

@@ -15,6 +15,7 @@
 @endsection
 
 @section('content')
+<x-success></x-success>
 <div class="row">
   <div class="col-xxl-12">
     <div class="card">
@@ -38,21 +39,32 @@
               <tr>
                 <th>SUBJECT</th>
                 <th>DESCRIPTION</th>
-                <th>CREATED AT</th>
+                <th>END DATE</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-              <tr></tr>
-                <td style="font-size: 0.90rem;">LOREM IPSUM</td>
-                <td style="font-size: 0.90rem;" class="text-wrap">Lorem ipsum dolor sit amet. Quasi libero expedita....</td>
-                <td style="font-size: 0.90rem;">August 1, 2023</td>
+              @php
+              use Illuminate\Support\Str;
+              @endphp
+              @forelse($announcement as $ann)
+              <tr>
+                <td style="font-size: 0.90rem;">{{ $ann->subject }}</td>
+                <td style="font-size: 0.90rem;" class="text-wrap">{{ Str::words($ann->description, 5, $end = '...') }}</td>
+                <td style="font-size: 0.90rem;">{{ $ann->date->format('F d, Y') }}</td>
                 <td>
-                  <a href="" class="btn btn-info btn-sm">View</a>
-                  <a href="" class="btn btn-primary btn-sm">Edit</a>
+                  <a href="{{ route('announcement.view' , $ann->id) }}" class="btn btn-info btn-sm">View</a>
+                  <a href="{{ route('announcement.edit', $ann->id) }}" class="btn btn-primary btn-sm">Edit</a>
                   <a href="" class="btn btn-danger btn-sm">Delete</a>
                 </td>
               </tr>
+              @empty
+              <tr>
+                <td colspan="4" class="text-center">
+                  No announcement data!
+                </td>
+              </tr>
+              @endforelse
             </tbody>
           </table>
         </div>

@@ -102,6 +102,7 @@
               <tfoot>
                 <tr>
                   <td colspan="6" class="text-end fw-bold">TOTAL GENERAL WEIGHTED AVERAGE</td>
+                  @if(number_format($overall_gwa, 2) != 0.00)
                   <td width="12%" style="font-size: 0.90rem;">{{ number_format($overall_gwa, 2) }}
                     @if (number_format($overall_gwa, 2) >= 75)
                     <span class="badge bg-label-success">PASSED</span>
@@ -109,6 +110,7 @@
                       <span class="badge bg-label-danger">FAILED</span>
                     @endif</td>
                   </td>
+                  @endif
                 </tr>
               </tfoot>
             </table>
