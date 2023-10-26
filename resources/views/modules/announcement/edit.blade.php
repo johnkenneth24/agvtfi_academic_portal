@@ -1,6 +1,6 @@
 @extends('layouts/app/contentNavbarLayout')
 
-@section('title', 'Create - ANNOUNCEMENT')
+@section('title', 'Update - ANNOUNCEMENT')
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">
@@ -15,15 +15,16 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('announcement.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('announcement.update', [$ann]) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="row">
             <div class="col-xxl-12">
                 <div class="card p-2">`
                     <div class="card-header py-0 d-flex justify-content-between align-items-center">
                       <div class="card-title d-flex align-items-center">
                         <a href="{{ route('announcement.index') }}" class=""><i class='bx bx-arrow-back'></i></a>
-                        <h5 class="card-title text-uppercase mb-0 ms-2">CREATE ANNOUNCEMNET</h5>
+                        <h5 class="card-title text-uppercase mb-0 ms-2"> {{ $ann->subject }} | UPDATE ANNOUNCEMNET</h5>
                       </div>
                     </div>
                     <div class="card-body">
@@ -31,7 +32,7 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label class="form-label">SUBJECT</label>
-                                    <input type="text" name="subject" id="" class="form-control">
+                                    <input type="text" value="{{ $ann->subject }}" name="subject" id="" class="form-control">
                                     @error('subject')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -42,7 +43,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">ANNOUNCEMENT END DATE</label>
-                                    <input type="date" name="date" id="" class="form-control">
+                                    <input type="date" value="{{ $ann->date->format('Y-m-d') }}" name="date" id="" class="form-control">
                                     @error('date')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -53,7 +54,7 @@
                             <div class="col-md-12 mt-3">
                                 <div class="form-group">
                                     <label class="form-label">DESCRIPTION</label>
-                                    <textarea class="form-control" name="description" id="" cols="30" rows="3"></textarea>
+                                    <textarea class="form-control" value="" name="description" id="" cols="30" rows="3">{{ $ann->description }}</textarea>
                                     @error('description')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -65,7 +66,7 @@
                     </div>
                     <div class="card-footer justify-content-end d-flex">
                       <a href="{{ route('announcement.index') }}" class="btn btn-danger me-2">CANCEL</a>
-                      <button type="submit" class="btn btn-info">SUBMIT</button>
+                      <button type="submit" class="btn btn-info">UPDATE</button>
                   </div>
                 </div>
             </div>

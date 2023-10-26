@@ -51,7 +51,10 @@ Route::middleware('auth')->group(function() {
   Route::controller(AnnouncementController::class)->prefix('announcement')->group(function () {
     Route::get('/index', 'index')->name('announcement.index');
     Route::get('/create', 'create')->name('announcement.create');
-
+    Route::post('/store', 'store')->name('announcement.store');
+    Route::get('/edit/{ann}', 'edit')->name('announcement.edit');
+    Route::get('/view/{ann}', 'view')->name('announcement.view');
+    Route::put('/update/{ann}', 'update')->name('announcement.update');
   });
 
   Route::controller(EnrollmentController::class)->prefix('enrollment')->group(function () {
@@ -80,6 +83,10 @@ Route::middleware('auth')->group(function() {
     Route::post('/store', 'store')->name('classad.store');
     Route::post('/store-class-student', 'storeClassStudent')->name('classad.store-student');
     Route::post('/update/{classAd}', 'update')->name('classad.update');
+    Route::get('/student-info/{student}', 'studentInfo')->name('classad.student-info');
+    Route::get('/student-delete/{student}', 'deleteStudent')->name('classad.student-delete');
+
+
   });
 
   Route::controller(ClassSubjectController::class)->prefix('class-sub')->group(function () {
@@ -90,6 +97,7 @@ Route::middleware('auth')->group(function() {
     Route::post('/store', 'store')->name('classsub.store');
     Route::post('/set-grade-store', 'setGradeStore')->name('classsub.set-grade-store');
     Route::put('/set-grade-update', 'setGradeUpdate')->name('classsub.set-grade-update');
+
 
   });
 

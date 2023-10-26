@@ -81,16 +81,27 @@
       <div class="card-body">
         <!-- Activity Timeline -->
         <ul class="timeline">
+          @forelse ($anns as $ann)
           <li class="timeline-item timeline-item-transparent">
             <span class="timeline-point-wrapper"><span class="timeline-point timeline-point-primary"></span></span>
             <div class="timeline-event">
               <div class="timeline-header mb-1">
-                <h6 class="mb-0">No Classes Today!</h6>
-                <small class="text-muted">12 minutes ago</small>
-                <p class="mb-2">The Principal announced that there will be no classes today due to bad weather. Keep safe everyone!</p>
+                <h6 class="mb-0">{{ $ann->subject }}</h6>
+                <small class="text-muted">{{ $ann->date->format('F d, Y') }} </small>
+                <p class="mb-2">{{ $ann->description }}</p>
               </div>
             </div>
           </li>
+          @empty
+          <li class="timeline-item timeline-item-transparent">
+            <span class="timeline-point-wrapper"><span class="timeline-point timeline-point-primary"></span></span>
+            <div class="timeline-event">
+              <div class="timeline-header mb-1">
+                <h6 class="mb-0">No announcement today!</h6>
+              </div>
+            </div>
+          </li>
+          @endforelse
         </ul>
         <!-- /Activity Timeline -->
       </div>
