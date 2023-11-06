@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->references('id')->on('users')->cascadeOnDelete();
             $table->string('year_level');
-            $table->string('status');
+            $table->string('status')->default('Current');
             $table->timestamps();
         });
     }

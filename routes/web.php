@@ -68,6 +68,8 @@ Route::middleware('auth')->group(function() {
     Route::get('/index', 'index')->name('student.index');
     Route::get('/create', 'create')->name('student.create');
     Route::post('/store', 'store')->name('student.store');
+    Route::post('/extract', 'extract')->name('student.extract');
+
   });
 
   Route::controller(TeacherController::class)->prefix('teacher')->group(function () {

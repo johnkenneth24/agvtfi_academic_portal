@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class StudentYearLevel extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+      'student_id',
+      'year_level',
+      'status',
+    ];
+
+    public function studentYrLvl()
+    {
+      return $this->belongsTo(User::class, 'student_id');
+    }
 }

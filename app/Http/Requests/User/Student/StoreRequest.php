@@ -36,6 +36,7 @@ class StoreRequest extends FormRequest
         'contact' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:11',
         'email' => 'required|string|email|max:255|unique:users',
         'address' => 'required',
+        'year_level' => 'nullable'
       ];
     }
 }

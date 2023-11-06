@@ -46,6 +46,10 @@ class User extends Authenticatable
     return $this->hasMany(ClassAdvisory::class, 'teacher_id');
   }
 
+  public function studentYearLevel()
+  {
+    return $this->hasMany(StudentYearLevel::class,'student_id');
+  }
 
   public function student()
   {

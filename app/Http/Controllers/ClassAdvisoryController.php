@@ -15,8 +15,10 @@ class ClassAdvisoryController extends Controller
      ->orderBy('status' , 'asc')
      ->get();
 
+     $strands = ['ACCOUNTING BUSINESSNESS MANAGEMENT', 'INFORMATION COMMUNICATION TECHNOLOGY', 'GENERAL ACADEMIC STRAND', 'HOME ECONOMICS', 'AUTOMOTIVE', 'ELECTRICAL INSTALLATION AND MAINTENANCE'];
 
-    return view('modules.class-advisory.index', compact('classes'));
+
+    return view('modules.class-advisory.index', compact('classes', 'strands'));
   }
 
   public function classStudent(ClassAdvisory $student)

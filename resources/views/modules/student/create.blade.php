@@ -1,6 +1,6 @@
 @extends('layouts/app/contentNavbarLayout')
 
-@section('title', 'Dashboard - Analytics')
+@section('title', 'Add Student')
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">
@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="" class="form-label">school id</label>
                                     <input type="number" name="school_id" value="{{ $school_id }}" id=""
@@ -50,6 +50,38 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                  <label for="" class="form-label">Grade Level</label>
+                                  <select name="year_level" id="" class="form-control">
+                                    <option value="">--Please Select--</option>
+                                    @for ($i = 11; $i <= 12; $i++)
+                                        <option value=" {{'Grade-' .  $i }}">Grade {{ $i }}</option>
+                                    @endfor
+                                </select>
+                                  @error('admission_date')
+                                      <div class="invalid-feedback mt-0" style="display: inline-block !important;">
+                                          {{ $message }}
+                                      </div>
+                                  @enderror
+                              </div>
+                          </div>
+                          {{-- <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="" class="form-label">STRAND</label>
+                                <select name="strand" id="" class="form-control">
+                                  <option value="">--Please Select--</option>
+                                  @foreach($strands as $strand)
+                                  <option value="{{ $strand }}">{{ $strand }}</option>
+                                  @endforeach
+                              </select>
+                                @error('admission_date')
+                                    <div class="invalid-feedback mt-0" style="display: inline-block !important;">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div> --}}
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-3">
