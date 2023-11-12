@@ -15,7 +15,7 @@ class StudentYearLevel extends Model
       'status',
     ];
 
-    public function studentYrLvl()
+    public function user()
     {
       return $this->belongsTo(User::class, 'student_id');
     }

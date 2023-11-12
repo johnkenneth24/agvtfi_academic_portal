@@ -1,6 +1,6 @@
 @extends('layouts/app/contentNavbarLayout')
 
-@section('title', 'CLASS SECTION LIST')
+@section('title', 'ENROLLMENT STATUS')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
@@ -15,6 +15,7 @@
 @endsection
 
 @section('content')
+<x-success></x-success>
 <div class="row">
   <div class="col-xxl-12">
     <div class="card">
@@ -41,14 +42,25 @@
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-              <tr></tr>
-                <td style="font-size: 0.90rem;">June 28, 2023</td>
-                <td style="font-size: 0.90rem;">GRADE 8</td>
-                <td class=""style="font-size: 0.90rem;"><span class="badge bg-label-warning mt-2">PENDING</span></td>
+              @forelse($list_enrollment as $list_enroll)
+              <tr>
+                <td style="font-size: 0.90rem;">{{ $list_enroll->created_at->format('F d, Y') }}</td>
+                <td style="font-size: 0.90rem;">{{ 'Grade '.$list_enroll->year_level }}</td>
+                <td class=""style="font-size: 0.90rem;">
+                  @if($list_enroll->status == 'Current')
+                  <span class="badge bg-label-success">{{ $list_enroll->status }}</span></td>
+                  @else
+                  <span class="badge bg-label-warning">{{ $list_enroll->status }}</span></td>
+                  @endif
                 <td>
-                  <a href="" class="btn btn-info btn-sm">View</a>
+                  @if($list_enroll->status == 'Pending')
+                  <a href="" class="btn btn-danger btn-sm">Cancel</a>
+                  @endif
                 </td>
               </tr>
+              @empty
+
+              @endforelse
             </tbody>
           </table>
         </div>

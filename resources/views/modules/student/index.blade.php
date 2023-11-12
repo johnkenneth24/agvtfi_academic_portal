@@ -44,14 +44,15 @@
                     <div class="col-md-5 mb-3 d-flex ">
                         <form action="{{ route('student.extract') }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            <label for="" class="form-label mb-0">Select an .xlsx .xls file to import student</label>
                             <div class="input-group">
                                 <input type="file" name="excel_file" class="form-control">
+                                <button type="submit" class="btn btn-info">EXTRACT</button>
                                 @error('excel_file')
                                     <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                         {{ $message }}
                                     </div>
                                 @enderror
-                                <button type="submit" class="btn btn-info">EXTRACT</button>
                             </div>
                         </form>
                     </div>

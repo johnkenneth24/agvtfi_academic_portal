@@ -60,7 +60,10 @@ Route::middleware('auth')->group(function() {
   Route::controller(EnrollmentController::class)->prefix('enrollment')->group(function () {
     Route::get('/index', 'index')->name('enrollment.index');
     Route::get('/create', 'create')->name('enrollment.create');
-    Route::get('/view-application-list', 'viewApplicationList')->name('enrollment.view-app-list');
+    Route::get('/view-application-list/{enrollment}', 'viewApplicationList')->name('enrollment.view-app-list');
+    Route::post('/store', 'store')->name('enrollment.store');
+    Route::post('/store-enrollment', 'enrollNow')->name('enrollment.store-enrollee');
+    Route::get('/approved-enrollment/{pending}/{enrollment}', 'approved')->name('enrollment.approved');
 
   });
 

@@ -66,7 +66,7 @@
                                             <select name="grade_level" id="" class="form-control">
                                                 <option value="">--Please Select--</option>
                                                 @for ($i = 11; $i <= 12; $i++)
-                                                    <option value=" {{'Grade-' .  $i }}">Grade {{ $i }}</option>
+                                                    <option value=" {{'Grade ' .  $i }}">Grade {{ $i }}</option>
                                                 @endfor
                                             </select>
                                             @error('grade_level')
