@@ -20,7 +20,7 @@ class ClassAdvisory extends Model
 
     public function classAdvisoryTeacher()
     {
-      return $this->belongsTo(User::class);
+      return $this->belongsTo(User::class, 'teacher_id');
     }
 
     public function classAdvisoryStudent()

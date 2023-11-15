@@ -1,6 +1,6 @@
 @extends('layouts/app/contentNavbarLayout')
 
-@section('title', 'Dashboard - Analytics')
+@section('title', 'Student List')
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">
@@ -76,7 +76,7 @@
                                         <td style="font-size: 0.90rem;">{{ $student->contact_number }}</td>
                                         <td>
                                             <a href="" class="btn btn-info btn-sm">View</a>
-                                            <a href="" class="btn btn-primary btn-sm">Edit</a>
+                                            <a href="{{ route('student.edit', $student->id) }}" class="btn btn-primary btn-sm">Edit</a>
                                             <a href="" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>

@@ -10,8 +10,7 @@
     </style>
 @endpush
 
-<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme"
-    style="background-color: #006aff !important">
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" style="background-color: #006aff !important">
 
     <!-- ! Hide app brand if navbar-full -->
     <div class="app-brand demo mt-5">
@@ -63,26 +62,32 @@
                 </a>
             </li>
             <li class="menu-item {{ !request()->routeIs('announcement.*') ?: 'active' }} ">
-              <a href="{{ route('announcement.index') }}" class=" menu-link" style="color: #ffff">
-                  <i class="menu-icon bx bxs-bell-ring"></i>
-                  <div>Announcement</div>
-              </a>
+                <a href="{{ route('announcement.index') }}" class=" menu-link" style="color: #ffff">
+                    <i class="menu-icon bx bxs-bell-ring"></i>
+                    <div>Announcement</div>
+                </a>
             </li>
             <li class="menu-item {{ !request()->routeIs('enrollment.*') ?: 'active' }} ">
-              <a href="{{ route('enrollment.index') }}" class=" menu-link" style="color: #ffff">
-                  <i class="menu-icon bx bxs-book-open"></i>
-                  <div>Enrollment</div>
+                <a href="{{ route('enrollment.index') }}" class=" menu-link" style="color: #ffff">
+                    <i class="menu-icon bx bxs-book-open"></i>
+                    <div>Enrollment</div>
+                </a>
+            </li>
+            <li class="menu-item {{ !request()->routeIs('ad-reqdoc.*') ?: 'active' }} ">
+              <a href="{{ route('ad-reqdoc.index') }}" class=" menu-link" style="color: #ffff">
+                  <i class="menu-icon bx bxs-file-doc"></i>
+                  <div>Request Document</div>
               </a>
           </li>
         @endrole
         @role('teacher')
-            <li class="menu-item {{ !request()->routeIs('classad.*')?:'active' }} ">
+            <li class="menu-item {{ !request()->routeIs('classad.*') ?: 'active' }} ">
                 <a href="{{ route('classad.index') }}" class=" menu-link" style="color: #ffff">
                     <i class="menu-icon bx bxs-user-badge"></i>
                     <div>Class Advisory</div>
                 </a>
             </li>
-            <li class="menu-item {{ !request()->routeIs('classsub.*')?:'active' }} ">
+            <li class="menu-item {{ !request()->routeIs('classsub.*') ?: 'active' }} ">
                 <a href="{{ route('classsub.index') }}" class=" menu-link" style="color: #ffff">
                     <i class="menu-icon bx bxs-book-bookmark"></i>
                     <div>Class Subject</div>
@@ -90,16 +95,22 @@
             </li>
         @endrole
         @role('student')
-            <li class="menu-item {{ !request()->routeIs('grade.*')?:'active' }} ">
+            <li class="menu-item {{ !request()->routeIs('grade.*') ?: 'active' }} ">
                 <a href="{{ route('grade.index') }}" class=" menu-link" style="color: #ffff">
                     <i class="menu-icon bx bxs-user-badge"></i>
                     <div>Grades</div>
                 </a>
             </li>
-            <li class="menu-item {{ !request()->routeIs('enrollment-stat.*')?:'active' }} ">
-              <a href="{{ route('enrollment-stat.index') }}" class=" menu-link" style="color: #ffff">
-                  <i class="menu-icon bx bxs-user-badge"></i>
-                  <div>Enrollment Status</div>
+            <li class="menu-item {{ !request()->routeIs('enrollment-stat.*') ?: 'active' }} ">
+                <a href="{{ route('enrollment-stat.index') }}" class=" menu-link" style="color: #ffff">
+                    <i class="menu-icon bx bxs-notepad"></i>
+                    <div>Enrollment Status</div>
+                </a>
+            </li>
+            <li class="menu-item {{ !request()->routeIs('reqdoc.*') ?: 'active' }} ">
+              <a href="{{ route('reqdoc.index') }}" class=" menu-link" style="color: #ffff">
+                  <i class="menu-icon bx bxs-file-doc"></i>
+                  <div>Request Document</div>
               </a>
           </li>
         @endrole

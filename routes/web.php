@@ -13,6 +13,8 @@ use App\Http\Controllers\ClassAdvisoryController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\EnrollmentStatusController;
+use App\Http\Controllers\RequestDocController;
+use App\Http\Controllers\AdminRequestDocController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +72,7 @@ Route::middleware('auth')->group(function() {
   Route::controller(StudentController::class)->prefix('student')->group(function () {
     Route::get('/index', 'index')->name('student.index');
     Route::get('/create', 'create')->name('student.create');
+    Route::get('/edit/{student}', 'edit')->name('student.edit');
     Route::post('/store', 'store')->name('student.store');
     Route::post('/extract', 'extract')->name('student.extract');
 
@@ -109,6 +112,18 @@ Route::middleware('auth')->group(function() {
   Route::controller(GradeController::class)->prefix('grade-view')->group(function () {
     Route::get('/index', 'index')->name('grade.index');
   });
+
+  Route::controller(RequestDocController::class)->prefix('request-document')->group(function () {
+    Route::get('/index', 'index')->name('reqdoc.index');
+    Route::post('/store', 'storeRequest')->name('reqdoc.store');
+
+  });
+
+  Route::controller(AdminRequestDocController::class)->prefix('admin-request-document')->group(function () {
+    Route::get('/index', 'index')->name('ad-reqdoc.index');
+
+  });
+
 
 });
 
