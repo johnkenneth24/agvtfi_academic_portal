@@ -5,18 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StudentYearLevel extends Model
+class RequestDocument extends Model
 {
     use HasFactory;
 
     protected $fillable = [
       'student_id',
-      'year_level',
-      'status',
+      'subject',
+      'document',
+      'status'
     ];
 
-    public function user()
+    public function student()
     {
       return $this->belongsTo(User::class, 'student_id');
     }
+
+
 }

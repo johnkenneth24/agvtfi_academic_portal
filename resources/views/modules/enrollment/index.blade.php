@@ -15,6 +15,7 @@
 @endsection
 
 @section('content')
+<x-success></x-success>
 <div class="row">
   <div class="col-xxl-12">
     <div class="card">
@@ -44,17 +45,20 @@
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-              <tr></tr>
-                <td style="font-size: 0.90rem;">2023-2024</td>
-                <td style="font-size: 0.90rem;">June 24, 2023</td>
-                <td style="font-size: 0.90rem;">August 24, 2023</td>
-                <td class=""style="font-size: 0.90rem;"><span class="badge bg-label-success mt-2">ACTIVE</span></td>
+              @forelse ($enrollments as $enrollment)
+              <tr>
+                <td style="font-size: 0.90rem;">{{ $enrollment->subject }}</td>
+                <td style="font-size: 0.90rem;">{{ $enrollment->start->format('F d, Y') }}</td>
+                <td style="font-size: 0.90rem;">{{ $enrollment->end->format('F d, Y') }}</td>
+                <td class=""style="font-size: 0.90rem;"><span class="badge bg-label-success mt-2">{{ $enrollment->status }}</span></td>
                 <td>
-                  <a href="{{ route('enrollment.view-app-list') }}" class="btn btn-info btn-sm">APPLICATION LIST</a>
+                  <a href="{{ route('enrollment.view-app-list', $enrollment->id) }}" class="btn btn-info btn-sm">APPLICATION LIST</a>
                   <a href="" class="btn btn-primary btn-sm">EDIT</a>
-                  <a href="" class="btn btn-danger btn-sm">DELETE</a>
+                  <a href="" class="btn btn-danger btn-sm">DEACTIVATE</a>
                 </td>
               </tr>
+              @empty
+              @endforelse
             </tbody>
           </table>
         </div>

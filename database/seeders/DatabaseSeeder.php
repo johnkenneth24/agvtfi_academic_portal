@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\StudentYearLevel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -78,6 +79,12 @@ class DatabaseSeeder extends Seeder
         'email' => 'student@agvtfi.com',
         'password' => Hash::make('agvtfi54321'),
       ]);
+
+      StudentYearLevel::create([
+        'student_id' => $user->id,
+        'year_level' => 'Grade 11',
+      ]);
+
       $user->assignRole('student');
     }
   }

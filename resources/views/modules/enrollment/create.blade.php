@@ -15,7 +15,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('classad.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('enrollment.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-xxl-12">
@@ -42,8 +42,8 @@
                             <div class="col-md-6 mt-3">
                                 <div class="form-group">
                                     <label class="form-label">ENROLLMENT START DATE</label>
-                                    <input type="date" name="subject" id="" class="form-control">
-                                    @error('subject')
+                                    <input type="date" name="start" id="" class="form-control">
+                                    @error('start')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
                                         </div>
@@ -53,8 +53,8 @@
                             <div class="col-md-6 mt-3">
                                 <div class="form-group">
                                     <label class="form-label">ENROLLMENT END DATE</label>
-                                    <input type="date" name="subject" id="" class="form-control">
-                                    @error('subject')
+                                    <input type="date" name="end" id="" class="form-control">
+                                    @error('end')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
                                         </div>

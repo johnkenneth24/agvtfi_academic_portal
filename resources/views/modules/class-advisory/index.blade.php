@@ -48,7 +48,7 @@
                                             <label class="form-label">ACADEMIC YEAR FROM</label>
                                             <select name="academic_year" id="" class="form-control">
                                                 <option value="">--Please Select--</option>
-                                                @for ($i = now()->year + 1; $i >= 2018; $i--)
+                                                @for ($i = now()->year ; $i >= 2018; $i--)
                                                     <option value="{{ $i . '-' . $i + 1 }}">{{ $i }} - {{ $i + 1 }}
                                                     </option>
                                                 @endfor
@@ -65,8 +65,8 @@
                                             <label class="form-label">GRADE LEVEL</label>
                                             <select name="grade_level" id="" class="form-control">
                                                 <option value="">--Please Select--</option>
-                                                @for ($i = 7; $i <= 12; $i++)
-                                                    <option value=" {{'Grade-' .  $i }}">Grade {{ $i }}</option>
+                                                @for ($i = 11; $i <= 12; $i++)
+                                                    <option value=" {{'Grade ' .  $i }}">Grade {{ $i }}</option>
                                                 @endfor
                                             </select>
                                             @error('grade_level')
@@ -78,8 +78,13 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">SECTION</label>
-                                            <input type="text" name="section" id="" class="form-control">
+                                            <label class="form-label">STRANDS</label>
+                                            <select name="section" id="" class="form-control">
+                                              <option value="">--Please Select--</option>
+                                              @foreach($strands as $strand)
+                                              <option value="{{ $strand }}">{{ $strand }}</option>
+                                              @endforeach
+                                          </select>
                                             @error('section')
                                                 <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                                     {{ $message }}

@@ -7,8 +7,12 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 use App\Http\Requests\User\Student\StoreRequest;
+use App\Http\Requests\User\Student\UpdateRequest;
+use App\Models\StudentYearLevel;
+use App\Imports\StudentImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class StudentController extends Controller
@@ -18,7 +22,7 @@ class StudentController extends Controller
   {
     $students = User::whereHas('roles', function ($query) {
       $query->where('name', 'student');
-    })->paginate(10);
+    })->get();
 
     return view('modules.student.index', compact('students'));
   }
@@ -33,11 +37,15 @@ class StudentController extends Controller
 
     $school_id = 'S' . str_pad($studentCount + 1, 4, '0', STR_PAD_LEFT);
 
-    return view('modules.student.create', compact('school_id', 'gender'));
+    $strands = ['ACCOUNTING BUSINESSNESS MANAGEMENT', 'INFORMATION COMMUNICATION TECHNOLOGY', 'GENERAL ACADEMIC STRAND', 'HOME ECONOMICS', 'AUTOMOTIVE', 'ELECTRICAL INSTALLATION AND MAINTENANCE'];
+
+    return view('modules.student.create', compact('school_id', 'gender', 'strands'));
   }
+
 
   public function store(StoreRequest $request)
   {
+
     $validated = $request->validated();
 
     $student = User::create([
@@ -55,10 +63,45 @@ class StudentController extends Controller
       'address' => $validated['address'],
       'password' => Hash::make($validated['school_id']),
     ]);
+
+    StudentYearLevel::create([
+      'student_id' => $student->id,
+      'year_level' => $validated['year_level'],
+    ]);
+
     $student->assignRole('student');
 
-
-
     return redirect()->route('student.index')->with('success', 'Successfuly added new student!');
+  }
+
+  public function edit(User $student)
+  {
+    $gender = ['Male', 'Female'];
+
+    return view('modules.student.edit', compact('gender', 'student'));
+
+  }
+
+  public function update(UpdateRequest $request, User $user)
+  {
+
+  }
+
+
+  public function extract(Request $request)
+  {
+    $request->validate([
+      'excel_file' => 'required|file|mimes:xlsx,xls',
+    ]);
+
+    $excelFile = $request->file('excel_file');
+
+    if ($excelFile) {
+      Excel::import(new StudentImport, $excelFile);
+
+
+      // Redirect or display a success message
+      return redirect()->route('student.index')->with('success', 'Successfully added new students!');
+    }
   }
 }

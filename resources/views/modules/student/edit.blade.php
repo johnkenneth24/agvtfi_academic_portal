@@ -22,7 +22,7 @@
                 <div class="card p-2">`
                     <div class="card-header py-0 d-flex justify-content-between align-items-center">
                         <div class="card-title">
-                            <h5 class="card-title text-uppercase">ADD NEW STUDENT</h5>
+                            <h5 class="card-title text-uppercase">UPDATE STUDENT INFORMATION</h5>
                         </div>
                     </div>
                     <div class="card-body">
@@ -30,7 +30,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="" class="form-label">school id</label>
-                                    <input type="number" name="school_id" value="{{ $school_id }}" id=""
+                                    <input type="text" name="school_id" value="{{ $student->school_id }}" id=""
                                         class="form-control">
                                     @error('school_id')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
@@ -42,7 +42,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">admission date</label>
-                                    <input type="date" name="admission_date" id="" class="form-control">
+                                    <input type="date" name="admission_date" id="" value="{{ $student->admission_date->format('Y-m-d') }}" class="form-control">
                                     @error('admission_date')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -56,7 +56,7 @@
                                   <select name="year_level" id="" class="form-control">
                                     <option value="">--Please Select--</option>
                                     @for ($i = 11; $i <= 12; $i++)
-                                        <option value=" {{'Grade-' .  $i }}">Grade {{ $i }}</option>
+                                        <option value="{{ $i }}">{{ $i }}</option>
                                     @endfor
                                 </select>
                                   @error('admission_date')
@@ -66,28 +66,12 @@
                                   @enderror
                               </div>
                           </div>
-                          {{-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="" class="form-label">STRAND</label>
-                                <select name="strand" id="" class="form-control">
-                                  <option value="">--Please Select--</option>
-                                  @foreach($strands as $strand)
-                                  <option value="{{ $strand }}">{{ $strand }}</option>
-                                  @endforeach
-                              </select>
-                                @error('admission_date')
-                                    <div class="invalid-feedback mt-0" style="display: inline-block !important;">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div> --}}
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">First Name</label>
-                                    <input type="text" name="firstname" id="" class="form-control">
+                                    <input type="text" name="firstname" id="" value="{{ $student->firstname }}" class="form-control">
                                     @error('firstname')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -98,7 +82,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">Middle Name</label>
-                                    <input type="text" name="middlename" id="" class="form-control">
+                                    <input type="text" name="middlename" value="{{ $student->middlename }}" id="" class="form-control">
                                     @error('middlename')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -109,7 +93,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">Last Name</label>
-                                    <input type="text" name="lastname" id="" class="form-control">
+                                    <input type="text" name="lastname" value="{{ $student->lastname }}" id="" class="form-control">
                                     @error('lastname')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -120,7 +104,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">SUFFIX Name</label>
-                                    <input type="text" name="suffix" id="" class="form-control">
+                                    <input type="text" name="suffix" id="" value="{{ $student->suffix }}" class="form-control">
                                 </div>
                             </div>
                         </div>
