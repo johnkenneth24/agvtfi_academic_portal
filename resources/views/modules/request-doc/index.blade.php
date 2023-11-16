@@ -86,7 +86,7 @@
                                         <td class="" style="font-size: 0.90rem;">{{ $req->subject }}</td>
                                         <td class="text-center"style="font-size: 0.90rem;"><span class="badge @if ($req->status == 'Active') bg-label-success @else bg-label-danger @endif  mt-2">{{ $req->status }}</span> </td>
                                         <td class="d-flex justify-content-center">
-                                            <a href="" class="btn btn-primary btn-sm">Export</a>
+                                            <a href="{{ asset('documents/'. $req->document) }}" download class="btn btn-primary btn-sm">Download</a>
                                             <a href="" class="btn btn-danger btn-sm ms-2">Cancel</a>
 
                                         </td>

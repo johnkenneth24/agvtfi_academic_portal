@@ -121,6 +121,8 @@ Route::middleware('auth')->group(function() {
 
   Route::controller(AdminRequestDocController::class)->prefix('admin-request-document')->group(function () {
     Route::get('/index', 'index')->name('ad-reqdoc.index');
+    Route::put('/upload-doc/{document}', 'upload')->name('ad-reqdoc.upload');
+
 
   });
 

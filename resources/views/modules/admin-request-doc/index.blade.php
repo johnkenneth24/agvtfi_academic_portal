@@ -15,8 +15,8 @@
 @endsection
 
 @section('content')
-<x-success></x-success>
-<x-errors></x-errors>
+    <x-success></x-success>
+    <x-errors></x-errors>
     <div class="row">
         <div class="col-xxl-12">
             <div class="card">
@@ -45,20 +45,59 @@
                             <tbody class="table-border-bottom-0">
                                 @forelse ($reqs as $req)
                                     <tr>
-                                      <td class="" style="font-size: 0.90rem;">{{ $req->student->fullname }}</td>
+                                        <td class="" style="font-size: 0.90rem;">{{ $req->student->fullname }}</td>
 
                                         <td class="" style="font-size: 0.90rem;">{{ $req->subject }}</td>
-                                        <td class="text-center"style="font-size: 0.90rem;"><span class="badge @if ($req->status == 'Active') bg-label-success @else bg-label-danger @endif  mt-2">{{ $req->status }}</span> </td>
+                                        <td class="text-center"style="font-size: 0.90rem;"><span
+                                                class="badge @if ($req->status == 'Active') bg-label-success @else bg-label-danger @endif  mt-2">{{ $req->status }}</span>
+                                        </td>
                                         <td class="d-flex justify-content-center">
-                                            <a href="" class="btn btn-primary btn-sm">Grant</a>
-                                            <a href="" class="btn btn-danger btn-sm ms-2">Cancel</a>
+                                          @if(!$req->document)
+                                          <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                              data-bs-target="#backDropModal">
+                                              GRANT
+                                          </button>
+                                          <a href="" class="btn btn-danger btn-sm ms-2">CANCEL</a>
+                                          @endif
 
+                                            <!-- Button trigger modal -->
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="backDropModal" data-bs-backdrop="static"
+                                                tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <form class="modal-content" action="{{ route('ad-reqdoc.upload', $req->id) }}" method="POST" enctype="multipart/form-data">
+                                                      @csrf
+                                                      @method('PUT')
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="backDropModalTitle">Modal title</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col mb-3">
+                                                                    <label for="nameBackdrop"
+                                                                        class="form-label">Select File</label>
+                                                                    <input type="file" name="file" id="nameBackdrop"
+                                                                        class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-label-secondary"
+                                                                data-bs-dismiss="modal">CLOSE</button>
+                                                            <button type="submit" class="btn btn-primary">SUBMIT</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
-                                <tr>
-                                  <td colspan="6" class="text-center">No Data to Show!</td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-center">No Data to Show!</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
