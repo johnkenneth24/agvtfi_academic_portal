@@ -27,13 +27,12 @@ use App\Http\Controllers\AdminRequestDocController;
 |
 */
 
-Route::middleware('guest')->group(function() {
+Route::middleware('guest')->group(function () {
   Route::get('/', [LoginController::class, 'login'])->name('login');
   Route::post('/verify', [LoginController::class, 'verifyUser'])->name('auth.verify');
-
 });
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
   Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
   Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -58,7 +57,6 @@ Route::middleware('auth')->group(function() {
     Route::get('/view/{ann}', 'view')->name('announcement.view');
     Route::put('/update/{ann}', 'update')->name('announcement.update');
     Route::get('/delete/{ann}', 'delete')->name('announcement.delete');
-
   });
 
   Route::controller(EnrollmentController::class)->prefix('enrollment')->group(function () {
@@ -77,10 +75,12 @@ Route::middleware('auth')->group(function() {
   Route::controller(StudentController::class)->prefix('student')->group(function () {
     Route::get('/index', 'index')->name('student.index');
     Route::get('/create', 'create')->name('student.create');
-    Route::get('/edit/{student}', 'edit')->name('student.edit');
     Route::post('/store', 'store')->name('student.store');
+    Route::get('/edit/{student}', 'edit')->name('student.edit');
+    Route::put('/update/{student}', 'update')->name('student.update');
+    Route::get('/show/{student}', 'show')->name('student.show');
+    Route::get('/delete/{student}', 'delete')->name('student.delete');
     Route::post('/extract', 'extract')->name('student.extract');
-
   });
 
   Route::controller(TeacherController::class)->prefix('teacher')->group(function () {
@@ -89,8 +89,6 @@ Route::middleware('auth')->group(function() {
     Route::post('/store', 'store')->name('teacher.store');
     Route::get('/edit/{user}', 'edit')->name('teacher.edit');
     Route::put('/update/{user}', 'update')->name('teacher.update');
-
-
   });
 
   Route::controller(ClassAdvisoryController::class)->prefix('class-advisory')->group(function () {
@@ -102,7 +100,6 @@ Route::middleware('auth')->group(function() {
     Route::get('/student-info/{student}', 'studentInfo')->name('classad.student-info');
     Route::get('/student-delete/{student}', 'deleteStudent')->name('classad.student-delete');
     Route::get('/delete/{class}', 'delete')->name('classad.delete');
-
   });
 
   Route::controller(ClassSubjectController::class)->prefix('class-sub')->group(function () {
@@ -113,8 +110,6 @@ Route::middleware('auth')->group(function() {
     Route::post('/store', 'store')->name('classsub.store');
     Route::post('/set-grade-store', 'setGradeStore')->name('classsub.set-grade-store');
     Route::put('/set-grade-update', 'setGradeUpdate')->name('classsub.set-grade-update');
-
-
   });
 
   Route::controller(GradeController::class)->prefix('grade-view')->group(function () {
@@ -124,19 +119,11 @@ Route::middleware('auth')->group(function() {
   Route::controller(RequestDocController::class)->prefix('request-document')->group(function () {
     Route::get('/index', 'index')->name('reqdoc.index');
     Route::post('/store', 'storeRequest')->name('reqdoc.store');
-
   });
 
   Route::controller(AdminRequestDocController::class)->prefix('admin-request-document')->group(function () {
     Route::get('/index', 'index')->name('ad-reqdoc.index');
     Route::put('/upload-doc/{document}', 'upload')->name('ad-reqdoc.upload');
     Route::get('/cancel-grant/{document}', 'cancelGrant')->name('ad-reqdoc.cancel');
-
   });
-
-
 });
-
-
-
-?>
