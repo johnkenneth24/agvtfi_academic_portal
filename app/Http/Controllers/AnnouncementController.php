@@ -10,7 +10,7 @@ class AnnouncementController extends Controller
 {
     public function index()
     {
-      $announcement = Announcement::orderBy("date","desc")->paginate(10);
+      $announcement = announcement::orderBy("date","desc")->paginate(10);
 
 
 
@@ -63,4 +63,12 @@ class AnnouncementController extends Controller
       ]);
       return redirect()->route('announcement.index')->with('success','Announcement successfully publish!');
     }
+
+    public function delete(announcement $ann)
+  {
+    $ann->delete();
+
+    return redirect()->route('announcement.index')->with('success', 'Announcement deleted successfully!');
+
+  }
 }

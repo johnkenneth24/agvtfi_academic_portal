@@ -57,16 +57,21 @@ Route::middleware('auth')->group(function() {
     Route::get('/edit/{ann}', 'edit')->name('announcement.edit');
     Route::get('/view/{ann}', 'view')->name('announcement.view');
     Route::put('/update/{ann}', 'update')->name('announcement.update');
+    Route::get('/delete/{ann}', 'delete')->name('announcement.delete');
+
   });
 
   Route::controller(EnrollmentController::class)->prefix('enrollment')->group(function () {
     Route::get('/index', 'index')->name('enrollment.index');
     Route::get('/create', 'create')->name('enrollment.create');
+    Route::get('/edit/{enrollment}', 'edit')->name('enrollment.edit');
+    Route::put('/update/{enrollment}', 'update')->name('enrollment.update');
+    Route::get('/deactivate/{enrollment}', 'deactivate')->name('enrollment.deactivate');
     Route::get('/view-application-list/{enrollment}', 'viewApplicationList')->name('enrollment.view-app-list');
     Route::post('/store', 'store')->name('enrollment.store');
     Route::post('/store-enrollment', 'enrollNow')->name('enrollment.store-enrollee');
     Route::get('/approved-enrollment/{pending}/{enrollment}', 'approved')->name('enrollment.approved');
-
+    Route::get('/delete/{enrollment}', 'delete')->name('enrollment.delete');
   });
 
   Route::controller(StudentController::class)->prefix('student')->group(function () {
@@ -82,8 +87,11 @@ Route::middleware('auth')->group(function() {
     Route::get('/index', 'index')->name('teacher.index');
     Route::get('/create', 'create')->name('teacher.create');
     Route::post('/store', 'store')->name('teacher.store');
-  });
+    Route::get('/edit/{user}', 'edit')->name('teacher.edit');
+    Route::put('/update/{user}', 'update')->name('teacher.update');
 
+
+  });
 
   Route::controller(ClassAdvisoryController::class)->prefix('class-advisory')->group(function () {
     Route::get('/index', 'index')->name('classad.index');
@@ -93,7 +101,7 @@ Route::middleware('auth')->group(function() {
     Route::post('/update/{classAd}', 'update')->name('classad.update');
     Route::get('/student-info/{student}', 'studentInfo')->name('classad.student-info');
     Route::get('/student-delete/{student}', 'deleteStudent')->name('classad.student-delete');
-
+    Route::get('/delete/{class}', 'delete')->name('classad.delete');
 
   });
 
@@ -122,7 +130,7 @@ Route::middleware('auth')->group(function() {
   Route::controller(AdminRequestDocController::class)->prefix('admin-request-document')->group(function () {
     Route::get('/index', 'index')->name('ad-reqdoc.index');
     Route::put('/upload-doc/{document}', 'upload')->name('ad-reqdoc.upload');
-
+    Route::get('/cancel-grant/{document}', 'cancelGrant')->name('ad-reqdoc.cancel');
 
   });
 

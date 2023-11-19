@@ -37,7 +37,7 @@
                             <thead>
                                 <tr>
                                     <th>Student Name</th>
-                                    <th class="">DOCUMENT TO REQUEST</th>
+                                    <th class="">DOCUMENT TO REQUEST</th> 
                                     <th class="text-center">STATUS</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
@@ -46,7 +46,6 @@
                                 @forelse ($reqs as $req)
                                     <tr>
                                         <td class="" style="font-size: 0.90rem;">{{ $req->student->fullname }}</td>
-
                                         <td class="" style="font-size: 0.90rem;">{{ $req->subject }}</td>
                                         <td class="text-center"style="font-size: 0.90rem;"><span
                                                 class="badge @if ($req->status == 'Active') bg-label-success @else bg-label-danger @endif  mt-2">{{ $req->status }}</span>
@@ -57,7 +56,7 @@
                                               data-bs-target="#backDropModal">
                                               GRANT
                                           </button>
-                                          <a href="" class="btn btn-danger btn-sm ms-2">CANCEL</a>
+                                          <a href="{{ route('ad-reqdoc.cancel', $req->id) }}" class="btn btn-danger btn-sm ms-2">CANCEL REQUEST</a>
                                           @endif
 
                                             <!-- Button trigger modal -->

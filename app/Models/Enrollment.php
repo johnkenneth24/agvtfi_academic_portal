@@ -12,7 +12,8 @@ class Enrollment extends Model
     protected $fillable = [
       'subject',
       'start',
-      'end'
+      'end',
+      'status'
     ];
 
     protected $casts = [

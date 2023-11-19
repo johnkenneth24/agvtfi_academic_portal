@@ -55,7 +55,34 @@
                 <td>
                   <a href="{{ route('announcement.view' , $ann->id) }}" class="btn btn-info btn-sm">View</a>
                   <a href="{{ route('announcement.edit', $ann->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                  <a href="" class="btn btn-danger btn-sm">Delete</a>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                  data-bs-target="#backDropModal{{  $ann->id }}">
+                  DELETE
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="backDropModal{{  $ann->id }}" data-bs-backdrop="static"
+                  tabindex="-1">
+                  <div class="modal-dialog modal-dialog-centered modal-sm">
+                      <form class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title" id="backDropModalTitle"></h5>
+                          </div>
+                          <div class="modal-body pt-2 pb-2">
+                              <h4 class="text-center">Are you sure <br> you want to delete?
+                              </h4>
+                          </div>
+                          <div class="modal-footer d-flex justify-content-center">
+                              <button type="button" class="btn btn-secondary"
+                                  data-bs-dismiss="modal">Close</button>
+                              <a href="{{ route('announcement.delete', $ann->id) }}"
+                                  type="button" class="btn btn-danger">Delete</a>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+              {{-- end modal --}}
                 </td>
               </tr>
               @empty

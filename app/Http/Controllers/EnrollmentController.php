@@ -9,83 +9,119 @@ use App\Models\User;
 
 class EnrollmentController extends Controller
 {
-    public function index()
-    {
-      $enrollments = Enrollment::orderBy('start', 'asc')->get();
+  public function index()
+  {
+    $enrollments = Enrollment::orderBy('start', 'asc')->get();
 
 
 
-      return view('modules.enrollment.index', compact('enrollments'));
-    }
+    return view('modules.enrollment.index', compact('enrollments'));
+  }
 
-    public function create()
-    {
-      return view('modules.enrollment.create');
-    }
+  public function create()
+  {
+    return view('modules.enrollment.create');
+  }
 
-    public function store(Request $request)
-    {
-      $validate = $request->validate([
-        'subject' => 'required',
-        'start' => 'required',
-        'end' => 'required'
-      ]);
+  public function store(Request $request)
+  {
+    $validate = $request->validate([
+      'subject' => 'required',
+      'start' => 'required',
+      'end' => 'required'
+    ]);
 
-      Enrollment::create([
-        'subject' => $validate['subject'],
-        'start' => $validate['start'],
-        'end' => $validate['end']
-      ]);
+    Enrollment::create([
+      'subject' => $validate['subject'],
+      'start' => $validate['start'],
+      'end' => $validate['end']
+    ]);
 
-      return redirect()->route('enrollment.index')->with('success','Enrollment successfully saved!');
-    }
+    return redirect()->route('enrollment.index')->with('success', 'Enrollment successfully saved!');
+  }
 
-    public function enrollNow(Request $request)
-    {
-      $enroll_level = $request->input('grade_level');
+  public function enrollNow(Request $request)
+  {
+    $enroll_level = $request->input('grade_level');
 
-      StudentYearLevel::create([
-        'student_id' => auth()->user()->id,
-        'year_level' => $enroll_level,
-        'status' => 'Pending'
-      ]);
+    StudentYearLevel::create([
+      'student_id' => auth()->user()->id,
+      'year_level' => $enroll_level,
+      'status' => 'Pending'
+    ]);
 
-      return redirect()->route('enrollment-stat.index')->with('success','Enrollment successfully submitted!');
+    return redirect()->route('enrollment-stat.index')->with('success', 'Enrollment successfully submitted!');
+  }
 
-    }
+  public function viewApplicationList(Enrollment $enrollment)
+  {
 
-    public function viewApplicationList(Enrollment $enrollment)
-    {
-
-      $pendings = StudentYearLevel::where('status', 'Pending')
+    $pendings = StudentYearLevel::where('status', 'Pending')
       ->orderBy('created_at', 'asc')
       ->get();
 
 
-      return view('modules.enrollment.view-app-list', compact('pendings', 'enrollment'));
-    }
+    return view('modules.enrollment.view-app-list', compact('pendings', 'enrollment'));
+  }
 
-    public function approved(StudentYearLevel $pending, Enrollment $enrollment)
-    {
-      $current = StudentYearLevel::where('student_id', $pending->student_id)
+  public function approved(StudentYearLevel $pending, Enrollment $enrollment)
+  {
+    $current = StudentYearLevel::where('student_id', $pending->student_id)
       ->where('status', 'Current')
       ->first();
 
-      $current->update([
-        'status' => 'Inactive'
-      ]);
+    $current->update([
+      'status' => 'Inactive'
+    ]);
 
-      $current = StudentYearLevel::where('student_id', $pending->student_id)
+    $current = StudentYearLevel::where('student_id', $pending->student_id)
       ->where('status', 'Pending')
       ->first();
 
-      $current->update([
-        'status' => 'Current'
+    $current->update([
+      'status' => 'Current'
+    ]);
+
+    return redirect()->route('enrollment.view-app-list', $enrollment->id)->with('success', 'Enrollment successfully approved!');
+  }
+
+  public function edit(Enrollment $enrollment)
+  {
+
+    return view('modules.enrollment.edit', compact('enrollment'));
+  }
+
+  public function update(Enrollment $enrollment, Request $request)
+  {
+    $validate = $request->validate([
+      'subject' => 'required',
+      'start' => 'required',
+      'end' => 'required'
+    ]);
+
+    $enrollment->update([
+      'subject' => $validate['subject'],
+      'start' => $validate['start'],
+      'end' => $validate['end']
+    ]);
+
+    return redirect()->route('enrollment.edit', $enrollment->id)->with('success', 'Enrollment successfully updated!');
+  }
+
+  public function deactivate(Enrollment $enrollment)
+  {
+      $enrollment->update([
+          'status' => 'Deactivated'
       ]);
 
-      return redirect()->route('enrollment.view-app-list', $enrollment->id)->with('success','Enrollment successfully approved!');
+      return redirect()->route('enrollment.index')->with('success', 'Enrollment deactivated successfully!');
+  }
 
-    }
+  public function delete(Enrollment $enrollment)
+  {
+    $enrollment->delete();
 
+    return redirect()->route('enrollment.index')->with('success', 'Enrollment deleted successfully!');
 
+  }
 }

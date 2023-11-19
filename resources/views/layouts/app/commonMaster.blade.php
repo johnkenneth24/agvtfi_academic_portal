@@ -31,7 +31,7 @@
   @include('layouts/app/sections/scripts')
 
   @stack('page-script')
-
+  @include('sweetalert::alert')
 </body>
 
 </html>

@@ -6,16 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\ClassAdvisory;
 use App\Models\ClassAdvisoryStudent;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class ClassAdvisoryController extends Controller
 {
   public function index()
   {
-     $classes = ClassAdvisory::where('teacher_id', auth()->user()->id)
-     ->orderBy('status' , 'asc')
-     ->get();
+    $classes = ClassAdvisory::where('teacher_id', auth()->user()->id)
+      ->orderBy('status', 'asc')
+      ->get();
 
-     $strands = ['ACCOUNTING BUSINESSNESS MANAGEMENT', 'INFORMATION COMMUNICATION TECHNOLOGY', 'GENERAL ACADEMIC STRAND', 'HOME ECONOMICS', 'AUTOMOTIVE', 'ELECTRICAL INSTALLATION AND MAINTENANCE'];
+    $strands = ['ACCOUNTING BUSINESSNESS MANAGEMENT', 'INFORMATION COMMUNICATION TECHNOLOGY', 'GENERAL ACADEMIC STRAND', 'HOME ECONOMICS', 'AUTOMOTIVE', 'ELECTRICAL INSTALLATION AND MAINTENANCE'];
 
 
     return view('modules.class-advisory.index', compact('classes', 'strands'));
@@ -28,7 +30,7 @@ class ClassAdvisoryController extends Controller
     })->get();
 
     $student_list = ClassAdvisoryStudent::where('class_advisory_id', $student->id)
-    ->get();
+      ->get();
 
     return view('modules.class-advisory.student', compact('student', 'student_name', 'student_list'));
   }
@@ -42,12 +44,12 @@ class ClassAdvisoryController extends Controller
     ]);
 
     ClassAdvisory::where('teacher_id', auth()->user()->id)
-        ->where('status', 'Active')
-        ->update(['status' => 'Inactive']);
+      ->where('status', 'Active')
+      ->update(['status' => 'Inactive']);
 
     ClassAdvisory::create([
       'teacher_id' => auth()->user()->id,
-      'academic_year'=>$validated['academic_year'],
+      'academic_year' => $validated['academic_year'],
       'grade_level' => $validated['grade_level'],
       'section' => $validated['section']
     ]);
@@ -55,7 +57,7 @@ class ClassAdvisoryController extends Controller
     return redirect()->route('classad.index')->with('success', 'Addded New Class Advisory');
   }
 
-   public function update(Request $request, ClassAdvisory $classAd)
+  public function update(Request $request, ClassAdvisory $classAd)
   {
     $validated = $request->validate([
       'academic_year' => ['required'],
@@ -65,7 +67,7 @@ class ClassAdvisoryController extends Controller
 
     $classAd->update([
       'teacher_id' => auth()->user()->id,
-      'academic_year'=>$validated['academic_year'],
+      'academic_year' => $validated['academic_year'],
       'grade_level' => $validated['grade_level'],
       'section' => $validated['section']
     ]);
@@ -75,29 +77,29 @@ class ClassAdvisoryController extends Controller
 
   public function storeClassStudent(Request $request)
   {
-      $validated = $request->validate([
-          'class_advisory_id' => ['required'],
-          'student_id' => ['required']
-      ]);
+    $validated = $request->validate([
+      'class_advisory_id' => ['required'],
+      'student_id' => ['required']
+    ]);
 
-      if ($validated['student_id'] == 'NA') {
-          return redirect()->back()->withErrors('Please Select Student!');
-      }
+    if ($validated['student_id'] == 'NA') {
+      return redirect()->back()->withErrors('Please Select Student!');
+    }
 
-      $existingStudent = ClassAdvisoryStudent::where('class_advisory_id', $validated['class_advisory_id'])
-          ->where('student_id', $validated['student_id'])
-          ->first();
+    $existingStudent = ClassAdvisoryStudent::where('class_advisory_id', $validated['class_advisory_id'])
+      ->where('student_id', $validated['student_id'])
+      ->first();
 
-      if ($existingStudent) {
-          return redirect()->back()->withErrors('Student already exists in the advisory class!');
-      }
+    if ($existingStudent) {
+      return redirect()->back()->withErrors('Student already exists in the advisory class!');
+    }
 
-      ClassAdvisoryStudent::create([
-          'class_advisory_id' => $validated['class_advisory_id'],
-          'student_id' => $validated['student_id']
-      ]);
+    ClassAdvisoryStudent::create([
+      'class_advisory_id' => $validated['class_advisory_id'],
+      'student_id' => $validated['student_id']
+    ]);
 
-      return redirect()->back()->with('success', 'New student added!');
+    return redirect()->back()->with('success', 'New student added!');
   }
 
   public function studentInfo(ClassAdvisoryStudent $student)
@@ -109,8 +111,25 @@ class ClassAdvisoryController extends Controller
   {
     $student->delete();
 
-    return redirect()->back()->with('success','Successfully remove to the class!');
+    alert()->warning('Successfully deleted!','');
+
+    return redirect()->back();
   }
 
+  public function delete(ClassAdvisory $class)
+  {
 
+    if($class->classAdvisoryStudent->isEmpty())
+    {
+      $class->delete();
+
+      alert()->success('Successfully deleted!','');
+      return redirect()->back();
+    }
+    alert()->warning('Class Advisory','You cannot delete unless you dont have student in the class advisory!');
+
+    return redirect()->back();
+
+
+  }
 }
