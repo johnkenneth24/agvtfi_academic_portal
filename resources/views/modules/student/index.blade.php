@@ -35,7 +35,11 @@
                     </div>
                     <div class="card-tools d-flex justify-content-end">
                         <div class="col-md-6 me-2">
-                            <input type="text" class="form-control col-md-3" placeholder="Search...">
+                            <form action="{{ route('student.index') }}" method="get">
+                                @csrf
+                                <input class="form-control col-md-3 d-none d-md-block" type="search" autocomplete="off"
+                                    autofocus placeholder="Search..." name="search">
+                            </form>
                         </div>
                         <a href="{{ route('student.create') }}" class="btn btn-info">ADD NEW STUDENT</a>
                     </div>
@@ -44,7 +48,8 @@
                     <div class="col-md-5 mb-3 d-flex ">
                         <form action="{{ route('student.extract') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <label for="" class="form-label mb-0">Select an .xlsx .xls file to import student</label>
+                            <label for="" class="form-label mb-0">Select an .xlsx or an .xls file to import
+                                student</label>
                             <div class="input-group">
                                 <input type="file" name="excel_file" class="form-control">
                                 <button type="submit" class="btn btn-info">EXTRACT</button>
@@ -75,12 +80,43 @@
                                         <td style="font-size: 0.90rem;">{{ $student->email }}</td>
                                         <td style="font-size: 0.90rem;">{{ $student->contact_number }}</td>
                                         <td>
-                                            <a href="" class="btn btn-info btn-sm">View</a>
-                                            <a href="{{ route('student.edit', $student->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                            <a href="{{ route('student.show', $student->id) }}"
+                                                class="btn btn-info btn-sm">View</a>
+                                            <a href="{{ route('student.edit', $student->id) }}"
+                                                class="btn btn-primary btn-sm">Edit</a>
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#backDropModal{{ $student->id }}">
+                                                DELETE
+                                            </button>
                                         </td>
                                     </tr>
+                                    <div class="modal fade" id="backDropModal{{ $student->id }}" data-bs-backdrop="static"
+                                        tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="backDropModalTitle"></h5>
+                                                </div>
+                                                <div class="modal-body pt-2 px-3">
+                                                    <h4 class="text-center">Are you sure you want to delete this student
+                                                        record?</h4>
+                                                    <h6 class="text-danger text-center">Note: This action is irreversible.
+                                                    </h6>
+                                                </div>
+                                                <div class="modal-footer d-flex justify-content-center">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">No, Cancel</button>
+                                                    <a href="{{ route('student.delete', $student) }}" type="button"
+                                                        class="btn btn-danger">Yes, Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center">No data available</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>

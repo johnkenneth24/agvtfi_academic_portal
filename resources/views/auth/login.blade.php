@@ -1,6 +1,6 @@
 @extends('layouts/auth-app/blankLayout')
 
-@section('title', 'Login Basic - Pages')
+@section('title', 'Login')
 
 @section('page-style')
     <!-- Page -->
@@ -28,7 +28,7 @@
                         <div class="app-brand justify-content-center">
                             <a href="{{ url('/') }}" class="app-brand-link gap-2 d-flex flex-column">
                                 <img src="{{ asset('assets/img/backgrounds/bg.png') }}" height="150" alt="">
-                                <h5 class="text-primary"><strong>AGVTFI ACADEMIC PORTAL</strong></h5>
+                                <h4 class="text-primary"><strong>AGVTFI ACADEMIC PORTAL</strong></h4>
                             </a>
                         </div>
                         <!-- /Logo -->

@@ -1,28 +1,29 @@
 @extends('layouts/app/contentNavbarLayout')
 
-@section('title', 'Add Student')
+@section('title', 'Update Student Info')
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">
 @endsection
 
 @section('content')
-    <form action="{{ route('student.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
+    <form method="POST" enctype="multipart/form-data" autocomplete="off">
         @csrf
+        @method('PUT')
         <div class="row">
             <div class="col-xxl-12">
                 <div class="card p-2">`
                     <div class="card-header py-0 d-flex justify-content-between align-items-center">
                         <div class="card-title">
-                            <h5 class="card-title text-uppercase">ADD NEW STUDENT</h5>
+                            <h5 class="card-title text-uppercase">VIEW STUDENT INFORMATION</h5>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="" class="form-label">school id</label>
-                                    <input type="text" name="school_id" value="{{ $school_id }}" readonly
+                                    <label for="" class="form-label">School ID</label>
+                                    <input type="text" name="school_id" value="{{ $student->school_id }}" readonly
                                         class="form-control @error('school_id') is-invalid @enderror">
                                     @error('school_id')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
@@ -33,9 +34,9 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="" class="form-label">admission date</label>
+                                    <label for="" class="form-label">Admission Date</label>
                                     <input type="date" name="admission_date"
-                                        value="{{ old('admission_date') ?? date('Y-m-d') }}"
+                                        value="{{ $student?->admission_date?->format('Y-m-d') ?? '' }}" readonly
                                         class="form-control @error('admission_date') is-invalid @enderror">
                                     @error('admission_date')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
@@ -47,11 +48,17 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">Grade Level</label>
-                                    <select name="year_level"
-                                        class="form-control @error('year_level') is-invalid @enderror">
+                                    <select name="year_level" class="form-control @error('year_level') is-invalid @enderror"
+                                        disabled>
                                         <option value="">--Please Select--</option>
-                                        <option value="Grade 11" @selected(old('year_level' == 'Grade 11'))>Grade 11</option>
-                                        <option value="Grade 12" @selected(old('year_level' == 'Grade 12'))>Grade 12</option>
+                                        @foreach ($student->studentYearLevel as $yearLevel)
+                                            <option value="Grade 11"
+                                                {{ $yearLevel->year_level == 'Grade 11' ? 'selected' : '' }}>Grade 11
+                                            </option>
+                                            <option value="Grade 12"
+                                                {{ $yearLevel->year_level == 'Grade 12' ? 'selected' : '' }}>Grade 12
+                                            </option>
+                                        @endforeach
                                     </select>
                                     @error('year_level')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
@@ -66,9 +73,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">First Name</label>
-                                    <input type="text" name="firstname"
-                                        class="form-control @error('firstname') is-invalid @enderror"
-                                        value="{{ old('firstname') }}">
+                                    <input type="text" name="firstname" value="{{ $student->firstname }}" readonly
+                                        class="form-control @error('firstname') is-invalid @enderror">
                                     @error('firstname')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -79,9 +85,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">Middle Name</label>
-                                    <input type="text" name="middlename"
-                                        class="form-control @error('middlename') is-invalid @enderror"
-                                        value="{{ old('middlename') }}">
+                                    <input type="text" name="middlename" value="{{ $student->middlename }}" readonly
+                                        class="form-control @error('middlename') is-invalid @enderror">
                                     @error('middlename')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -92,9 +97,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">Last Name</label>
-                                    <input type="text" name="lastname"
-                                        class="form-control @error('lastname') is-invalid @enderror"
-                                        value="{{ old('lastname') }}">
+                                    <input type="text" name="lastname" value="{{ $student->lastname }}" readonly
+                                        class="form-control @error('lastname') is-invalid @enderror">
                                     @error('lastname')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -105,11 +109,10 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">SUFFIX Name</label>
-                                    <select type="text" name="suffix"
-                                        class="form-control @error('suffix') is-invalid @enderror">
+                                    <select name="suffix" class="form-control" disabled>
                                         <option value="">--Please Select--</option>
                                         @foreach ($suffixes as $suffix)
-                                            <option value="{{ $suffix }}" @selected(old('suffix') == $suffix)>
+                                            <option value="{{ $suffix }}" @selected($student->suffix == $suffix)>
                                                 {{ $suffix }}</option>
                                         @endforeach
                                     </select>
@@ -125,21 +128,27 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">gender</label>
-                                    <select name="gender" class="form-control @error('gender') is-invalid @enderror">
+                                    <select name="gender" class="form-control @error('gender') is-invalid @enderror"
+                                        disabled>
                                         <option value="">--Please Select--</option>
                                         @foreach ($gender as $genders)
-                                            <option value="{{ $genders }}" @selected(old('gender') == $genders)>
+                                            <option value="{{ $genders }}" @selected($student->gender)>
                                                 {{ $genders }}</option>
                                         @endforeach
                                     </select>
+                                    @error('gender')
+                                        <div class="invalid-feedback mt-0" style="display: inline-block !important;">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">birthdate</label>
-                                    <input type="date" name="birthdate" id="birthdate"
-                                        class="form-control @error('birthdate') is-invalid @enderror" required
-                                        value="{{ old('birthdate') }}">
+                                    <input type="date" name="birthdate"
+                                        value="{{ $student->birthdate?->format('Y-m-d') ?? '' }}" readonly
+                                        class="form-control @error('birthdate') is-invalid @enderror" id="birthdate">
                                     @error('birthdate')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -150,7 +159,9 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">age</label>
-                                    <input type="number" name="age" id="age" class="form-control" readonly>
+                                    <input type="number" name="age"
+                                        class="form-control @error('age') is-invalid @enderror" id="age"
+                                        value="{{ $student->age }}" placeholder="0" readonly>
                                     @error('age')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -163,9 +174,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">address</label>
-                                    <input type="text" name="address"
-                                        class="form-control @error('address') is-invalid @enderror"
-                                        value="{{ old('address') }} ">
+                                    <input type="text" name="address" value="{{ $student->address }}" readonly
+                                        class="form-control @error('address') is-invalid @enderror">
                                     @error('address')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -176,13 +186,9 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">contact number</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">+63</span>
-                                        <input type="text" name="contact" pattern="[0-9]{10}"
-                                            placeholder="9xxxxxxxxx"
-                                            class="form-control @error('contact') is-invalid @enderror"
-                                            value="{{ old('contact') }} ">
-                                    </div>
+                                    <input type="text" name="contact" pattern="{0-9}[10]" readonly
+                                        value="+63{{ $student->contact_number }}"
+                                        class="form-control @error('contact') is-invalid @enderror">
                                     @error('contact')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -193,9 +199,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">e-mail</label>
-                                    <input type="email" name="email"
-                                        class="form-control @error('email') is-invalid @enderror"
-                                        value={{ old('email') }}>
+                                    <input type="email" name="email" value="{{ $student->email }}" readonly
+                                        class="form-control @error('email') is-invalid @enderror">
                                     @error('email')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -206,8 +211,8 @@
                         </div>
                     </div>
                     <div class="card-footer justify-content-end d-flex">
-                        <a href="{{ route('student.index') }}" class="btn btn-danger me-2">CANCEL</a>
-                        <button type="submit" class="btn btn-info">SUBMIT</button>
+                        <a href="{{ route('student.index') }}" class="btn btn-primary me-2">Go Back</a>
+                        {{-- <button type="submit" class="btn btn-info">SUBMIT</button> --}}
                     </div>
                 </div>
             </div>
@@ -217,7 +222,7 @@
 
 @section('vendor-script')
     <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#birthdate').on('input', function() {
                 var dob = new Date(this.value);
@@ -226,17 +231,7 @@
                 $('#age').val(age);
             });
         });
-
-        const contactInput = document.querySelector('input[name="contact"]');
-
-        contactInput.addEventListener('input', function() {
-            if (this.value.length != 10 || isNaN(this.value)) {
-                this.classList.add('is-invalid');
-            } else {
-                this.classList.remove('is-invalid');
-            }
-        });
-    </script>
+    </script> --}}
 @endsection
 
 @section('page-script')
