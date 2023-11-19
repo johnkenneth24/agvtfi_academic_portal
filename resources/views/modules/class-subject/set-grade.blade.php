@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row mt-2">
+                    <div class="row g-2 mt-2">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="" class="form-label">SUBJECT CLASS</label>
@@ -88,7 +88,7 @@
                                 <input type="hidden" name="class_sub_id[]" value="{{ $student->class_sub_id }}">
                                 <input type="hidden" name="class_advisory_id[]" value="{{ $student->class_advisory_id }}">
                                 <input type="hidden" name="student_id[]" value="{{ $student->student_id }}">
-                                <div class="row mt-2">
+                                <div class="row g-2 mt-2">
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="" class="form-label">NAME OF STUDENT</label>
@@ -222,11 +222,11 @@
                         </div>
                         <div class="card-body pb-0">
                             @forelse ($studentsWithoutGrade as $student)
-                                <input type="text" name="class_sub_id[]" value="{{ $class->id }}">
-                                <input type="text" name="class_advisory_id[]"
+                                <input type="hidden" name="class_sub_id[]" value="{{ $class->id }}">
+                                <input type="hidden" name="class_advisory_id[]"
                                     value="{{ $student->class_advisory_id }}">
-                                <input type="text" name="student_id[]" value="{{ $student->student_id }}">
-                                <div class="row mt-2">
+                                <input type="hidden" name="student_id[]" value="{{ $student->student_id }}">
+                                <div class="row g-2 mt-2">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="" class="form-label">NAME OF STUDENT</label>

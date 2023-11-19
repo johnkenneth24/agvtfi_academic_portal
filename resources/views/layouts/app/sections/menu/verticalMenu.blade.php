@@ -76,7 +76,7 @@
             <li class="menu-item {{ !request()->routeIs('ad-reqdoc.*') ?: 'active' }} ">
               <a href="{{ route('ad-reqdoc.index') }}" class=" menu-link" style="color: #ffff">
                   <i class="menu-icon bx bxs-file-doc"></i>
-                  <div>Request Document</div>
+                  <div>Permament Record</div>
               </a>
           </li>
         @endrole
@@ -110,7 +110,7 @@
             <li class="menu-item {{ !request()->routeIs('reqdoc.*') ?: 'active' }} ">
               <a href="{{ route('reqdoc.index') }}" class=" menu-link" style="color: #ffff">
                   <i class="menu-icon bx bxs-file-doc"></i>
-                  <div>Request Document</div>
+                  <div>Permament Record</div>
               </a>
           </li>
         @endrole

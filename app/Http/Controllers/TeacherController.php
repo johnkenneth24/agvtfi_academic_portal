@@ -58,4 +58,18 @@ class TeacherController extends Controller
 
     return redirect()->route('teacher.index')->with('success', 'Successfuly added new teacher!');
   }
+
+  public function edit(User $user)
+  {
+    $gender = ['Male', 'Female'];
+
+
+    return view('modules.teacher.edit', compact('user', 'gender'));
+  }
+
+  public function update(User $user)
+  {
+
+    return view('modules.teacher.edit');
+  }
 }

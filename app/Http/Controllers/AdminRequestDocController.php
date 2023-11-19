@@ -50,8 +50,12 @@ class AdminRequestDocController extends Controller
     return redirect()->route('ad-reqdoc.index')->with('success', 'Granted successfully!');
   }
 
-  public function cancelDoc(RequestDocument $document)
+  public function cancelGrant(RequestDocument $document)
   {
-    
+    $document->update([
+      'status' => 'Request Cancelled'
+    ]);
+
+    return redirect()->route('ad-reqdoc.index')->with('success', 'Successfully cancelled!');
   }
 }

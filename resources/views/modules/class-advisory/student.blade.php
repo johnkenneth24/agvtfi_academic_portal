@@ -23,15 +23,15 @@
             <div class="card p-2" style="height: 160.297px;">
                 <div class="card-header pt-2 pb-2 d-flex justify-content-between align-items-center">
                     <div class="card-title mb-0">
-                        <h5 class="card-title mb-0 text-uppercase">CLASS ADVISORY</h5>
+                        <h6 class="card-title mb-0 text-uppercase">CLASS ADVISORY | {{ $student->section }}</h6>
                     </div>
                     <div class="card-tools d-flex justify-content-end">
 
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row mt-2">
-                        <div class="col-md-4">
+                    <div class="row g-2 mt-2">
+                        <div class="col">
                             <div class="form-group">
                                 <label class="form-label">ACADEMIC YEAR FROM</label>
                                 <input type="text" class="form-control" value="{{ $student->academic_year }}" readonly>
@@ -42,22 +42,11 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col">
                             <div class="form-group">
                                 <label class="form-label">GRADE LEVEL</label>
                                 <input type="text" class="form-control" value="{{ $student->grade_level }}" readonly>
                                 @error('grade_level')
-                                    <div class="invalid-feedback mt-0" style="display: inline-block !important;">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">SECTION</label>
-                                <input type="text" class="form-control" value="{{ $student->section }}" readonly>
-                                @error('section')
                                     <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                         {{ $message }}
                                     </div>
