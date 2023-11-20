@@ -78,7 +78,7 @@
                                         <td style="font-size: 0.90rem;">{{ $student->school_id }}</td>
                                         <td style="font-size: 0.90rem;">{{ $student->full_name }}</td>
                                         <td style="font-size: 0.90rem;">{{ $student->email }}</td>
-                                        <td style="font-size: 0.90rem;">{{ $student->contact_number }}</td>
+                                        <td style="font-size: 0.90rem;">+63{{ $student->contact_number }}</td>
                                         <td>
                                             <a href="{{ route('student.show', $student->id) }}"
                                                 class="btn btn-info btn-sm">View</a>
@@ -112,7 +112,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 @empty
                                     <tr>
                                         <td colspan="5" class="text-center">No data available</td>
@@ -120,6 +119,7 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        {{ $students->links() }}
                     </div>
                 </div>
             </div>

@@ -1,28 +1,29 @@
 @extends('layouts/app/contentNavbarLayout')
 
-@section('title', 'ADD NEW TEACHER')
+@section('title', 'VIEW TEACHER INFORMATION')
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">
 @endsection
 
 @section('content')
-    <form action="{{ route('teacher.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
+    <form enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="row">
             <div class="col-xxl-12">
                 <div class="card p-2">`
                     <div class="card-header py-0 d-flex justify-content-between align-items-center">
                         <div class="card-title">
-                            <h5 class="card-title text-uppercase">ADD NEW TEACHER</h5>
+                            <h5 class="card-title text-uppercase">VIEW TEACHER PERSONAL INFORMATION</h5>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row g-2">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">school id</label>
-                                    <input type="text" name="school_id" value="{{ $school_id }}" readonly
+                                    <input type="text" name="school_id" value="{{ $teacher->school_id }}" readonly
                                         class="form-control">
                                     @error('school_id')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
@@ -32,12 +33,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row g-2 mt-2">
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">First Name</label>
-                                    <input type="text" name="firstname" value="{{ old('firstname') }}"
-                                        class="form-control @error('firstname') is-invalid @enderror">
+                                    <input type="text" name="firstname" class="form-control" readonly
+                                        value="{{ $teacher->firstname }}">
                                     @error('firstname')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -48,8 +49,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">Middle Name</label>
-                                    <input type="text" name="middlename" value="{{ old('middlename') }}"
-                                        class="form-control @error('middlename') is-invalid @enderror">
+                                    <input type="text" name="middlename" value="{{ $teacher->middlename }}" readonly
+                                        class="form-control">
                                     @error('middlename')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -60,8 +61,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">Last Name</label>
-                                    <input type="text" name="lastname" value="{{ old('lastname') }}"
-                                        class="form-control @error('lastname') is-invalid @enderror">
+                                    <input type="text" name="lastname" value="{{ $teacher->lastname }}" readonly
+                                        class="form-control">
                                     @error('lastname')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -71,46 +72,37 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="" class="form-label">SUFFIX Name</label>
-                                    <select name="suffix" class="form-control @error('suffix') is-invalid @enderror">
+                                    <label for="" class="form-label">SUFFIX</label>
+                                    <select name="suffix" class="form-control" disabled>
                                         <option value="">--Please Select--</option>
                                         @foreach ($suffixes as $suffix)
-                                            <option value="{{ $suffix }}" @selected(old('suffix') == $suffix)>
+                                            <option value="{{ $suffix }}" @selected($teacher->suffix == $suffix)>
                                                 {{ $suffix }}</option>
                                         @endforeach
                                     </select>
-                                    @error('suffix')
-                                        <div class="invalid-feedback mt-0" style="display: inline-block !important;">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row g-2 mt-2">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">gender</label>
-                                    <select name="gender" class="form-control @error('gender') is-invalid @enderror">
+                                    <select name="gender" class="form-control @error('gender') is-invalid @enderror"
+                                        disabled required>
                                         <option value="">--Please Select--</option>
                                         @foreach ($gender as $genders)
-                                            <option value="{{ $genders }}" @selected(old('gender') == $genders)>
+                                            <option value="{{ $genders }}" @selected($teacher->gender == $genders)>
                                                 {{ $genders }}</option>
                                         @endforeach
                                     </select>
-                                    @error('gender')
-                                        <div class="invalid-feedback mt-0" style="display: inline-block !important;">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">birthdate</label>
-                                    <input type="date" name="birthdate" id="birthdate"
-                                        class="form-control @error('birthdate') is-invalid @enderror"
-                                        value="{{ old('birthdate') }}" placeholder="Birthdate" autocomplete="off">
+                                    <input type="date" name="birthdate"
+                                        value="{{ $teacher->birthdate->format('Y-m-d') }}" required id="birthdate" readonly
+                                        class="form-control @error('birthdate') is-invalid @enderror">
                                     @error('birthdate')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -121,9 +113,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">age</label>
-                                    <input type="number" name="age" id="age"
-                                        class="form-control @error('age') is-invalid @enderror" value="{{ old('age') }}"
-                                        placeholder="Age" autocomplete="off" readonly>
+                                    <input type="number" name="age" value="{{ $teacher->age }}" id="age"
+                                        class="form-control @error('age') is-invalid @enderror" required readonly>
                                     @error('age')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -132,13 +123,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row g-2 mt-2">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">address</label>
-                                    <input type="text" name="address"
-                                        class="form-control @error('address') is-invalid @enderror"
-                                        value="{{ old('address') }}">
+                                    <input type="text" name="address" value="{{ $teacher->address }}"
+                                        class="form-control @error('address') is-invalid @enderror" readonly>
                                     @error('address')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -152,8 +142,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">+63</span>
                                         <input type="text" pattern="{0-9}[10]" name="contact"
-                                            class="form-control @error('contact') is-invalid @enderror"
-                                            value="{{ old('contact') }}" required>
+                                            value="{{ $teacher->contact_number }}"
+                                            class="form-control @error('contact') is-invalid @enderror" readonly>
                                     </div>
                                     @error('contact')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
@@ -165,9 +155,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">e-mail</label>
-                                    <input type="email" name="email"
-                                        class="form-control @error('email') is-invalid @enderror"
-                                        value="{{ old('email') }}">
+                                    <input type="email" name="email" value="{{ $teacher->email }}"
+                                        class="form-control @error('email') is-invalid @enderror" readonly>
                                     @error('email')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
@@ -178,8 +167,8 @@
                         </div>
                     </div>
                     <div class="card-footer justify-content-end d-flex">
-                        <a href="{{ route('teacher.index') }}" class="btn btn-danger me-2">CANCEL</a>
-                        <button type="submit" class="btn btn-info">SUBMIT</button>
+                        <a href="{{ route('teacher.index') }}" class="btn btn-info me-2">GO BACK</a>
+                        {{-- <button type="submit" class="btn btn-info">UPDATE</button> --}}
                     </div>
                 </div>
             </div>
@@ -189,7 +178,7 @@
 
 @section('vendor-script')
     <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#birthdate').on('input', function() {
                 var dob = new Date(this.value);
@@ -208,7 +197,7 @@
                 this.classList.remove('is-invalid');
             }
         });
-    </script>
+    </script> --}}
 @endsection
 
 @section('page-script')
