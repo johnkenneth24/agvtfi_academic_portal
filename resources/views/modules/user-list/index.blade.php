@@ -1,17 +1,9 @@
 @extends('layouts/app/contentNavbarLayout')
 
-@section('title', 'Dashboard - Analytics')
+@section('title', 'AGVTFI - Users List')
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">
-@endsection
-
-@section('vendor-script')
-    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-@endsection
-
-@section('page-script')
-    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 @endsection
 
 @section('content')
@@ -24,7 +16,11 @@
                     </div>
                     <div class="card-tools d-flex justify-content-end">
                         <div class="col-md-9 me-2">
-                            <input readonly  type="text" class="form-control col-md-3" placeholder="Search...">
+                            <form action="{{ route('user-list.index') }}" method="get">
+                                @csrf
+                                <input class="form-control col-md-3 d-none d-md-block" type="search" autocomplete="off"
+                                    id="searchInput" autofocus placeholder="Search..." name="search">
+                            </form>
                         </div>
                         {{-- <a href="{{ route('user.create') }}" class="btn btn-info">ADD NEW user</a> --}}
                     </div>
@@ -57,7 +53,7 @@
                                             @endif
                                         </td>
                                         <td style="font-size: 0.90rem;">{{ $user->email }}</td>
-                                        <td style="font-size: 0.90rem;">{{ $user->contact_number }}</td>
+                                        <td style="font-size: 0.90rem;">+63{{ $user->contact_number }}</td>
                                         <td>
 
                                             <!-- Button trigger modal -->
@@ -72,8 +68,10 @@
                                                 <div class="modal-dialog modal-lg modal-dialog-centered">
                                                     <form class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title text-primary text-uppercase" id="backDropModalTitle">
-                                                              {{ implode(', ', $user->getRoleNames()->toArray()) }} | PERSONAL INFORMATION</h5>
+                                                            <h5 class="modal-title text-primary text-uppercase"
+                                                                id="backDropModalTitle">
+                                                                {{ implode(', ', $user->getRoleNames()->toArray()) }} |
+                                                                PERSONAL INFORMATION</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                         </div>
@@ -82,28 +80,28 @@
                                                                 <div class="col mb-3">
                                                                     <label for="nameBackdrop" class="form-label">FIRST
                                                                         Name</label>
-                                                                    <input readonly  type="text" value="{{ $user->firstname }}"
-                                                                        id="nameBackdrop" class="form-control"
-                                                                        placeholder="Enter Name">
+                                                                    <input readonly type="text"
+                                                                        value="{{ $user->firstname }}" id="nameBackdrop"
+                                                                        class="form-control" placeholder="Enter Name">
                                                                 </div>
                                                                 <div class="col mb-3">
                                                                     <label for="nameBackdrop" class="form-label">MIDDLE
                                                                         Name</label>
-                                                                    <input readonly  type="text" id="nameBackdrop"
+                                                                    <input readonly type="text" id="nameBackdrop"
                                                                         value="{{ $user->middlename }}"
                                                                         class="form-control" placeholder="Enter Name">
                                                                 </div>
                                                                 <div class="col mb-3">
                                                                     <label for="nameBackdrop" class="form-label">LAST
                                                                         Name</label>
-                                                                    <input readonly  type="text" id="nameBackdrop"
+                                                                    <input readonly type="text" id="nameBackdrop"
                                                                         value="{{ $user->lastname }}" class="form-control"
                                                                         placeholder="Enter Name">
                                                                 </div>
                                                                 <div class="col-1 mb-3">
                                                                     <label for="nameBackdrop"
                                                                         class="form-label">EXT.</label>
-                                                                    <input readonly  type="text" id="nameBackdrop"
+                                                                    <input readonly type="text" id="nameBackdrop"
                                                                         value="{{ $user->suffix }}" class="form-control"
                                                                         placeholder="">
                                                                 </div>
@@ -112,7 +110,7 @@
                                                                 <div class="col mb-0">
                                                                     <label for="emailBackdrop"
                                                                         class="form-label">birthdate</label>
-                                                                    <input readonly  type="date"
+                                                                    <input readonly type="date"
                                                                         value="{{ $user->birthdate->format('Y-m-d') }}"
                                                                         id="emailBackdrop" class="form-control"
                                                                         placeholder="xxxx@xxx.xx">
@@ -120,42 +118,43 @@
                                                                 <div class="col mb-0">
                                                                     <label for="emailBackdrop"
                                                                         class="form-label">age</label>
-                                                                    <input readonly  type="email" id="emailBackdrop"
+                                                                    <input readonly type="email" id="emailBackdrop"
                                                                         value="{{ $user->age }}" class="form-control"
                                                                         placeholder="xxxx@xxx.xx">
                                                                 </div>
                                                                 <div class="col mb-0">
                                                                     <label for="dobBackdrop"
                                                                         class="form-label">gender</label>
-                                                                    <input readonly  type="text" id="dobBackdrop"
+                                                                    <input readonly type="text" id="dobBackdrop"
                                                                         value="{{ $user->gender }}" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="row g-2">
-                                                              <div class="col mb-0">
-                                                                  <label for="emailBackdrop"
-                                                                      class="form-label">contact no.</label>
-                                                                  <input readonly  type="text"
-                                                                      value="{{ $user->contact_number }}"
-                                                                      id="emailBackdrop" class="form-control"
-                                                                      placeholder="xxxx@xxx.xx">
-                                                              </div>
-                                                              <div class="col mb-0">
-                                                                  <label for="emailBackdrop"
-                                                                      class="form-label">email</label>
-                                                                  <input readonly  type="email" id="emailBackdrop"
-                                                                      value="{{ $user->email }}" class="form-control"
-                                                                      placeholder="xxxx@xxx.xx">
-                                                              </div>
+                                                                <div class="col mb-0">
+                                                                    <label for="emailBackdrop" class="form-label">contact
+                                                                        no.</label>
+                                                                    <input readonly type="text"
+                                                                        value="+63{{ $user->contact_number }}"
+                                                                        id="emailBackdrop" class="form-control"
+                                                                        placeholder="xxxx@xxx.xx">
+                                                                </div>
+                                                                <div class="col mb-0">
+                                                                    <label for="emailBackdrop"
+                                                                        class="form-label">email</label>
+                                                                    <input readonly type="email" id="emailBackdrop"
+                                                                        value="{{ $user->email }}" class="form-control"
+                                                                        placeholder="xxxx@xxx.xx">
+                                                                </div>
                                                             </div>
                                                             <div class="row g-2">
-                                                              <div class="col mb-0">
-                                                                  <label for="dobBackdrop"
-                                                                      class="form-label">address</label>
-                                                                  <input readonly  type="text" id="dobBackdrop"
-                                                                      value="{{ $user->address }}" class="form-control">
-                                                              </div>
-                                                          </div>
+                                                                <div class="col mb-0">
+                                                                    <label for="dobBackdrop"
+                                                                        class="form-label">address</label>
+                                                                    <input readonly type="text" id="dobBackdrop"
+                                                                        value="{{ $user->address }}"
+                                                                        class="form-control">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -163,6 +162,9 @@
                                         </td>
                                     </tr>
                                 @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center">No Data Available</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -171,4 +173,22 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('vendor-script')
+    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            var searchInput = $('#searchInput');
+
+            searchInput.on('input', function() {
+                $(this).closest('form').submit();
+            });
+        });
+    </script>
+@endsection
+
+@section('page-script')
+    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 @endsection

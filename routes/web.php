@@ -87,8 +87,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/index', 'index')->name('teacher.index');
     Route::get('/create', 'create')->name('teacher.create');
     Route::post('/store', 'store')->name('teacher.store');
-    Route::get('/edit/{user}', 'edit')->name('teacher.edit');
-    Route::put('/update/{user}', 'update')->name('teacher.update');
+    Route::get('/edit/{teacher}', 'edit')->name('teacher.edit');
+    Route::get('/view/{teacher}', 'show')->name('teacher.view');
+    Route::put('/update/{teacher}', 'update')->name('teacher.update');
+    Route::get('/delete/{teacher}', 'delete')->name('teacher.delete');
   });
 
   Route::controller(ClassAdvisoryController::class)->prefix('class-advisory')->group(function () {

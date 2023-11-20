@@ -6,14 +6,6 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">
 @endsection
 
-@section('vendor-script')
-    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-@endsection
-
-@section('page-script')
-    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
-@endsection
-
 @section('content')
     @if (session('success'))
         <div class="alert alert-info d-flex alert-dismissible" role="alert">
@@ -38,7 +30,7 @@
                             <form action="{{ route('student.index') }}" method="get">
                                 @csrf
                                 <input class="form-control col-md-3 d-none d-md-block" type="search" autocomplete="off"
-                                    autofocus placeholder="Search..." name="search">
+                                    id="searchInput" autofocus placeholder="Search..." name="search">
                             </form>
                         </div>
                         <a href="{{ route('student.create') }}" class="btn btn-info">ADD NEW STUDENT</a>
@@ -78,7 +70,7 @@
                                         <td style="font-size: 0.90rem;">{{ $student->school_id }}</td>
                                         <td style="font-size: 0.90rem;">{{ $student->full_name }}</td>
                                         <td style="font-size: 0.90rem;">{{ $student->email }}</td>
-                                        <td style="font-size: 0.90rem;">{{ $student->contact_number }}</td>
+                                        <td style="font-size: 0.90rem;">+63{{ $student->contact_number }}</td>
                                         <td>
                                             <a href="{{ route('student.show', $student->id) }}"
                                                 class="btn btn-info btn-sm">View</a>
@@ -112,7 +104,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 @empty
                                     <tr>
                                         <td colspan="5" class="text-center">No data available</td>
@@ -120,9 +111,28 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        {{ $students->links() }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('vendor-script')
+    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            var searchInput = $('#searchInput');
+
+            searchInput.on('input', function() {
+                $(this).closest('form').submit();
+            });
+        });
+    </script>
+@endsection
+
+@section('page-script')
+    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 @endsection

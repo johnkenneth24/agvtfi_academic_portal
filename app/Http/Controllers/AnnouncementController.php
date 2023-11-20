@@ -8,67 +8,78 @@ use Illuminate\Support\Str;
 
 class AnnouncementController extends Controller
 {
-    public function index()
-    {
-      $announcement = announcement::orderBy("date","desc")->paginate(10);
+  public function index(Request $request)
+  {
+    $search = $request->input('search');
 
+    $query = announcement::orderBy('date', 'desc');
 
-
-      return view('modules.announcement.index', compact('announcement'));
+    if ($search) {
+      $query->where(function ($query) use ($search) {
+        $query->where('subject', 'like', '%' . $search . '%')
+          ->orWhere('date', 'like', '%' . $search . '%')
+          ->orWhere('description', 'like', '%' . $search . '%');
+      });
     }
 
-    public function create()
-    {
+    $announcement = $query->paginate(10);
 
-      return view('modules.announcement.create');
-    }
+    return view('modules.announcement.index', compact('announcement'));
+  }
 
-    public function edit(announcement $ann)
-    {
+  public function create()
+  {
 
-      return view('modules.announcement.edit', compact('ann'));
-    }
+    return view('modules.announcement.create');
+  }
 
-    public function view(announcement $ann)
-    {
+  public function edit(announcement $ann)
+  {
 
-      return view('modules.announcement.view', compact('ann'));
-    }
+    return view('modules.announcement.edit', compact('ann'));
+  }
 
-    public function store(Request $request)
-    {
-      $validated = $request->validate([
-        'subject' => 'required',
-        'date' => 'required',
-        'description' => 'required',
-      ]);
+  public function view(announcement $ann)
+  {
 
-      announcement::create($validated);
+    return view('modules.announcement.view', compact('ann'));
+  }
 
-      return redirect()->route('announcement.index')->with('success','Announcement successfully publish!');
-    }
+  public function store(Request $request)
+  {
+    $validated = $request->validate([
+      'subject' => 'required',
+      'date' => 'required',
+      'description' => 'required',
+    ]);
 
-    public function update(Request $request, announcement $ann)
-    {
-      $validated = $request->validate([
-        'subject' => 'required',
-        'date' => 'required',
-        'description' => 'required',
-      ]);
+    // dd($validated);
 
-      $ann->update([
-        'subject'=> $validated['subject'],
-        'date'=> $validated['date'],
-        'description'=> $validated['description'],
-      ]);
-      return redirect()->route('announcement.index')->with('success','Announcement successfully publish!');
-    }
+    announcement::create($validated);
 
-    public function delete(announcement $ann)
+    return redirect()->route('announcement.index')->with('success', 'Announcement successfully publish!');
+  }
+
+  public function update(Request $request, announcement $ann)
+  {
+    $validated = $request->validate([
+      'subject' => 'required',
+      'date' => 'required',
+      'description' => 'required',
+    ]);
+
+    $ann->update([
+      'subject' => $validated['subject'],
+      'date' => $validated['date'],
+      'description' => $validated['description'],
+    ]);
+    return redirect()->route('announcement.index')->with('success', 'Announcement successfully publish!');
+  }
+
+  public function delete(announcement $ann)
   {
     $ann->delete();
 
     return redirect()->route('announcement.index')->with('success', 'Announcement deleted successfully!');
-
   }
 }

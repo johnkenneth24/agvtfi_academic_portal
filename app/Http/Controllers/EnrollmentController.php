@@ -9,9 +9,25 @@ use App\Models\User;
 
 class EnrollmentController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
-    $enrollments = Enrollment::orderBy('start', 'asc')->get();
+
+    $search = $request->input('search');
+
+    $query = Enrollment::orderBy('start', 'asc');
+
+    if ($search) {
+      $query->where(function ($query) use ($search) {
+        $query->where('subject', 'like', '%' . $search . '%')
+          ->orWhere('start', 'like', '%' . $search . '%')
+          ->orWhere('status', 'like', '%' . $search . '%')
+          ->orWhere('end', 'like', '%' . $search . '%');
+      });
+    }
+
+    $enrollments = $query->paginate(10);
+
+    // $enrollments = Enrollment::orderBy('start', 'asc')->get();
 
 
 
@@ -110,11 +126,11 @@ class EnrollmentController extends Controller
 
   public function deactivate(Enrollment $enrollment)
   {
-      $enrollment->update([
-          'status' => 'Deactivated'
-      ]);
+    $enrollment->update([
+      'status' => 'Deactivated'
+    ]);
 
-      return redirect()->route('enrollment.index')->with('success', 'Enrollment deactivated successfully!');
+    return redirect()->route('enrollment.index')->with('success', 'Enrollment deactivated successfully!');
   }
 
   public function delete(Enrollment $enrollment)
@@ -122,6 +138,5 @@ class EnrollmentController extends Controller
     $enrollment->delete();
 
     return redirect()->route('enrollment.index')->with('success', 'Enrollment deleted successfully!');
-
   }
 }
