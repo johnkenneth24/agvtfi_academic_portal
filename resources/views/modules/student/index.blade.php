@@ -6,14 +6,6 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">
 @endsection
 
-@section('vendor-script')
-    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-@endsection
-
-@section('page-script')
-    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
-@endsection
-
 @section('content')
     @if (session('success'))
         <div class="alert alert-info d-flex alert-dismissible" role="alert">
@@ -38,7 +30,7 @@
                             <form action="{{ route('student.index') }}" method="get">
                                 @csrf
                                 <input class="form-control col-md-3 d-none d-md-block" type="search" autocomplete="off"
-                                    autofocus placeholder="Search..." name="search">
+                                    id="searchInput" autofocus placeholder="Search..." name="search">
                             </form>
                         </div>
                         <a href="{{ route('student.create') }}" class="btn btn-info">ADD NEW STUDENT</a>
@@ -125,4 +117,22 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('vendor-script')
+    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            var searchInput = $('#searchInput');
+
+            searchInput.on('input', function() {
+                $(this).closest('form').submit();
+            });
+        });
+    </script>
+@endsection
+
+@section('page-script')
+    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 @endsection

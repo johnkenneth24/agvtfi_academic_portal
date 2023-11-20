@@ -1,17 +1,9 @@
 @extends('layouts/app/contentNavbarLayout')
 
-@section('title', 'Enrollment')
+@section('title', 'AGVTFI - Enrollment')
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">
-@endsection
-
-@section('vendor-script')
-    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-@endsection
-
-@section('page-script')
-    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 @endsection
 
 @section('content')
@@ -25,7 +17,11 @@
                     </div>
                     <div class="card-tools d-flex justify-content-end">
                         <div class="col-md-8 me-2">
-                            <input type="text" class="form-control col-md-" placeholder="Search...">
+                            <form action="{{ route('enrollment.index') }}" method="get">
+                                @csrf
+                                <input class="form-control col-md-3 d-none d-md-block" type="search" autocomplete="off"
+                                    id="searchInput" autofocus placeholder="Search..." name="search">
+                            </form>
                         </div>
                         <div>
                             <a href="{{ route('enrollment.create') }}" class="btn btn-info text-nowrap">ADD ENROLLMENT</a>
@@ -75,8 +71,8 @@
                                             </button>
 
                                             <!-- Modal -->
-                                            <div class="modal fade" id="backDropModal{{ $enrollment->id }}" data-bs-backdrop="static"
-                                                tabindex="-1">
+                                            <div class="modal fade" id="backDropModal{{ $enrollment->id }}"
+                                                data-bs-backdrop="static" tabindex="-1">
                                                 <div class="modal-dialog modal-dialog-centered modal-sm">
                                                     <form class="modal-content">
                                                         <div class="modal-header">
@@ -99,9 +95,9 @@
                                         </td>
                                     </tr>
                                 @empty
-                                <tr>
-                                  <td colspan="5" class="text-center">No enrollment data!</td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-center">No enrollment data!</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -110,4 +106,22 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('vendor-script')
+    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            var searchInput = $('#searchInput');
+
+            searchInput.on('input', function() {
+                $(this).closest('form').submit();
+            });
+        });
+    </script>
+@endsection
+
+@section('page-script')
+    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 @endsection
