@@ -15,6 +15,7 @@ use App\Http\Controllers\GradeController;
 use App\Http\Controllers\EnrollmentStatusController;
 use App\Http\Controllers\RequestDocController;
 use App\Http\Controllers\AdminRequestDocController;
+use App\Http\Controllers\PermamentRecordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,10 @@ Route::middleware('auth')->group(function () {
 
   Route::controller(EnrollmentStatusController::class)->prefix('enrollment-stat')->group(function () {
     Route::get('/index', 'index')->name('enrollment-stat.index');
+  });
+
+  Route::controller(PermamentRecordController::class)->prefix('permament-record')->group(function () {
+    Route::get('/index', 'index')->name('permament-rec.index');
   });
 
   Route::controller(UserListcontroller::class)->prefix('user-list')->group(function () {

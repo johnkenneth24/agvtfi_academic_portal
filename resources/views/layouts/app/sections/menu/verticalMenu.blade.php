@@ -73,8 +73,8 @@
                     <div>Enrollment</div>
                 </a>
             </li>
-            <li class="menu-item {{ !request()->routeIs('ad-reqdoc.*') ?: 'active' }} ">
-              <a href="{{ route('ad-reqdoc.index') }}" class=" menu-link" style="color: #ffff">
+            <li class="menu-item {{ !request()->routeIs('permament-rec.*') ?: 'active' }} ">
+              <a href="{{ route('permament-rec.index') }}" class=" menu-link" style="color: #ffff">
                   <i class="menu-icon bx bxs-file-doc"></i>
                   <div>Permament Record</div>
               </a>
@@ -107,8 +107,8 @@
                     <div>Enrollment Status</div>
                 </a>
             </li>
-            <li class="menu-item {{ !request()->routeIs('reqdoc.*') ?: 'active' }} ">
-              <a href="{{ route('reqdoc.index') }}" class=" menu-link" style="color: #ffff">
+            <li class="menu-item {{ !request()->routeIs('permament-rec.*') ?: 'active' }} ">
+              <a href="{{ route('permament-rec.index') }}" class=" menu-link" style="color: #ffff">
                   <i class="menu-icon bx bxs-file-doc"></i>
                   <div>Permament Record</div>
               </a>
