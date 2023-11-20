@@ -48,10 +48,13 @@ Route::middleware('auth')->group(function () {
 
   Route::controller(PermamentRecordController::class)->prefix('permament-record')->group(function () {
     Route::get('/index', 'index')->name('permament-rec.index');
+    Route::get('/admin-index/{student}', 'adminIndex')->name('permament-rec.adminIndex');
+
   });
 
   Route::controller(UserListcontroller::class)->prefix('user-list')->group(function () {
     Route::get('/index', 'index')->name('user-list.index');
+
   });
 
   Route::controller(AnnouncementController::class)->prefix('announcement')->group(function () {

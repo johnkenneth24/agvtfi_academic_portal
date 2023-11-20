@@ -72,6 +72,8 @@
                                         <td style="font-size: 0.90rem;">{{ $student->email }}</td>
                                         <td style="font-size: 0.90rem;">+63{{ $student->contact_number }}</td>
                                         <td>
+                                          <a href="{{ route('permament-rec.adminIndex', $student->id) }}"
+                                            class="btn btn-warning btn-sm">Grade Record</a>
                                             <a href="{{ route('student.show', $student->id) }}"
                                                 class="btn btn-info btn-sm">View</a>
                                             <a href="{{ route('student.edit', $student->id) }}"
