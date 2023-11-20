@@ -73,12 +73,7 @@
                     <div>Enrollment</div>
                 </a>
             </li>
-            <li class="menu-item {{ !request()->routeIs('permament-rec.*') ?: 'active' }} ">
-              <a href="{{ route('permament-rec.index') }}" class=" menu-link" style="color: #ffff">
-                  <i class="menu-icon bx bxs-file-doc"></i>
-                  <div>Permament Record</div>
-              </a>
-          </li>
+           
         @endrole
         @role('teacher')
             <li class="menu-item {{ !request()->routeIs('classad.*') ?: 'active' }} ">
