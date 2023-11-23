@@ -15,8 +15,8 @@
 @endsection
 
 @section('content')
-<x-success></x-success>
-<x-errors></x-errors>
+    <x-success></x-success>
+    <x-errors></x-errors>
     <div class="row">
         <div class="col-xxl-12">
             <div class="card">
@@ -43,30 +43,34 @@
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                              @forelse($subGrades as $grade)
-                              <tr>
-                                <td class="" style="font-size: 0.90rem;">
-                                  @foreach ($class as $classItem)
-                                      @if ($grade->classSubject->year_section_id == $classItem->id)
-                                          {{ $classItem->academic_year }}
-                                      @endif
-                                  @endforeach
-                              </td>
+                                @forelse($subGrades as $grade)
+                                    <tr>
+                                        <td class="" style="font-size: 0.90rem;">
+                                            @foreach ($class as $classItem)
+                                                @if ($grade->classSubject->year_section_id == $classItem->id)
+                                                    {{ $classItem->academic_year }}
+                                                @endif
+                                            @endforeach
+                                        </td>
 
-                                <td class="" style="font-size: 0.90rem;">{{ $grade->classSubject->subject_code }}</td>
-                                <td class="" style="font-size: 0.90rem;">{{ $grade->classSubject->subject_name }}</td>
-                                <td class="" style="font-size: 0.90rem;">{{ $grade->gwa }}</td>
-                                <td class="" style="font-size: 0.90rem;">
-                                  @if ($grade->gwa >= 75)
-                                  <span class="badge bg-label-success">PASSED</span>
-                                  @else
-                                    <span class="badge bg-label-danger">FAILED</span>
-                                  @endif
-                                </td>
-                              </tr>
-                              @empty
-
-                              @endforelse
+                                        <td class="" style="font-size: 0.90rem;">
+                                            {{ $grade->classSubject->subject_code }}</td>
+                                        <td class="" style="font-size: 0.90rem;">
+                                            {{ $grade->classSubject->subject_name }}</td>
+                                        <td class="" style="font-size: 0.90rem;">{{ $grade->gwa }}</td>
+                                        <td class="" style="font-size: 0.90rem;">
+                                            @if ($grade->gwa >= 75)
+                                                <span class="badge bg-label-success">PASSED</span>
+                                            @else
+                                                <span class="badge bg-label-danger">FAILED</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center">No data available</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

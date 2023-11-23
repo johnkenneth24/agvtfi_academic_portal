@@ -68,4 +68,9 @@ class User extends Authenticatable
     return "{$this->firstname} {$middleInitial}. {$this->lastname} {$this->suffix}";
   }
 
+  public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
 }
