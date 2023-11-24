@@ -65,32 +65,40 @@
                                         <td width="17%" style="font-size: 0.90rem;">
                                             {{ $grade->classSubject->classTeacher->fullname }}</td>
                                         <td width="12%" style="font-size: 0.90rem;">{{ $grade->first_grading }}
-                                            @if ($grade->first_grading >= 75)
+                                            @if(!$grade->first_grading)
+
+                                            @elseif ($grade->first_grading >= 75)
                                                 <span class="badge bg-label-success">PASSED</span>
                                             @else
                                                 <span class="badge bg-label-danger">FAILED</span>
                                             @endif
                                         </td>
                                         <td width="12%" style="font-size: 0.90rem;">{{ $grade->second_grading }}
-                                            @if ($grade->second_grading >= 75)
-                                                <span class="badge bg-label-success">PASSED</span>
-                                            @else
-                                                <span class="badge bg-label-danger">FAILED</span>
-                                            @endif
+                                          @if(!$grade->second_grading)
+
+                                          @elseif ($grade->second_grading >= 75)
+                                              <span class="badge bg-label-success">PASSED</span>
+                                          @else
+                                              <span class="badge bg-label-danger">FAILED</span>
+                                          @endif
                                         </td>
                                         <td width="12%" style="font-size: 0.90rem;">{{ $grade->third_grading }}
-                                            @if ($grade->third_grading >= 75)
-                                                <span class="badge bg-label-success">PASSED</span>
-                                            @else
-                                                <span class="badge bg-label-danger">FAILED</span>
-                                            @endif
+                                          @if(!$grade->third_grading)
+
+                                          @elseif ($grade->third_grading >= 75)
+                                              <span class="badge bg-label-success">PASSED</span>
+                                          @else
+                                              <span class="badge bg-label-danger">FAILED</span>
+                                          @endif
                                         </td>
                                         <td width="12%" style="font-size: 0.90rem;">{{ $grade->fourth_grading }}
-                                            @if ($grade->fourth_grading >= 75)
-                                                <span class="badge bg-label-success">PASSED</span>
-                                            @else
-                                                <span class="badge bg-label-danger">FAILED</span>
-                                            @endif
+                                          @if(!$grade->fourth_grading)
+
+                                          @elseif ($grade->fourth_grading >= 75)
+                                              <span class="badge bg-label-success">PASSED</span>
+                                          @else
+                                              <span class="badge bg-label-danger">FAILED</span>
+                                          @endif
                                         </td>
                                         <td width="12%" style="font-size: 0.90rem;">
                                             @if ($grade->fourth_grading)
