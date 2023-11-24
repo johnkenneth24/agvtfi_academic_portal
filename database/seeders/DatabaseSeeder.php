@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
 
       StudentYearLevel::create([
         'student_id' => $user->id,
-        'year_level' => 'Grade 11',
+        'year_level' => '11',
       ]);
 
       $user->assignRole('student');
