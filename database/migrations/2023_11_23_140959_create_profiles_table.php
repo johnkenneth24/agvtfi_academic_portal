@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('student_year_levels', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->string('year_level');
-            $table->string('status')->default('Pending');
+            // foreign id of user cascade on delete 
+            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->string('image');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_year_levels');
+        Schema::dropIfExists('profiles');
     }
 };

@@ -54,12 +54,12 @@ class StudentController extends Controller
       $query->where('name', 'student');
     })->max('school_id');
 
-    $maxSchoolId = $maxSchoolId ? $maxSchoolId : 'S0000';
+    $maxSchoolId = $maxSchoolId ? $maxSchoolId :  date('y') . '0000';
 
-    $numericPart = (int)substr($maxSchoolId, 1);
+    $numericPart = (int)substr($maxSchoolId, 2);
     $nextNumericPart = $numericPart + 1;
 
-    $school_id = 'S' . str_pad($nextNumericPart, 4, '0', STR_PAD_LEFT);
+    $school_id = date('y') . str_pad($nextNumericPart, 4, '0', STR_PAD_LEFT);
 
     $strands = ['ACCOUNTING BUSINESSNESS MANAGEMENT', 'INFORMATION COMMUNICATION TECHNOLOGY', 'GENERAL ACADEMIC STRAND', 'HOME ECONOMICS', 'AUTOMOTIVE', 'ELECTRICAL INSTALLATION AND MAINTENANCE'];
 

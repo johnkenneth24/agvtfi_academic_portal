@@ -27,7 +27,7 @@
                             @endrole
                             @role('student')
                                 <p class="mb-2">Check your acads status now. Be productive!</p>
-                                <h5 class="card-title text-primary">Grade - {{ $current_year->year_level }}</h5>
+                                <h5 class="card-title text-primary">{{ $current_year->year_level }}</h5>
                             @endrole
                             @role('teacher')
                                 <p class="mb-4">Manage your student and monitor their academic performance. Be productive!</p>

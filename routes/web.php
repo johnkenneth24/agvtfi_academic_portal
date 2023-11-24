@@ -1,21 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GradeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\ClassSectionController;
 use App\Http\Controllers\UserListcontroller;
-use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\EnrollmentController;
-use App\Http\Controllers\ClassAdvisoryController;
-use App\Http\Controllers\ClassSubjectController;
-use App\Http\Controllers\GradeController;
-use App\Http\Controllers\EnrollmentStatusController;
 use App\Http\Controllers\RequestDocController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\ClassSectionController;
+use App\Http\Controllers\ClassSubjectController;
+use App\Http\Controllers\ClassAdvisoryController;
 use App\Http\Controllers\AdminRequestDocController;
 use App\Http\Controllers\PermamentRecordController;
+use App\Http\Controllers\EnrollmentStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/index', 'index')->name('class-section.index');
   });
 
+  Route::controller(ProfileController::class)->prefix('profile')->group(function () {
+    Route::get('/index', 'index')->name('profile.index');
+    Route::post('/change-password/{user}', 'changePass')->name('profile.changePassword');
+    Route::post('/change-avatar', 'changeProfile')->name('profile.changeProfile');
+  });
+
   Route::controller(EnrollmentStatusController::class)->prefix('enrollment-stat')->group(function () {
     Route::get('/index', 'index')->name('enrollment-stat.index');
   });
@@ -49,12 +56,10 @@ Route::middleware('auth')->group(function () {
   Route::controller(PermamentRecordController::class)->prefix('permament-record')->group(function () {
     Route::get('/index', 'index')->name('permament-rec.index');
     Route::get('/admin-index/{student}', 'adminIndex')->name('permament-rec.adminIndex');
-
   });
 
   Route::controller(UserListcontroller::class)->prefix('user-list')->group(function () {
     Route::get('/index', 'index')->name('user-list.index');
-
   });
 
   Route::controller(AnnouncementController::class)->prefix('announcement')->group(function () {
