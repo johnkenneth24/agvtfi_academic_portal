@@ -17,22 +17,22 @@ class StudentImport implements ToModel,WithHeadingRow
   public function model(array $row)
 {
     // Convert the Excel date serial number to a human-readable date format
-    $dateValue = Carbon::createFromFormat('U', strtotime('1900-01-01') + $row['ad_date'] * 24 * 3600);
+    $dateValue = Carbon::createFromFormat('U', strtotime('1900-01-01') + $row['admission_date'] * 24 * 3600);
 
     $user = new User([
       'school_id' => $row['school_id'],
       'admission_date' => $dateValue->format('Y-m-d'),
-      'firstname' => $row['fname'],
-      'middlename' => $row['mname'],
-      'lastname' => $row['lname'],
-      'suffix' => $row['ext'],
+      'firstname' => $row['firstname'],
+      'middlename' => $row['middlename'],
+      'lastname' => $row['lastname'],
+      'suffix' => $row['suffix'],
       'gender' => $row['gender'],
       'age' => $row['age'],
-      'birthdate' => $row['bdate'],
-      'contact_number' => $row['cp_no'],
+      'birthdate' => $row['birthdate'],
+      'contact_number' => $row['contact_number'],
       'address' => $row['address'],
       'email' => $row['email'],
-      'password' => Hash::make($row['password']),
+      'password' => Hash::make($row['school_id']),
   ]);
 
   $user->save(); // Save the user to obtain the ID
@@ -40,7 +40,7 @@ class StudentImport implements ToModel,WithHeadingRow
   // Create the studentYearLevel relationship
   StudentYearLevel::create([
       'student_id' => $user->id, // Get the user's ID after saving
-      'year_level' => $row['year'], // Assuming $row[13] contains the year level
+      'year_level' => $row['year_level'], // Assuming $row[13] contains the year level 
   ]);
 
    // Assign the 'student' role to the user

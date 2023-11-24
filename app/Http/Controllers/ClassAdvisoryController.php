@@ -24,16 +24,23 @@ class ClassAdvisoryController extends Controller
   }
 
   public function classStudent(ClassAdvisory $student)
-  {
-    $student_name =  User::whereHas('roles', function ($query) {
-      $query->where('name', 'student');
-    })->get();
+{
+    $student_name = User::whereHas('roles', function ($query) {
+        $query->where('name', 'student');
+    })
+    ->whereHas('studentYearLevel', function ($query) use ($student) {
+        $query->where('status', 'Current')
+            ->where('year_level', $student->grade_level);
+    })
+    
+    ->get();
 
     $student_list = ClassAdvisoryStudent::where('class_advisory_id', $student->id)
-      ->get();
+        ->get();
 
     return view('modules.class-advisory.student', compact('student', 'student_name', 'student_list'));
-  }
+}
+
 
   public function store(Request $request)
   {

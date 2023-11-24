@@ -50,8 +50,8 @@
                                     <select name="year_level"
                                         class="form-control @error('year_level') is-invalid @enderror">
                                         <option value="">--Please Select--</option>
-                                        <option value="Grade 11" @selected(old('year_level' == 'Grade 11'))>Grade 11</option>
-                                        <option value="Grade 12" @selected(old('year_level' == 'Grade 12'))>Grade 12</option>
+                                        <option value="11" @selected(old('year_level' == '11'))>11</option>
+                                        <option value="12" @selected(old('year_level' == '12'))>12</option>
                                     </select>
                                     @error('year_level')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
