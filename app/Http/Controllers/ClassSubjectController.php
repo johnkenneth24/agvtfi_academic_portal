@@ -17,7 +17,9 @@ class ClassSubjectController extends Controller
 
     $class_subject = ClassSubject::get();
 
-    return view('modules.class-subject.index', compact('classes', 'class_subject'));
+    $sem = ['1', '2']; 
+
+    return view('modules.class-subject.index', compact('classes', 'class_subject', 'sem'));
   }
 
   public function store(Request $request)

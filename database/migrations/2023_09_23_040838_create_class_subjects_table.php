@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('teacher_id')->references('id')->on('users')->cascadeOnDelete();
             $table->string('subject_code');
             $table->string('subject_name');
+            $table->string('semester');
             $table->string('status')->default('Active');
             $table->timestamps();
         });

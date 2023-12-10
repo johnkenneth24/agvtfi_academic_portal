@@ -1,6 +1,6 @@
 @extends('layouts/app/contentNavbarLayout')
 
-@section('title', 'Dashboard - Analytics')
+@section('title', '')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}">
@@ -44,7 +44,7 @@
                     <form action="{{ route('classsub.store') }}" method="POST" enctype="multipart/form-data">
                       @csrf
                     <div class="modal-body">
-                      <div class="row mt-2">
+                      <div class="row mt-2 gap-1 ">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">SUBJECT CODE</label>
@@ -67,6 +67,22 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                              <label class="form-label">SEMESTER</label>
+                              <select name="year_section_id" id="" class="form-control">
+                                <option value="">Please Select</option>
+                                @foreach ($sem as $sems)
+                                <option value="{{ $sems }}">{{$sems}}</option>
+                                @endforeach
+                              </select>
+                              @error('section')
+                                  <div class="invalid-feedback mt-0" style="display: inline-block !important;">
+                                      {{ $message }}
+                                  </div>
+                              @enderror
+                          </div>
+                      </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">YEAR & SECTION</label>
