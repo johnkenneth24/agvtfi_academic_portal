@@ -17,7 +17,7 @@ class ClassSubjectController extends Controller
 
     $class_subject = ClassSubject::get();
 
-    $sem = ['1', '2']; 
+    $sem = ['1', '2'];
 
     return view('modules.class-subject.index', compact('classes', 'class_subject', 'sem'));
   }
@@ -28,13 +28,17 @@ class ClassSubjectController extends Controller
       'year_section_id' => ['required'],
       'subject_code' => ['required'],
       'subject_name' => ['required'],
+      'semester' => ['required'],
+
     ]);
 
     ClassSubject::create([
       'teacher_id' => auth()->user()->id,
       'year_section_id' => $validated['year_section_id'],
       'subject_code' => $validated['subject_code'],
-      'subject_name' => $validated['subject_name']
+      'subject_name' => $validated['subject_name'],
+      'semester' => $validated['semester']
+
     ]);
 
     return redirect()->back()->with('success', 'Addded New Class Subject!');
@@ -54,7 +58,7 @@ class ClassSubjectController extends Controller
     // Calculate the GWA for each grade in the $student_grade collection
     foreach ($student_grade as $student) {
       $total_grades = $student->first_grading + $student->second_grading + $student->third_grading + $student->fourth_grading;
-      $gwa = $total_grades / 4; // Assuming equally weighted grades
+      $gwa = $total_grades / 2; // Assuming equally weighted grades
       $student->gwa = number_format($gwa, 2); // Add GWA to the student object
     }
 
@@ -90,12 +94,6 @@ class ClassSubjectController extends Controller
 
       'second_grading' => ['nullable', 'array'],
       'second_grading.*' => ['nullable'],
-
-      'third_grading' => ['nullable', 'array'],
-      'third_grading.*' => ['nullable'],
-
-      'fourth_grading' => ['nullable', 'array'],
-      'fourth_grading.*' => ['nullable'],
     ]);
 
     foreach ($validated['student_id'] as $key => $value) {
@@ -105,8 +103,6 @@ class ClassSubjectController extends Controller
         'class_sub_id' => $validated['class_sub_id'][$key],
         'first_grading' => $validated['first_grading'][$key],
         'second_grading' => $validated['second_grading'][$key],
-        'third_grading' => $validated['third_grading'][$key],
-        'fourth_grading' => $validated['fourth_grading'][$key]
       ]);
     }
 
@@ -133,12 +129,6 @@ class ClassSubjectController extends Controller
 
       'second_grading' => ['nullable', 'array'],
       'second_grading.*' => ['nullable'],
-
-      'third_grading' => ['nullable', 'array'],
-      'third_grading.*' => ['nullable'],
-
-      'fourth_grading' => ['nullable', 'array'],
-      'fourth_grading.*' => ['nullable'],
     ]);
 
     // dd($validated);
@@ -154,8 +144,6 @@ class ClassSubjectController extends Controller
         'class_sub_id' => $validated['class_sub_id'][$key],
         'first_grading' => $validated['first_grading'][$key],
         'second_grading' => $validated['second_grading'][$key],
-        'third_grading' => $validated['third_grading'][$key],
-        'fourth_grading' => $validated['fourth_grading'][$key]
       ]);
 
     }

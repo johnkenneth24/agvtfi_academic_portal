@@ -70,7 +70,7 @@
                         <div class="col-md-12">
                           <div class="form-group">
                               <label class="form-label">SEMESTER</label>
-                              <select name="year_section_id" id="" class="form-control">
+                              <select name="semester" id="" class="form-control">
                                 <option value="">Please Select</option>
                                 @foreach ($sem as $sems)
                                 <option value="{{ $sems }}">{{$sems}}</option>
@@ -120,6 +120,7 @@
                 <th class="">SUBJECT CODE</th>
                 <th class="">SUBJECT NAME</th>
                 <th class="">ACADEMIC YEAR</th>
+                <th class="">SEMESTER</th>
                 <th class="text-center">YEAR & SECTION</th>
                 <th class="text-center">STATUS</th>
                 <th class="text-center">Actions</th>
@@ -131,6 +132,7 @@
                 <td class="text-center" style="font-size: 0.90rem;">{{  $class_sub->subject_code }}</td>
                 <td class="" style="font-size: 0.90rem;">{{  $class_sub->subject_name }}</td>
                 <td class="" style="font-size: 0.90rem;">{{ $class_sub->classAdvisory->academic_year }}</td>
+                <td class="" style="font-size: 0.90rem;">{{ $class_sub->semester }}</td>
                 <td class="text-center" style="font-size: 0.90rem;">{{ $class_sub->classAdvisory->grade_level }}</td>
                 <td class="text-center"style="font-size: 0.90rem;"><span class="badge bg-label-success mt-2">ACTIVE</span></td>
                 <td class="d-flex justify-content-center">
