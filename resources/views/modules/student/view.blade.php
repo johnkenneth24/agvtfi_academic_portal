@@ -1,6 +1,6 @@
 @extends('layouts/app/contentNavbarLayout')
 
-@section('title', 'Update Student Info')
+@section('title', 'Show Student Info')
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">
@@ -52,11 +52,11 @@
                                         disabled>
                                         <option value="">--Please Select--</option>
                                         @foreach ($student->studentYearLevel as $yearLevel)
-                                            <option value="Grade 11"
-                                                {{ $yearLevel->year_level == 'Grade 11' ? 'selected' : '' }}>Grade 11
+                                            <option value="Grade 11" {{ $yearLevel->year_level == '11' ? 'selected' : '' }}>
+                                                Grade 11
                                             </option>
-                                            <option value="Grade 12"
-                                                {{ $yearLevel->year_level == 'Grade 12' ? 'selected' : '' }}>Grade 12
+                                            <option value="Grade 12" {{ $yearLevel->year_level == '12' ? 'selected' : '' }}>
+                                                Grade 12
                                             </option>
                                         @endforeach
                                     </select>

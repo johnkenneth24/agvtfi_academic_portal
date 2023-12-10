@@ -11,11 +11,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/perfect-scrollbar/1.5.5/perfect-scrollbar.min.js"
     integrity="sha512-X41/A5OSxoi5uqtS6Krhqz8QyyD8E/ZbN7B4IaBSgqPLRbWVuXJXr9UwOujstj71SoVxh5vxgy7kmtd17xrJRw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="{{ asset(mix('assets/vendor/js/menu.js')) }}"></script>
+{{-- <script src="{{ asset('js/jquery.3.7.1.js') }}"></script>
+<script src="{{ asset('js/popper.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/perfect-scrollbar.min.js') }}"></script> --}}
+<script src="{{ asset('js/menu.js') }}"></script>
 @yield('vendor-script')
 <!-- END: Page Vendor JS-->
 <!-- BEGIN: Theme JS-->
-<script src="{{ asset(mix('assets/js/main.js')) }}"></script>
+{{-- <script src="{{ asset(mix('assets/js/main.js')) }}"></script> --}}
+<script src="{{ asset('js/main.js') }}"></script>
 
 <!-- END: Theme JS-->
 <!-- Pricing Modal JS-->

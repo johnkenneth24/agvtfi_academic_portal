@@ -35,7 +35,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">Admission Date</label>
-                                    <input type="date" name="admission_date"
+                                    <input type="date" name="admission_date" required
                                         value="{{ $student?->admission_date?->format('Y-m-d') ?? '' }}"
                                         class="form-control @error('admission_date') is-invalid @enderror">
                                     @error('admission_date')
@@ -48,15 +48,15 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">Grade Level</label>
-                                    <select name="year_level"
-                                        class="form-control @error('year_level') is-invalid @enderror">
+                                    <select name="year_level" class="form-control @error('year_level') is-invalid @enderror"
+                                        required>
                                         <option value="">--Please Select--</option>
                                         @foreach ($student->studentYearLevel as $yearLevel)
-                                            <option value="Grade 11"
-                                                {{ $yearLevel->year_level == 'Grade 11' ? 'selected' : '' }}>Grade 11
+                                            <option value="Grade 11" {{ $yearLevel->year_level == '11' ? 'selected' : '' }}>
+                                                Grade 11
                                             </option>
-                                            <option value="Grade 12"
-                                                {{ $yearLevel->year_level == 'Grade 12' ? 'selected' : '' }}>Grade 12
+                                            <option value="Grade 12" {{ $yearLevel->year_level == '12' ? 'selected' : '' }}>
+                                                Grade 12
                                             </option>
                                         @endforeach
                                     </select>
@@ -73,7 +73,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">First Name</label>
-                                    <input type="text" name="firstname" value="{{ $student->firstname }}"
+                                    <input type="text" name="firstname" value="{{ $student->firstname }}" required
                                         class="form-control @error('firstname') is-invalid @enderror">
                                     @error('firstname')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
@@ -97,7 +97,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">Last Name</label>
-                                    <input type="text" name="lastname" value="{{ $student->lastname }}"
+                                    <input type="text" name="lastname" value="{{ $student->lastname }}" required
                                         class="form-control @error('lastname') is-invalid @enderror">
                                     @error('lastname')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
@@ -112,7 +112,7 @@
                                     <select name="suffix" class="form-control">
                                         <option value="">--Please Select--</option>
                                         @foreach ($suffixes as $suffix)
-                                            <option value="{{ $suffix }}" @selected($student->suffix == $suffix )>
+                                            <option value="{{ $suffix }}" @selected($student->suffix == $suffix)>
                                                 {{ $suffix }}</option>
                                         @endforeach
                                     </select>
@@ -128,7 +128,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">gender</label>
-                                    <select name="gender" class="form-control @error('gender') is-invalid @enderror">
+                                    <select name="gender" class="form-control @error('gender') is-invalid @enderror"
+                                        required>
                                         <option value="">--Please Select--</option>
                                         @foreach ($gender as $genders)
                                             <option value="{{ $genders }}" @selected($student->gender)>
@@ -145,7 +146,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">birthdate</label>
-                                    <input type="date" name="birthdate"
+                                    <input type="date" name="birthdate" required
                                         value="{{ $student->birthdate?->format('Y-m-d') ?? '' }}"
                                         class="form-control @error('birthdate') is-invalid @enderror" id="birthdate">
                                     @error('birthdate')
@@ -158,7 +159,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">age</label>
-                                    <input type="number" name="age"
+                                    <input type="number" name="age" required
                                         class="form-control @error('age') is-invalid @enderror" id="age"
                                         value="{{ $student->age }}" placeholder="0" readonly>
                                     @error('age')
@@ -173,7 +174,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">address</label>
-                                    <input type="text" name="address" value="{{ $student->address }}"
+                                    <input type="text" name="address" value="{{ $student->address }}" required
                                         class="form-control @error('address') is-invalid @enderror">
                                     @error('address')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
@@ -187,7 +188,7 @@
                                     <label for="" class="form-label">contact number</label>
                                     <div class="input-group">
                                         <span class="input-group-text">+63</span>
-                                        <input type="text" name="contact" pattern="{0-9}[10]"
+                                        <input type="text" name="contact" pattern="{0-9}[10]" required
                                             value="{{ $student->contact_number }}"
                                             class="form-control @error('contact') is-invalid @enderror">
                                     </div>
@@ -201,7 +202,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="" class="form-label">e-mail</label>
-                                    <input type="email" name="email" value="{{ $student->email }}"
+                                    <input type="email" name="email" value="{{ $student->email }}" required
                                         class="form-control @error('email') is-invalid @enderror">
                                     @error('email')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
