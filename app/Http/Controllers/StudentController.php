@@ -61,7 +61,7 @@ class StudentController extends Controller
 
     $school_id = date('y') . str_pad($nextNumericPart, 4, '0', STR_PAD_LEFT);
 
-    $strands = ['ACCOUNTING BUSINESSNESS MANAGEMENT', 'INFORMATION COMMUNICATION TECHNOLOGY', 'GENERAL ACADEMIC STRAND', 'HOME ECONOMICS', 'AUTOMOTIVE', 'ELECTRICAL INSTALLATION AND MAINTENANCE'];
+    $strands = ['ACCOUNTANCY, BUSINESS AND MANAGEMENT', 'INFORMATION COMMUNICATION TECHNOLOGY', 'GENERAL ACADEMIC STRAND', 'HOME ECONOMICS', 'AUTOMOTIVE', 'ELECTRICAL INSTALLATION AND MAINTENANCE'];
 
     return view('modules.student.create', compact('school_id', 'gender', 'strands', 'suffixes'));
   }
