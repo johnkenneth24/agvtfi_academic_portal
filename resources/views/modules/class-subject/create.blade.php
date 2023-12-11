@@ -1,6 +1,6 @@
 @extends('layouts/app/contentNavbarLayout')
 
-@section('title', 'Dashboard - Analytics')
+@section('title', 'AGVTFI - Create Class Subject')
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">

@@ -24,7 +24,11 @@
                     </div>
                     <div class="card-tools d-flex justify-content-end">
                         <div class="col-md-7 me-2">
-                            <input type="text" class="form-control col-md-" placeholder="Search...">
+                            <form action="{{ route('classad.index') }}" method="get">
+                                @csrf
+                                <input class="form-control col-md-3 d-none d-md-block" type="search" autocomplete="off"
+                                    id="searchInput" autofocus placeholder="Search..." name="search">
+                            </form>
                         </div>
                         <div class="">
                             <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal"
@@ -73,7 +77,8 @@
                                                             <select name="grade_level" id="" class="form-control">
                                                                 <option value="">--Please Select--</option>
                                                                 @for ($i = 11; $i <= 12; $i++)
-                                                                    <option value=" {{ $i }}">{{ $i }}
+                                                                    <option value=" {{ $i }}">
+                                                                        {{ $i }}
                                                                     </option>
                                                                 @endfor
                                                             </select>
@@ -175,7 +180,6 @@
                                                 </div>
                                             </div>
                                             {{-- end modal --}}
-
 
                                         </td>
                                     </tr>
