@@ -90,7 +90,8 @@ class StudentController extends Controller
 
     StudentYearLevel::create([
       'student_id' => $student->id,
-      'year_level' => $validated['year_level'],
+      'year_level' => $validated['year_level'], 'semester' => $validated['semester'],
+
     ]);
 
     $student->assignRole('student');

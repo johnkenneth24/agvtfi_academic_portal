@@ -27,11 +27,26 @@
                     </div>
                     <div class="card-body">
                         <div class="row mt-2">
-                            <div class="col-md-12">
+                            <div class="col-md-8">
                                 <div class="form-group">
                                     <label class="form-label">SUBJECT</label>
                                     <input type="text" name="subject" id="" class="form-control"
-                                        value="{{ 'Enrollment Year For ' . now()->format('Y') }}">
+                                        value="{{ 'Enrollment ' }}">
+                                    @error('subject')
+                                        <div class="invalid-feedback mt-0" style="display: inline-block !important;">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">TYPE OF ENROLLMENT</label>
+                                    <select name="enrollment_type" id="" class="form-control">
+                                        <option selected>Please Select</option>
+                                        <option value="Grade Level Enrollment">Grade Level Enrollment</option>
+                                        <option value="Semestral Enrollment">Semestral Enrollment</option>
+                                    </select>
                                     @error('subject')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}

@@ -31,6 +31,7 @@ class StoreRequest extends FormRequest
       'lastname' => 'nullable',
       'suffix' => 'nullable',
       'age' => 'required',
+      'semester' => 'required',
       'gender' => 'required',
       'birthdate' => 'required',
       'contact' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:10',

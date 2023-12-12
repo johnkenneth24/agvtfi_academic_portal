@@ -151,7 +151,7 @@
                                     <label for="" class="form-label">contact number</label>
                                     <div class="input-group">
                                         <span class="input-group-text">+63</span>
-                                        <input type="text" pattern="{0-9}[10]" name="contact"
+                                        <input type="number" pattern="{0-9}[10]" name="contact"
                                             class="form-control @error('contact') is-invalid @enderror"
                                             value="{{ old('contact') }}" required>
                                     </div>

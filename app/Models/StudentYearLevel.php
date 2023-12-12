@@ -7,16 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class StudentYearLevel extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $fillable = [
-      'student_id',
-      'year_level',
-      'status',
-    ];
+  protected $fillable = [
+    'student_id',
+    'year_level',
+    'status',
+    'semester'
+  ];
 
-    public function user()
-    {
-      return $this->belongsTo(User::class, 'student_id');
-    }
+  public function user()
+  {
+    return $this->belongsTo(User::class, 'student_id');
+  }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('enrollments', function (Blueprint $table) {
             $table->id();
             $table->string('subject');
+            $table->string('enrollment_type');
             $table->date('start');
             $table->date('end');
             $table->string('status')->default('Active');

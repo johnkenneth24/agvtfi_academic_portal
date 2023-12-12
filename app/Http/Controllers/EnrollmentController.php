@@ -44,11 +44,14 @@ class EnrollmentController extends Controller
     $validate = $request->validate([
       'subject' => 'required',
       'start' => 'required',
-      'end' => 'required'
+      'end' => 'required',
+      'enrollment_type' => 'required'
     ]);
 
     Enrollment::create([
       'subject' => $validate['subject'],
+      'enrollment_type' => $validate['enrollment_type'],
+
       'start' => $validate['start'],
       'end' => $validate['end']
     ]);
@@ -63,6 +66,7 @@ class EnrollmentController extends Controller
     StudentYearLevel::create([
       'student_id' => auth()->user()->id,
       'year_level' => $enroll_level,
+
       'status' => 'Pending'
     ]);
 
