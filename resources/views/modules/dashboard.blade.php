@@ -27,7 +27,8 @@
                             @endrole
                             @role('student')
                                 <p class="mb-2">Check your acads status now. Be productive!</p>
-                                <h5 class="card-title text-primary">Grade - {{ $current_year->year_level }}</h5>
+                                <h5 class="card-title text-primary">Grade - {{ $current_year->year_level }} | Semester -
+                                    {{ $current_year->semester }}</h5>
                             @endrole
                             @role('teacher')
                                 <p class="mb-4">Manage your student and monitor their academic performance. Be productive!</p>
@@ -120,10 +121,14 @@
                                 @role('student')
                                     <!-- Button trigger modal -->
                                     @if (!$pending_year)
-                                        <button type="button" class="btn btn-primary col-md-12" data-bs-toggle="modal"
-                                            data-bs-target="#backDropModal">
-                                            Enroll Now!
-                                        </button>
+                                    @if($current_year->semester == 2 && $current_year->year_level == 12)
+
+                                    @else
+                                    <button type="button" class="btn btn-primary col-md-12" data-bs-toggle="modal"
+                                        data-bs-target="#backDropModal">
+                                        Enroll Now!
+                                    </button>
+                                    @endif
                                     @else
                                         <span class="badge bg-warning col-md-12 py-2">DONE ENROLLING</span>
                                     @endif
@@ -146,27 +151,41 @@
                                                                     value="{{ $current_year->year_level }}" class="form-control"
                                                                     readonly placeholder="Enter Name">
                                                             </div>
-                                                            <div class="col-md-6 mb-3">
-                                                                <label for="nameBackdrop" class="form-label">GRADE LEVEL TO
-                                                                    ENROLL</label>
-                                                                <input type="text" id="nameBackd nrop" name="grade_level"
-                                                                    value="{{ $current_year->year_level + 1 }}"
-                                                                    class="form-control" placeholder="Enter Name">
-                                                            </div>
+                                                            @if ($enrollment->enrollment_type == 'Semestral Enrollment')
+                                                                <input type="hidden" id="nameBackd nrop"
+                                                                    value="{{ $current_year->year_level }}" class="form-control"
+                                                                    readonly placeholder="Enter Name" name="grade_level">
+                                                            @else
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="nameBackdrop" class="form-label">GRADE LEVEL TO
+                                                                        ENROLL</label>
+                                                                    <input type="text" id="nameBackd nrop" name="grade_level"
+                                                                        value="{{ $current_year->year_level + 1 }}"
+                                                                        class="form-control" placeholder="Enter Name">
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="row">
                                                             <div class="col-md-6 mb-3">
                                                                 <label for="nameBackdrop" class="form-label">CURRENT SEMESTER
-                                                                    LEVEL</label>
+                                                                </label>
                                                                 <input type="text" id="nameBackd nrop"
-                                                                    value="{{ $current_year->year_level }}" class="form-control"
+                                                                    value="{{ $current_year->semester }}" class="form-control"
                                                                     readonly placeholder="Enter Name">
                                                             </div>
-                                                            <div class="col-md-6 mb-3">
-                                                                <label for="nameBackdrop" class="form-label">SEMESTER TO
-                                                                    ENROLL</label>
-                                                                <input type="text" id="nameBackd nrop" name="grade_level"
-                                                                    value="{{ $current_year->year_level + 1 }}"
-                                                                    class="form-control" placeholder="Enter Name">
-                                                            </div>
+                                                            @if ($enrollment->enrollment_type == 'Grade Level Enrollment')
+                                                                <input type="hidden" id="nameBackdnrop" name="semester"
+                                                                    value="{{ $current_year->semester }}" class="form-control"
+                                                                    readonly placeholder="Enter Name">
+                                                            @else
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="nameBackdrop" class="form-label">SEMESTER TO
+                                                                        ENROLL</label>
+                                                                    <input type="text" id="nameBackd nrop" name="semester"
+                                                                        value="{{ $current_year->semester + 1 }}"
+                                                                        class="form-control" placeholder="Enter Name">
+                                                                </div>
+                                                            @endif
                                                         </div>
                                                 </div>
                                                 <div class="modal-footer">

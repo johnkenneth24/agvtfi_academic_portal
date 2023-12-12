@@ -62,11 +62,12 @@ class EnrollmentController extends Controller
   public function enrollNow(Request $request)
   {
     $enroll_level = $request->input('grade_level');
+    $semester = $request->input('semester');
 
     StudentYearLevel::create([
       'student_id' => auth()->user()->id,
       'year_level' => $enroll_level,
-
+      'semester' => $semester,
       'status' => 'Pending'
     ]);
 

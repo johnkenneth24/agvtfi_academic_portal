@@ -7,6 +7,7 @@ use App\Models\ClassSubject;
 use App\Models\ClassAdvisory;
 use App\Models\ClassAdvisoryStudent;
 use App\Models\ClassSubGrade;
+use App\Models\StudentYearLevel;
 
 class ClassSubjectController extends Controller
 {
