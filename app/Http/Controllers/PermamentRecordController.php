@@ -14,7 +14,7 @@ class PermamentRecordController extends Controller
         $studentId = auth()->user()->id;
 
         $subGrades = ClassSubGrade::where('student_id', $studentId)
-            ->whereNotNull('fourth_grading')
+            ->whereNotNull('second_grading')
             ->get();
 
         $total_subjects = count($subGrades); // Total number of subjects
@@ -22,7 +22,7 @@ class PermamentRecordController extends Controller
 
         foreach ($subGrades as $grade) {
             // Calculate the GWA for each subject
-            $gwa = ($grade->first_grading + $grade->second_grading + $grade->third_grading + $grade->fourth_grading) / 4;
+            $gwa = ($grade->first_grading + $grade->second_grading ) / 2;
             $grade->gwa = number_format($gwa, 2);
 
             // Accumulate the subject GWAs
@@ -47,7 +47,7 @@ class PermamentRecordController extends Controller
 
         foreach ($subGrades as $grade) {
             // Calculate the GWA for each subject
-            $gwa = ($grade->first_grading + $grade->second_grading + $grade->third_grading + $grade->fourth_grading) / 4;
+            $gwa = ($grade->first_grading + $grade->second_grading ) / 2;
             $grade->gwa = number_format($gwa, 2);
 
             // Accumulate the subject GWAs
