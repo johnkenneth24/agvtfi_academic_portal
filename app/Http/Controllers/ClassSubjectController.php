@@ -10,12 +10,25 @@ use App\Models\ClassSubGrade;
 
 class ClassSubjectController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
+    $search = $request->input('search');
+
+    $query = ClassSubject::orderBy('subject_code', 'asc');
+
+    if ($search) {
+      $query->where(function ($query) use ($search) {
+        $query->where('subject_code', 'like', '%' . $search . '%')
+          ->orWhere('subject_name', 'like', '%' . $search . '%')
+          ->orWhere('status', 'like', '%' . $search . '%');
+      });
+    }
+
+    $class_subject = $query->paginate(10);
+
     $classes = ClassAdvisory::where('status', 'Active')
       ->get();
 
-    $class_subject = ClassSubject::get();
 
     $sem = ['1', '2'];
 
@@ -41,7 +54,38 @@ class ClassSubjectController extends Controller
 
     ]);
 
-    return redirect()->back()->with('success', 'Addded New Class Subject!');
+    return redirect()->back()->with('success', 'Added New Class Subject!');
+  }
+
+  public function update(Request $request, CLassSubject $class)
+  {
+    $validated = $request->validate([
+      'year_section_id' => ['required'],
+      'subject_code' => ['required'],
+      'subject_name' => ['required'],
+    ]);
+
+    $class->update([
+      'teacher_id' => auth()->user()->id,
+      'year_section_id' => $validated['year_section_id'],
+      'subject_code' => $validated['subject_code'],
+      'subject_name' => $validated['subject_name']
+    ]);
+
+    return redirect()->back()->with('success', 'Updated Class Subject!');
+  }
+
+  public function delete(ClassSubject $class)
+  {
+    if (!$class) {
+      alert()->warning('Class Subject', 'Cannot find the class subject!');
+      return redirect()->back();
+    }
+
+    $class->delete();
+
+    alert()->success('Successfully deleted!', '');
+    return redirect()->back();
   }
 
 
@@ -65,7 +109,7 @@ class ClassSubjectController extends Controller
 
     // Get a list of all students in the class advisory
     $class_students = ClassAdvisoryStudent::where('class_advisory_id', $classAdvisory->id)
-    ->get();
+      ->get();
 
     // Extract the student IDs from the $student_grade collection
     $studentGradeIds = $student_grade->pluck('student_id')->all();
@@ -145,11 +189,7 @@ class ClassSubjectController extends Controller
         'first_grading' => $validated['first_grading'][$key],
         'second_grading' => $validated['second_grading'][$key],
       ]);
-
     }
     return redirect()->back()->with('success', 'Grades have been updated!');
   }
-
-
 }
-

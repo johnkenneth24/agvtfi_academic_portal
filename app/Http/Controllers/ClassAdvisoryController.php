@@ -11,35 +11,51 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ClassAdvisoryController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
-    $classes = ClassAdvisory::where('teacher_id', auth()->user()->id)
-      ->orderBy('status', 'asc')
-      ->get();
+    $search = $request->input('search');
 
-    $strands = ['ACCOUNTING BUSINESSNESS MANAGEMENT', 'INFORMATION COMMUNICATION TECHNOLOGY', 'GENERAL ACADEMIC STRAND', 'HOME ECONOMICS', 'AUTOMOTIVE', 'ELECTRICAL INSTALLATION AND MAINTENANCE'];
+    $query = ClassAdvisory::where('teacher_id', auth()->user()->id)
+      ->orderBy('status', 'asc');
+
+    if ($search) {
+      $query->where(function ($query) use ($search) {
+        $query->where('academic_year', 'like', '%' . $search . '%')
+          ->orWhere('grade_level', 'like', '%' . $search . '%')
+          ->orWhere('section', 'like', '%' . $search . '%')
+          ->orWhere('status', 'like', '%' . $search . '%');
+      });
+    }
+
+    $classes = $query->paginate(10);
+
+    // $classes = ClassAdvisory::where('teacher_id', auth()->user()->id)
+    //   ->orderBy('status', 'asc')
+    //   ->get();
+
+    $strands = ['ACCOUNTANCY, BUSINESS AND MANAGEMENT', 'INFORMATION COMMUNICATION TECHNOLOGY', 'GENERAL ACADEMIC STRAND', 'HOME ECONOMICS', 'AUTOMOTIVE', 'ELECTRICAL INSTALLATION AND MAINTENANCE'];
 
 
     return view('modules.class-advisory.index', compact('classes', 'strands'));
   }
 
   public function classStudent(ClassAdvisory $student)
-{
+  {
     $student_name = User::whereHas('roles', function ($query) {
-        $query->where('name', 'student');
+      $query->where('name', 'student');
     })
-    ->whereHas('studentYearLevel', function ($query) use ($student) {
+      ->whereHas('studentYearLevel', function ($query) use ($student) {
         $query->where('status', 'Current')
-            ->where('year_level', $student->grade_level);
-    })
-    
-    ->get();
+          ->where('year_level', $student->grade_level);
+      })
+
+      ->get();
 
     $student_list = ClassAdvisoryStudent::where('class_advisory_id', $student->id)
-        ->get();
+      ->get();
 
     return view('modules.class-advisory.student', compact('student', 'student_name', 'student_list'));
-}
+  }
 
 
   public function store(Request $request)
@@ -118,7 +134,7 @@ class ClassAdvisoryController extends Controller
   {
     $student->delete();
 
-    alert()->warning('Successfully deleted!','');
+    alert()->warning('Successfully deleted!', '');
 
     return redirect()->back();
   }
@@ -126,17 +142,14 @@ class ClassAdvisoryController extends Controller
   public function delete(ClassAdvisory $class)
   {
 
-    if($class->classAdvisoryStudent->isEmpty())
-    {
+    if ($class->classAdvisoryStudent->isEmpty()) {
       $class->delete();
 
-      alert()->success('Successfully deleted!','');
+      alert()->success('Successfully deleted!', '');
       return redirect()->back();
     }
-    alert()->warning('Class Advisory','You cannot delete unless you dont have student in the class advisory!');
+    alert()->warning('Class Advisory', 'You cannot delete unless you dont have student in the class advisory!');
 
     return redirect()->back();
-
-
   }
 }

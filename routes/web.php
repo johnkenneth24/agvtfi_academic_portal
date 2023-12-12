@@ -121,6 +121,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/index', 'index')->name('classsub.index');
     Route::get('/create', 'create')->name('classsub.create');
     Route::get('/view', 'view')->name('classsub.view');
+    Route::post('/update/{class}', 'update')->name('classsub.update');
+    Route::get('/delete/{class}', 'delete')->name('classsub.delete');
     Route::get('/set-grade/{class}', 'setGrade')->name('classsub.set-grade');
     Route::post('/store', 'store')->name('classsub.store');
     Route::post('/set-grade-store', 'setGradeStore')->name('classsub.set-grade-store');
