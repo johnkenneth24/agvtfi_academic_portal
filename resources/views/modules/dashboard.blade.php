@@ -153,6 +153,20 @@
                                                                     value="{{ $current_year->year_level + 1 }}"
                                                                     class="form-control" placeholder="Enter Name">
                                                             </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label for="nameBackdrop" class="form-label">CURRENT SEMESTER
+                                                                    LEVEL</label>
+                                                                <input type="text" id="nameBackd nrop"
+                                                                    value="{{ $current_year->year_level }}" class="form-control"
+                                                                    readonly placeholder="Enter Name">
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label for="nameBackdrop" class="form-label">SEMESTER TO
+                                                                    ENROLL</label>
+                                                                <input type="text" id="nameBackd nrop" name="grade_level"
+                                                                    value="{{ $current_year->year_level + 1 }}"
+                                                                    class="form-control" placeholder="Enter Name">
+                                                            </div>
                                                         </div>
                                                 </div>
                                                 <div class="modal-footer">

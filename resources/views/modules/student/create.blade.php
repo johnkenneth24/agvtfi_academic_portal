@@ -31,7 +31,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="" class="form-label">admission date</label>
                                     <input type="date" name="admission_date"
@@ -44,7 +44,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="" class="form-label">Grade Level</label>
                                     <select name="year_level"
@@ -54,6 +54,21 @@
                                         <option value="12" @selected(old('year_level' == '12'))>Grade 12</option>
                                     </select>
                                     @error('year_level')
+                                        <div class="invalid-feedback mt-0" style="display: inline-block !important;">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="" class="form-label">Semester</label>
+                                    <select name="semester" class="form-control @error('year_level') is-invalid @enderror">
+                                        <option value="">--Please Select--</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                    @error('semester')
                                         <div class="invalid-feedback mt-0" style="display: inline-block !important;">
                                             {{ $message }}
                                         </div>
@@ -178,7 +193,7 @@
                                     <label for="" class="form-label">contact number</label>
                                     <div class="input-group">
                                         <span class="input-group-text">+63</span>
-                                        <input type="text" name="contact" pattern="[0-9]{10}"
+                                        <input type="number" name="contact" pattern="[0-9]{10}"
                                             placeholder="9xxxxxxxxx"
                                             class="form-control @error('contact') is-invalid @enderror"
                                             value="{{ old('contact') }} ">

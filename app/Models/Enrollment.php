@@ -7,17 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Enrollment extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $fillable = [
-      'subject',
-      'start',
-      'end',
-      'status'
-    ];
+  protected $fillable = [
+    'subject',
+    'start',
+    'end',
+    'status',
+    'enrollment_type',
+  ];
 
-    protected $casts = [
-      'start' => 'datetime:Y-m-d',
-      'end' => 'datetime:Y-m-d'
-    ];
+  protected $casts = [
+    'start' => 'datetime:Y-m-d',
+    'end' => 'datetime:Y-m-d'
+  ];
 }
