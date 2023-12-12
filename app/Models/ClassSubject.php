@@ -13,7 +13,8 @@ class ClassSubject extends Model
       'teacher_id',
       'year_section_id',
       'subject_code',
-      'subject_name'
+      'subject_name',
+      'semester'
     ];
 
     public function classAdvisory()

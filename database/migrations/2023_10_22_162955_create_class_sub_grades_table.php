@@ -20,8 +20,6 @@ return new class extends Migration
             $table->foreignId('student_id')->references('id')->on('users')->cascadeOnDelete();
             $table->double('first_grading')->nullable();
             $table->double('second_grading')->nullable();
-            $table->double('third_grading')->nullable();
-            $table->double('fourth_grading')->nullable();
             $table->timestamps();
         });
     }

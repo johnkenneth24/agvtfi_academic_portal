@@ -32,11 +32,11 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row g-2 mt-2">
+                    <div class="row mt-2">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="" class="form-label">SUBJECT CLASS</label>
-                                <input type="text" class="form-control" value="{{ $class->subject_name }}" readonly>
+                                <label for="" class="form-label">SUBJECT CODE</label>
+                                <input type="text" class="form-control" value="{{ $class->subject_code }}" readonly>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -89,19 +89,23 @@
                                 <input type="hidden" name="class_advisory_id[]" value="{{ $student->class_advisory_id }}">
                                 <input type="hidden" name="student_id[]" value="{{ $student->student_id }}">
                                 <div class="row g-2 mt-2">
-                                    <div class="col-md-3">
+                                    <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="" class="form-label">NAME OF STUDENT</label>
                                             <div class="input-group input-group-merge">
                                               <span class="input-group-text" id="basic-addon-search31"><i class='bx bxs-user-circle' ></i></span>
-                                            <input type="text" class="form-control form-control-sm"
+                                            <input type="text" class="form-control "
                                                 value="{{ $student->classSubjectStudent->fullname }}" readonly>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="" class="form-label">FIRST GRADING</label>
+                                          @if($class->semester == 1)
+                                          <label for="" class="form-label">FIRST GRADING</label>
+                                          @else
+                                          <label for="" class="form-label">THIRD GRADING</label>
+                                          @endif
                                             <div class="input-group input-group-merge">
                                               @if($student->first_grading == null)
                                               <span class="input-group-text"
@@ -115,14 +119,18 @@
                                                       id="basic-addon-search31"><i class='bx bxs-x-circle'></i></span>
                                               @endif
                                                 <input type="number" step="0.01" value="{{ $student->first_grading }}"
-                                                    name="first_grading[]" class="form-control form-control-sm"
+                                                    name="first_grading[]" class="form-control "
                                                     placeholder="" aria-label="" aria-describedby="basic-addon-search31" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
+                                            @if($class->semester == 1)
                                             <label for="" class="form-label">SECOND GRADING</label>
+                                            @else
+                                          <label for="" class="form-label">FOURTH GRADING</label>
+                                            @endif
                                             <div class="input-group input-group-merge">
                                               @if($student->second_grading == null)
                                               <span class="input-group-text"
@@ -137,61 +145,18 @@
                                               @endif
                                                 <input type="number" step="0.01"
                                                     value="{{ $student->second_grading }}" name="second_grading[]"
-                                                    class="form-control form-control-sm" placeholder="" aria-label=""
+                                                    class="form-control " placeholder="" aria-label=""
                                                     aria-describedby="basic-addon-search31" />
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="" class="form-label">THIRD GRADING</label>
-                                            <div class="input-group input-group-merge">
-                                              @if($student->third_grading == null)
-                                              <span class="input-group-text"
-                                                      id="basic-addon-search31"><i class='bx bxs-checkbox-minus' ></i></span>
-                                              @elseif ($student->third_grading >= 75)
-                                                  <span class="input-group-text text-success"
-                                                      id="basic-addon-search31"><i
-                                                          class="bx bxs-check-circle"></i></span>
-                                              @else
-                                                  <span class="input-group-text text-danger"
-                                                      id="basic-addon-search31"><i class='bx bxs-x-circle'></i></span>
-                                              @endif
-                                                <input type="number" step="0.01"
-                                                    value="{{ $student->third_grading }}" name="third_grading[]"
-                                                    class="form-control form-control-sm" placeholder="" aria-label=""
-                                                    aria-describedby="basic-addon-search31" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="" class="form-label">FOURTH GRADING</label>
-                                            <div class="input-group input-group-merge">
-                                                @if($student->fourth_grading == null)
-                                                <span class="input-group-text"
-                                                        id="basic-addon-search31"><i class='bx bxs-checkbox-minus' ></i></span>
-                                                @elseif ($student->fourth_grading >= 75)
-                                                    <span class="input-group-text text-success"
-                                                        id="basic-addon-search31"><i
-                                                            class="bx bxs-check-circle"></i></span>
-                                                @else
-                                                    <span class="input-group-text text-danger"
-                                                        id="basic-addon-search31"><i class='bx bxs-x-circle'></i></span>
-                                                @endif
-                                                <input type="number" step="0.01"
-                                                    value="{{ $student->fourth_grading }}" name="fourth_grading[]"
-                                                    class="form-control form-control-sm" placeholder="" aria-label=""
-                                                    aria-describedby="basic-addon-search31" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1">
+
+                                    <div class="col-md-3">
                                       <div class="form-group">
                                           <label for="" class="form-label">GWA  </label>
                                               <input type="text" step="0.01"
                                                   value="{{ $student->gwa }}"
-                                                  class="form-control form-control-sm {{ $student->gwa >=75 ? 'text-success' : 'text-danger'  }}" placeholder="" aria-label=""
+                                                  class="form-control  {{ $student->gwa >=75 ? 'text-success' : 'text-danger'  }}" placeholder="" aria-label=""
                                                   aria-describedby="basic-addon-search31" />
                                           </div>
                                   </div>
@@ -227,39 +192,33 @@
                                     value="{{ $student->class_advisory_id }}">
                                 <input type="hidden" name="student_id[]" value="{{ $student->student_id }}">
                                 <div class="row g-2 mt-2">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="" class="form-label">NAME OF STUDENT</label>
-                                            <input type="text" class="form-control form-control-sm"
+                                            <input type="text" class="form-control "
                                                 value="{{ $student->classStudent->fullname }}" readonly>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="" class="form-label">FIRST GRADING</label>
+                                          @if($class->semester == 1)
+                                          <label for="" class="form-label">FIRST GRADING</label>
+                                          @else
+                                          <label for="" class="form-label">THIRD GRADING</label>
+                                          @endif
                                             <input type="number" value="" step="0.01" name="first_grading[]"
-                                                class="form-control form-control-sm">
+                                                class="form-control ">
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="" class="form-label">SECOND GRADING</label>
+                                          @if($class->semester == 1)
+                                          <label for="" class="form-label">SECOND GRADING</label>
+                                          @else
+                                          <label for="" class="form-label">FOURTH GRADING</label>
+                                          @endif
                                             <input type="number" value="" step="0.01" name="second_grading[]"
-                                                class="form-control form-control-sm">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="" class="form-label">THIRD GRADING</label>
-                                            <input type="number" value="" step="0.01" name="third_grading[]"
-                                                class="form-control form-control-sm">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="" class="form-label">FOURTH GRADING</label>
-                                            <input type="number" value="" step="0.01" name="fourth_grading[]"
-                                                class="form-control form-control-sm">
+                                                class="form-control ">
                                         </div>
                                     </div>
                                 </div>
