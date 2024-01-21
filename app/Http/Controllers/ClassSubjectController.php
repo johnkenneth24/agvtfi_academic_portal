@@ -30,10 +30,10 @@ class ClassSubjectController extends Controller
     $classes = ClassAdvisory::where('status', 'Active')
       ->get();
 
-
     $sem = ['1', '2'];
+    $sub_type = ['Core', 'Applied', 'Specialized'];
 
-    return view('modules.class-subject.index', compact('classes', 'class_subject', 'sem'));
+    return view('modules.class-subject.index', compact('classes', 'class_subject', 'sem', 'sub_type'));
   }
 
   public function store(Request $request)
@@ -141,10 +141,15 @@ class ClassSubjectController extends Controller
       'second_grading.*' => ['nullable'],
     ]);
 
+    $sem = $request->input('sem');
+    $gradelvl = $request->input('gradelvl'); 
+
     foreach ($validated['student_id'] as $key => $value) {
       ClassSubGrade::create([
         'class_advisory_id' => $validated['class_advisory_id'][$key],
         'student_id' => $validated['student_id'][$key],
+        'semester' => $sem,
+        'gradeLevel' => $gradelvl,
         'class_sub_id' => $validated['class_sub_id'][$key],
         'first_grading' => $validated['first_grading'][$key],
         'second_grading' => $validated['second_grading'][$key],

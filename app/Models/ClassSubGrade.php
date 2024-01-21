@@ -13,6 +13,8 @@ class ClassSubGrade extends Model
       'class_advisory_id',
       'class_sub_id',
       'student_id',
+      'semester',
+      'gradeLevel',
       'first_grading',
       'second_grading',
       'third_grading',

@@ -124,10 +124,14 @@
                                     @if($current_year->semester == 2 && $current_year->year_level == 12)
 
                                     @else
+                                    @if($overall_gwa <= 65.0)
+                                    <p class="text-danger text-center text-uppercase">Please Fix Your Grade</p>
+                                    @else
                                     <button type="button" class="btn btn-primary col-md-12" data-bs-toggle="modal"
                                         data-bs-target="#backDropModal">
                                         Enroll Now!
                                     </button>
+                                    @endif
                                     @endif
                                     @else
                                         <span class="badge bg-warning col-md-12 py-2">DONE ENROLLING</span>
