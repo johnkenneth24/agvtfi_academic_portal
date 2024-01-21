@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('class_advisory_id')->references('id')->on('class_advisories')->cascadeOnDelete();
             $table->foreignId('class_sub_id')->references('id')->on('class_subjects')->cascadeOnDelete();
             $table->foreignId('student_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->integer('gradeLevel');
+            $table->integer('semester');
             $table->double('first_grading')->nullable();
             $table->double('second_grading')->nullable();
             $table->timestamps();

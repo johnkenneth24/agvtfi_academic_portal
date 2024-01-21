@@ -28,7 +28,7 @@
                                         <select name="grade_level" class="form-control">
                                             <option value="" disabled selected>PLEASE SELECT</option>
                                             @foreach ($year_level as $yl)
-                                                <option value="{{ $yl->classAdvisory->id }}" @selected($selectedGradeLevel == $yl->classAdvisory->id)>
+                                                <option value="{{ $yl->classAdvisory->grade_level }}" @selected($selectedGradeLevel == $yl->classAdvisory->grade_level)>
                                                     {{ $yl->classAdvisory->grade_level }}</option>
                                             @endforeach
                                         </select>
@@ -43,7 +43,7 @@
                                             <option value="{{ $sem }}" @if($semester)
                                             @selected($semester == $sem)
                                             @endif>{{ $sem }}</option>
-                                            @endforeach 
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

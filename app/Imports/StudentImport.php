@@ -12,10 +12,10 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 
 
-class StudentImport implements ToModel,WithHeadingRow
+class StudentImport implements ToModel, WithHeadingRow
 {
   public function model(array $row)
-{
+  {
     // Convert the Excel date serial number to a human-readable date format
     $dateValue = Carbon::createFromFormat('U', strtotime('1900-01-01') + $row['admission_date'] * 24 * 3600);
 
@@ -33,21 +33,20 @@ class StudentImport implements ToModel,WithHeadingRow
       'address' => $row['address'],
       'email' => $row['email'],
       'password' => Hash::make($row['school_id']),
-  ]);
+    ]);
 
-  $user->save(); // Save the user to obtain the ID
+    $user->save();
 
-  // Create the studentYearLevel relationship
-  StudentYearLevel::create([
-      'student_id' => $user->id, // Get the user's ID after saving
-      'year_level' => $row['year_level'], // Assuming $row[13] contains the year level 
-  ]);
+    // Create the studentYearLevel relationship
+    StudentYearLevel::create([
+      'student_id' => $user->id,
+      'year_level' => $row['year_level'],
+    ]);
 
-   // Assign the 'student' role to the user
-   $role = Role::findByName('student');
-   $user->assignRole($role);
+    // Assign the 'student' role to the user
+    $role = Role::findByName('student');
+    $user->assignRole($role);
 
-   return $user;
-
-}
+    return $user;
+  }
 }

@@ -33,13 +33,13 @@
                 </div>
                 <div class="card-body">
                     <div class="row mt-2">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
-                                <label for="" class="form-label">SUBJECT CODE</label>
+                                <label for="" class="form-label">SUBJECT TYPE</label>
                                 <input type="text" class="form-control" value="{{ $class->subject_code }}" readonly>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="" class="form-label">SUBJECT CLASS</label>
                                 <input type="text" class="form-control" value="{{ $class->subject_name }}" readonly>
@@ -48,10 +48,17 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="" class="form-label">GRADE AND SECTION</label>
-                                <input type="text" class="form-control" value="{{ $class->classAdvisory->grade_level }}"
+                                <input type="text" class="form-control" name="gradelvl" value="{{ $class->classAdvisory->grade_level }}"
                                     readonly>
                             </div>
                         </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                              <label for="" class="form-label">semester</label>
+                              <input type="text" class="form-control" name="sem" value="{{ $class->semester }}"
+                                  readonly>
+                          </div>
+                      </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="" class="form-label">ACADEMIC YEAR</label>
@@ -75,6 +82,8 @@
             <form action="{{ route('classsub.set-grade-update') }}" method="POST">
                 @csrf
                 @method('PUT')
+                <input type="hidden" class="form-control" name="sem" value="{{ $class->semester }}">
+                <input type="hidden" class="form-control" name="gradelvl" value="{{ $class->classAdvisory->grade_level }}">
                 <div class="col-xxl-12">
                     <div class="card p-2">`
                         <div class="card-header py-0 d-flex justify-content-between align-items-center">
@@ -178,6 +187,8 @@
         <form action="{{ route('classsub.set-grade-store') }}" method="POST">
             <div class="row mt-2">
                 @csrf
+                <input type="hidden" class="form-control" name="sem" value="{{ $class->semester }}">
+                <input type="hidden" class="form-control" name="gradelvl" value="{{ $class->classAdvisory->grade_level }}">
                 <div class="col-xxl-12">
                     <div class="card p-2">`
                         <div class="card-header py-0 d-flex justify-content-between align-items-center">

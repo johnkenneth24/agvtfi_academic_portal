@@ -70,9 +70,14 @@
                                                             @enderror
                                                         </div>
                                                         <div class="form-group">
-                                                          <label class="form-label">SUBJECT CODE</label>
-                                                          <input type="text" name="subject_code" id=""
+                                                          <label class="form-label">SUBJECT TYPE</label>
+                                                          <select name="subject_code" id=""
                                                               class="form-control">
+                                                              <option value="">--Please Select--</option>
+                                                              @foreach ($sub_type as $st)
+                                                              <option value="{{ $st }}" @selected( old('subject_code') == $st)>{{ $st }}</option>
+                                                              @endforeach
+                                                          </select>
                                                           @error('academic_year')
                                                               <div class="invalid-feedback mt-0"
                                                                   style="display: inline-block !important;">
@@ -133,7 +138,7 @@
                         <table class="table table-hover table-sm">
                             <thead>
                                 <tr>
-                                  <th class="">SUBJECT CODE</th>
+                                  <th class="">SUBJECT TYPE</th>
                                   <th class="">SUBJECT NAME</th>
                                   <th class="">ACADEMIC YEAR</th>
                                   <th class="">SEMESTER</th>
@@ -145,7 +150,7 @@
                             <tbody class="table-border-bottom-0">
                                 @forelse($class_subject as $class_sub)
                                     <tr>
-                                      <td class="text-center" style="font-size: 0.90rem;">{{  $class_sub->subject_code }}</td>
+                                      <td class="" style="font-size: 0.90rem;">{{  $class_sub->subject_code }}</td>
                                       <td class="" style="font-size: 0.90rem;">{{  $class_sub->subject_name }}</td>
                                       <td class="" style="font-size: 0.90rem;">{{ $class_sub->classAdvisory->academic_year }}</td>
                                       <td class="" style="font-size: 0.90rem;">{{ $class_sub->semester }}</td>
@@ -206,10 +211,12 @@
                                                         <div class="row mt-2">
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">SUBJECT CODE</label>
-                                                                    <input type="text" name="subject_code"
-                                                                        value="{{ $class_sub->subject_code }}"
-                                                                        id="" class="form-control">
+                                                                    <label class="form-label">SUBJECT TYPE</label>
+                                                                        <select name="subject_code" id=""
+                                                                        class="form-control">
+                                                                        <option value="">--Please Select--</option>
+                                                                        
+                                                                    </select>
                                                                     @error('academic_year')
                                                                         <div class="invalid-feedback mt-0"
                                                                             style="display: inline-block !important;">

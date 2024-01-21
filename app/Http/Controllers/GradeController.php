@@ -13,18 +13,20 @@ class GradeController extends Controller
   public function index(Request $request)
 {
   $year_level = ClassAdvisoryStudent::where('student_id', auth()->user()->id)->get();
+
   $sems = ['1', '2'];
 
   $selectedGradeLevel = $request->input('grade_level');
   $semester = $request->input('sem');
 
+  // dd($semester, $selectedGradeLevel);
+
   $grades = [];
 
   if ($selectedGradeLevel) {
-      $grades = ClassSubGrade::whereHas('classSubject', function ($query) use ($semester, $selectedGradeLevel) {
-              $query->where('semester', $semester);
-          })
-          ->where('student_id', auth()->user()->id)
+      $grades = ClassSubGrade::where('student_id', auth()->user()->id)
+          ->where('gradeLevel', $selectedGradeLevel)
+          ->where('semester', $semester)
           ->get();
   }
 
